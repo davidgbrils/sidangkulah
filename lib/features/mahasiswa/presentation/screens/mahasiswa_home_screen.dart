@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sidangkufix/core/constants/app_colors.dart';
 import 'package:sidangkufix/core/theme/app_theme.dart';
 
@@ -75,6 +76,44 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
       label: 'Notifikasi',
     ),
   ];
+
+  void _handleMenuTap(int index) {
+    switch (index) {
+      case 0:
+        context.push('/mahasiswa/jadwal');
+        break;
+      case 1:
+        context.push('/mahasiswa/pendaftaran/upload');
+        break;
+      case 2:
+        context.push('/mahasiswa/hasil-sidang');
+        break;
+      case 3:
+        context.push('/notifikasi');
+        break;
+    }
+  }
+
+  void _handleBottomNavTap(int index) {
+    setState(() => _currentNavIndex = index);
+    switch (index) {
+      case 0:
+        context.go('/mahasiswa');
+        break;
+      case 1:
+        context.go('/mahasiswa/jadwal');
+        break;
+      case 2:
+        context.go('/mahasiswa/dokumen');
+        break;
+      case 3:
+        context.go('/notifikasi');
+        break;
+      case 4:
+        context.go('/mahasiswa/profil');
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +203,7 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () => context.push('/notifikasi'),
                     icon: const Icon(
                       Icons.notifications_outlined,
                       color: Colors.white,
@@ -337,7 +376,7 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
             return _MenuCard(
               icon: item.icon,
               label: item.label,
-              onTap: item.onTap,
+              onTap: () => _handleMenuTap(index),
             );
           },
         ),
@@ -377,7 +416,7 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
               final isSelected = i == _currentNavIndex;
 
               return InkWell(
-                onTap: () => setState(() => _currentNavIndex = i),
+                onTap: () => _handleBottomNavTap(i),
                 borderRadius: BorderRadius.circular(12),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),

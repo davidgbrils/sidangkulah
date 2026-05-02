@@ -15,6 +15,8 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   late AnimationController _fadeController;
   late AnimationController _slideController;
   late AnimationController _dotsController;
+  Timer? _navigationTimer;
+  bool _isNavigating = false;
 
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
@@ -59,6 +61,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
   @override
   void dispose() {
+    _navigationTimer?.cancel();
     _fadeController.dispose();
     _slideController.dispose();
     _dotsController.dispose();
@@ -66,37 +69,41 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   }
 
   void _startNavigationTimer() {
-    Timer(const Duration(milliseconds: 2500), _navigate);
+    _navigationTimer = Timer(const Duration(milliseconds: 2500), _navigate);
   }
 
   Future<void> _navigate() async {
-    if (!mounted) return;
+    if (!mounted || _isNavigating) return;
+    _isNavigating = true;
 
     final prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('auth_token');
-    final String? role = prefs.getString('user_role');
+    final String? role = prefs.getString('user_role')?.toLowerCase().trim();
 
-    if (!mounted) return;
+    if (!mounted) {
+      _isNavigating = false;
+      return;
+    }
 
     if (token != null && token.isNotEmpty && role != null) {
-      switch (role) {
-        case 'mahasiswa':
-          context.go('/mahasiswa');
-          break;
-        case 'dosen':
-          context.go('/dosen');
-          break;
-        case 'operator':
-          context.go('/operator');
-          break;
-        case 'kaprodi':
-          context.go('/kaprodi');
-          break;
-        default:
-          context.go('/login');
-      }
+      context.go(_routeByRole(role));
     } else {
       context.go('/login');
+    }
+  }
+
+  String _routeByRole(String role) {
+    switch (role) {
+      case 'mahasiswa':
+        return '/mahasiswa';
+      case 'dosen':
+        return '/dosen';
+      case 'operator':
+        return '/operator';
+      case 'kaprodi':
+        return '/kaprodi';
+      default:
+        return '/login';
     }
   }
 

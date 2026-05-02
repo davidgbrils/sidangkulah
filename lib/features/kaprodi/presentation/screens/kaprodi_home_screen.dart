@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sidangkufix/core/constants/app_colors.dart';
 import 'package:sidangkufix/core/theme/app_theme.dart';
 
@@ -69,6 +70,44 @@ class _KaprodiHomeScreenState extends State<KaprodiHomeScreen> {
       label: 'Laporan Sidang',
     ),
   ];
+
+  void _handleQuickLinkTap(int index) {
+    switch (index) {
+      case 0:
+        context.push('/kaprodi/jadwal-final');
+        break;
+      case 1:
+        context.push('/kaprodi/rekap-nilai');
+        break;
+      case 2:
+        context.push('/kaprodi/rekap-honor');
+        break;
+      case 3:
+        context.push('/kaprodi/laporan-sidang');
+        break;
+    }
+  }
+
+  void _handleBottomNavTap(int index) {
+    setState(() => _currentNavIndex = index);
+    switch (index) {
+      case 0:
+        context.go('/kaprodi');
+        break;
+      case 1:
+        context.go('/kaprodi/jadwal-final');
+        break;
+      case 2:
+        context.go('/kaprodi/approval-penguji');
+        break;
+      case 3:
+        context.go('/kaprodi/rekap-nilai');
+        break;
+      case 4:
+        context.go('/kaprodi/profil');
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +186,7 @@ class _KaprodiHomeScreenState extends State<KaprodiHomeScreen> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () => context.push('/notifikasi'),
                     icon: const Icon(
                       Icons.notifications_outlined,
                       color: Colors.white,
@@ -276,7 +315,7 @@ class _KaprodiHomeScreenState extends State<KaprodiHomeScreen> {
 
   Widget _buildAlertSection() {
     return GestureDetector(
-      onTap: () {},
+      onTap: () => context.push('/kaprodi/approval-penguji'),
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -345,14 +384,18 @@ class _KaprodiHomeScreenState extends State<KaprodiHomeScreen> {
           ),
         ),
         const SizedBox(height: 12),
-        ..._quickLinks.map((link) => Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: _QuickLinkCard(
-                icon: link.icon,
-                label: link.label,
-                onTap: link.onTap,
-              ),
-            )),
+        ..._quickLinks.asMap().entries.map((entry) {
+          final index = entry.key;
+          final link = entry.value;
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: _QuickLinkCard(
+              icon: link.icon,
+              label: link.label,
+              onTap: () => _handleQuickLinkTap(index),
+            ),
+          );
+        }),
       ],
     );
   }
@@ -389,7 +432,7 @@ class _KaprodiHomeScreenState extends State<KaprodiHomeScreen> {
               final isSelected = i == _currentNavIndex;
 
               return InkWell(
-                onTap: () => setState(() => _currentNavIndex = i),
+                onTap: () => _handleBottomNavTap(i),
                 borderRadius: BorderRadius.circular(12),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),

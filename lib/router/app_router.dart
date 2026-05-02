@@ -81,6 +81,9 @@ class AppRouter {
   static const String formulirKehadiran = 'formulir-kehadiran';
   static const String tandaTanganDokumen = 'tanda-tangan-dokumen';
   static const String pengajuanGantiPenguji = 'pengajuan-ganti-penguji';
+  static const String dosenJadwal = 'dosen-jadwal';
+  static const String dosenFormulir = 'dosen-formulir';
+  static const String dosenProfil = 'dosen-profil';
 
   // Operator
   static const String operatorDashboard = 'operator-dashboard';
@@ -90,6 +93,8 @@ class AppRouter {
   static const String importExcel = 'import-excel';
   static const String approvalGantiPenguji = 'approval-ganti-penguji';
   static const String dokumenRekapHonor = 'dokumen-rekap-honor';
+  static const String operatorGenerateSk = 'operator-generate-sk';
+  static const String operatorProfil = 'operator-profil';
 
   // Kaprodi
   static const String kaprodiDashboard = 'kaprodi-dashboard';
@@ -97,6 +102,8 @@ class AppRouter {
   static const String jadwalSidangFinal = 'jadwal-sidang-final';
   static const String rekapNilaiSidang = 'rekap-nilai-sidang';
   static const String rekapHonorDosen = 'rekap-honor-dosen';
+  static const String kaprodiLaporanSidang = 'kaprodi-laporan-sidang';
+  static const String kaprodiProfil = 'kaprodi-profil';
 
   // ── Route Paths ───────────────────────────────────────────────────────
   static const String _splashPath = '/';
@@ -124,6 +131,9 @@ class AppRouter {
   static const String _formulirKehadiranPath = '/dosen/formulir-kehadiran';
   static const String _tandaTanganPath = '/dosen/tanda-tangan';
   static const String _pengajuanGantiPengujiPath = '/dosen/ganti-penguji';
+  static const String _dosenJadwalPath = '/dosen/jadwal';
+  static const String _dosenFormulirPath = '/dosen/formulir';
+  static const String _dosenProfilPath = '/dosen/profil';
 
   // Operator paths
   static const String _operatorDashboardPath = '/operator';
@@ -133,6 +143,8 @@ class AppRouter {
   static const String _importExcelPath = '/operator/import-excel';
   static const String _approvalGantiPengujiPath = '/operator/approval-ganti-penguji';
   static const String _dokumenRekapHonorPath = '/operator/rekap-honor';
+  static const String _operatorGenerateSkPath = '/operator/generate-sk';
+  static const String _operatorProfilPath = '/operator/profil';
 
   // Kaprodi paths
   static const String _kaprodiDashboardPath = '/kaprodi';
@@ -140,6 +152,8 @@ class AppRouter {
   static const String _jadwalSidangFinalPath = '/kaprodi/jadwal-final';
   static const String _rekapNilaiPath = '/kaprodi/rekap-nilai';
   static const String _rekapHonorDosenPath = '/kaprodi/rekap-honor';
+  static const String _kaprodiLaporanSidangPath = '/kaprodi/laporan-sidang';
+  static const String _kaprodiProfilPath = '/kaprodi/profil';
 
   // ── Router Configuration ─────────────────────────────────────────────
   static final GoRouter router = GoRouter(
@@ -280,6 +294,24 @@ class AppRouter {
         name: pengajuanGantiPenguji,
         builder: (context, state) => const GantiPengujiScreen(),
       ),
+      GoRoute(
+        path: _dosenJadwalPath,
+        name: dosenJadwal,
+        builder: (context, state) =>
+            const _PlaceholderPage(title: 'Jadwal Sidang Dosen'),
+      ),
+      GoRoute(
+        path: _dosenFormulirPath,
+        name: dosenFormulir,
+        builder: (context, state) =>
+            const _PlaceholderPage(title: 'Formulir & Dokumen Dosen'),
+      ),
+      GoRoute(
+        path: _dosenProfilPath,
+        name: dosenProfil,
+        builder: (context, state) =>
+            const _PlaceholderPage(title: 'Profil Dosen'),
+      ),
 
       // ── Operator Routes ─────────────────────────────────────────────
       GoRoute(
@@ -323,6 +355,18 @@ class AppRouter {
         builder: (context, state) =>
             const _PlaceholderPage(title: 'Dokumen Rekap Honor'),
       ),
+      GoRoute(
+        path: _operatorGenerateSkPath,
+        name: operatorGenerateSk,
+        builder: (context, state) =>
+            const _PlaceholderPage(title: 'Generate SK Sidang'),
+      ),
+      GoRoute(
+        path: _operatorProfilPath,
+        name: operatorProfil,
+        builder: (context, state) =>
+            const _PlaceholderPage(title: 'Profil Operator'),
+      ),
 
       // ── Kaprodi Routes ──────────────────────────────────────────────
       GoRoute(
@@ -353,6 +397,18 @@ class AppRouter {
         name: rekapHonorDosen,
         builder: (context, state) =>
             const _PlaceholderPage(title: 'Rekap Honor Dosen'),
+      ),
+      GoRoute(
+        path: _kaprodiLaporanSidangPath,
+        name: kaprodiLaporanSidang,
+        builder: (context, state) =>
+            const _PlaceholderPage(title: 'Laporan Sidang'),
+      ),
+      GoRoute(
+        path: _kaprodiProfilPath,
+        name: kaprodiProfil,
+        builder: (context, state) =>
+            const _PlaceholderPage(title: 'Profil Kaprodi'),
       ),
     ],
 

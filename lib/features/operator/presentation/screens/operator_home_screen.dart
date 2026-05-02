@@ -85,6 +85,27 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
   String get _todayLabel =>
       DateFormat("EEEE, d MMMM yyyy", 'id_ID').format(DateTime.now());
 
+  void _handleBottomNavTap(int index) {
+    setState(() => _currentNavIndex = index);
+    switch (index) {
+      case 0:
+        context.go('/operator');
+        break;
+      case 1:
+        context.go('/operator/jadwal');
+        break;
+      case 2:
+        context.go('/operator/mahasiswa');
+        break;
+      case 3:
+        context.go('/operator/approval-ganti-penguji');
+        break;
+      case 4:
+        context.go('/operator/rekap-honor');
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -150,7 +171,7 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
             IconButton(
               icon: const Icon(Icons.notifications_outlined,
                   color: AppColors.textSecondary, size: 26),
-              onPressed: () {},
+              onPressed: () => context.push('/notifikasi'),
             ),
             Positioned(
               top: 8,
@@ -246,7 +267,7 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
 
   Widget _buildAlertBanner() {
     return GestureDetector(
-      onTap: () => context.push('/operator/approval'),
+      onTap: () => context.push('/operator/approval-ganti-penguji'),
       child: Container(
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
@@ -312,14 +333,14 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
         label: 'Input Jadwal\nSidang',
         bgColor: AppColors.warningLight,
         iconColor: AppColors.warning,
-        onTap: () => context.push('/operator/jadwal/tambah'),
+        onTap: () => context.push('/operator/jadwal'),
       ),
       _ActionItem(
         icon: Icons.upload_file_outlined,
         label: 'Import Excel',
         bgColor: AppColors.warningLight,
         iconColor: AppColors.warning,
-        onTap: () {},
+        onTap: () => context.push('/operator/import-excel'),
       ),
       _ActionItem(
         icon: Icons.manage_accounts_outlined,
@@ -341,14 +362,14 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
         bgColor: AppColors.surfaceContainerLow,
         iconColor: AppColors.primary,
         badge: _stats.menungguApproval > 0 ? '${_stats.menungguApproval}' : null,
-        onTap: () => context.push('/operator/approval'),
+        onTap: () => context.push('/operator/approval-ganti-penguji'),
       ),
       _ActionItem(
         icon: Icons.description_outlined,
         label: 'Generate SK',
         bgColor: AppColors.surfaceContainerLow,
         iconColor: AppColors.primary,
-        onTap: () {},
+        onTap: () => context.push('/operator/generate-sk'),
       ),
     ];
 
@@ -510,7 +531,7 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
                   i == 3 && _stats.menungguApproval > 0;
 
               return GestureDetector(
-                onTap: () => setState(() => _currentNavIndex = i),
+                onTap: () => _handleBottomNavTap(i),
                 behavior: HitTestBehavior.opaque,
                 child: SizedBox(
                   width: 64,

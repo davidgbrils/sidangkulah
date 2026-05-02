@@ -98,6 +98,15 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  void _showInfo(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -236,7 +245,9 @@ class _LoginScreenState extends State<LoginScreen> {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _showInfo('Fitur reset password akan segera tersedia.');
+                  },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
                     minimumSize: Size.zero,
@@ -283,7 +294,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 label: 'Login dengan QR Code',
                 type: SidangkuButtonType.outlined,
                 icon: Icons.qr_code_scanner_rounded,
-                onTap: () {},
+                onTap: () {
+                  _showInfo('Fitur login QR Code akan segera tersedia.');
+                },
                 height: 52,
               ),
             ],
@@ -308,7 +321,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  _showInfo('Silakan hubungi admin prodi melalui kanal resmi kampus.');
+                },
                 child: Text(
                   'Hubungi Admin Prodi',
                   style: AppTheme.bodyMedium.copyWith(

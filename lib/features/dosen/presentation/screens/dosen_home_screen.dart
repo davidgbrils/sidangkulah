@@ -75,6 +75,27 @@ class _DosenHomeScreenState extends State<DosenHomeScreen> {
     ),
   ];
 
+  void _handleBottomNavTap(int index) {
+    setState(() => _currentNavIndex = index);
+    switch (index) {
+      case 0:
+        context.go('/dosen');
+        break;
+      case 1:
+        context.go('/dosen/mahasiswa');
+        break;
+      case 2:
+        context.go('/dosen/jadwal');
+        break;
+      case 3:
+        context.go('/dosen/formulir');
+        break;
+      case 4:
+        context.go('/dosen/profil');
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -337,19 +358,19 @@ class _DosenHomeScreenState extends State<DosenHomeScreen> {
               icon: Icons.edit_note_rounded,
               label: 'Input Nilai',
               color: AppColors.success,
-              onTap: () {},
+              onTap: () => context.push('/dosen/input-nilai/1'),
             ),
             _QuickAccessCard(
               icon: Icons.calendar_month_rounded,
               label: 'Jadwal Sidang',
               color: AppColors.info,
-              onTap: () {},
+              onTap: () => context.push('/dosen/jadwal'),
             ),
             _QuickAccessCard(
               icon: Icons.description_rounded,
               label: 'Formulir &\nDokumen',
               color: AppColors.warning,
-              onTap: () {},
+              onTap: () => context.push('/dosen/formulir'),
             ),
           ],
         ),
@@ -363,7 +384,7 @@ class _DosenHomeScreenState extends State<DosenHomeScreen> {
         SectionHeader(
           title: 'Sidang Mendatang',
           actionLabel: 'Lihat Semua',
-          onAction: () {},
+          onAction: () => context.push('/dosen/jadwal'),
         ),
         const SizedBox(height: 8),
         ..._jadwalList.map((jadwal) => Padding(
@@ -406,7 +427,7 @@ class _DosenHomeScreenState extends State<DosenHomeScreen> {
               final isSelected = i == _currentNavIndex;
 
               return InkWell(
-                onTap: () => setState(() => _currentNavIndex = i),
+                onTap: () => _handleBottomNavTap(i),
                 borderRadius: BorderRadius.circular(12),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
@@ -522,7 +543,7 @@ class _JadwalMiniCard extends StatelessWidget {
       color: Colors.white,
       borderRadius: BorderRadius.circular(14),
       child: InkWell(
-        onTap: () {},
+        onTap: () => context.push('/dosen/mahasiswa/${jadwal.id}'),
         borderRadius: BorderRadius.circular(14),
         child: Container(
           padding: const EdgeInsets.all(14),
