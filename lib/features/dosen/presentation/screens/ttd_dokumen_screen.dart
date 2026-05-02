@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -73,9 +72,6 @@ class _TTDDokumenScreenState extends State<TTDDokumenScreen> {
       dipilih: false,
     ),
   ];
-
-  List<DokumenTTDModel> get _previewDocs =>
-      _dokumenList.where((d) => d.dipilih).toList();
 
   @override
   void initState() {
@@ -164,7 +160,7 @@ class _TTDDokumenScreenState extends State<TTDDokumenScreen> {
     _showGeneratingDialog(exportPdf);
 
     try {
-      // TODO: Call actual DOCX/PDF generation API via Riverpod TTDNotifier
+      // Simulate API call - replace with actual DOCX/PDF generation via Riverpod
       await Future.delayed(const Duration(seconds: 2));
 
       final dir = await getTemporaryDirectory();
@@ -325,7 +321,7 @@ class _TTDDokumenScreenState extends State<TTDDokumenScreen> {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: _dokumenList.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 12),
+            separatorBuilder: (_, _) => const SizedBox(width: 12),
             itemBuilder: (context, i) => _buildDocPreviewCard(_dokumenList[i]),
           ),
         ),

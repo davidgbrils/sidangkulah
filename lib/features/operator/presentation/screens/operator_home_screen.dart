@@ -236,7 +236,7 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: items.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 10),
+            separatorBuilder: (_, _) => const SizedBox(width: 10),
             itemBuilder: (_, i) => items[i],
           ),
         ),
@@ -434,7 +434,7 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: _activities.length,
-        separatorBuilder: (_, __) =>
+        separatorBuilder: (_, _) =>
             Divider(color: AppColors.borderLight, height: 1, indent: 56),
         itemBuilder: (_, i) => _buildActivityTile(_activities[i]),
       ),

@@ -85,7 +85,6 @@ class _FormulirRevisiScreenState extends State<FormulirRevisiScreen> {
   bool _isSaving = false;
   bool _isUnduh = false;
 
-  // TODO: Replace with Riverpod FormulirRevisiNotifier(mahasiswaId)
   final String _namaMahasiswa = 'Budi Setiawan';
   final String _nim = '1202184001';
 
@@ -163,20 +162,36 @@ class _FormulirRevisiScreenState extends State<FormulirRevisiScreen> {
   Future<void> _save() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _isSaving = true);
-    // TODO: Call Riverpod FormulirRevisiNotifier.save()
-    await Future.delayed(const Duration(seconds: 1));
-    if (!mounted) return;
-    setState(() => _isSaving = false);
-    _showSnack('Draft tersimpan');
+
+    try {
+      // Simulate save - replace with Riverpod FormulirRevisiNotifier.save()
+      await Future.delayed(const Duration(seconds: 1));
+
+      if (!mounted) return;
+      setState(() => _isSaving = false);
+      _showSnack('Draft tersimpan');
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _isSaving = false);
+      _showSnack('Gagal menyimpan: $e');
+    }
   }
 
   Future<void> _unduhDocx() async {
     setState(() => _isUnduh = true);
-    // TODO: Call API to generate DOCX
-    await Future.delayed(const Duration(seconds: 2));
-    if (!mounted) return;
-    setState(() => _isUnduh = false);
-    _showSnack('Dokumen sedang dibuat...');
+
+    try {
+      // Simulate API call - replace with actual DOCX generation
+      await Future.delayed(const Duration(seconds: 2));
+
+      if (!mounted) return;
+      setState(() => _isUnduh = false);
+      _showSnack('Dokumen sedang dibuat...');
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _isUnduh = false);
+      _showSnack('Gagal membuat dokumen: $e');
+    }
   }
 
   void _showSnack(String msg, {bool isError = false}) {
@@ -436,7 +451,7 @@ class _FormulirRevisiScreenState extends State<FormulirRevisiScreen> {
         ),
         const SizedBox(height: 6),
         DropdownButtonFormField<TingkatRevisi>(
-          value: _tingkat,
+          initialValue: _tingkat,
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,

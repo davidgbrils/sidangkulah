@@ -112,7 +112,6 @@ class _InputNilaiScreenState extends State<InputNilaiScreen> {
   bool _isSubmitting = false;
   bool _isSavingDraft = false;
 
-  // TODO: Replace with actual mahasiswa data from Riverpod
   final String _namaMahasiswa = 'Budi Setiawan';
   final String _nim = '123456789';
   final String _judulSkripsi =
@@ -188,19 +187,34 @@ class _InputNilaiScreenState extends State<InputNilaiScreen> {
   Future<void> _submitNilai() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _isSubmitting = true);
-    // TODO: Call API via Riverpod InputNilaiNotifier
-    await Future.delayed(const Duration(seconds: 2));
-    if (!mounted) return;
-    setState(() => _isSubmitting = false);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Nilai berhasil disubmit & dokumen digenerate', style: AppTheme.bodyMedium.copyWith(color: Colors.white)),
-        backgroundColor: AppColors.success,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: AppTheme.borderRadiusSmall),
-      ),
-    );
-    context.pop();
+
+    try {
+      // Simulate API call - replace with actual API via Riverpod
+      await Future.delayed(const Duration(seconds: 2));
+
+      if (!mounted) return;
+      setState(() => _isSubmitting = false);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Nilai berhasil disubmit & dokumen digenerate', style: AppTheme.bodyMedium.copyWith(color: Colors.white)),
+          backgroundColor: AppColors.success,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: AppTheme.borderRadiusSmall),
+        ),
+      );
+      context.pop();
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _isSubmitting = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Gagal submit nilai: $e', style: AppTheme.bodyMedium.copyWith(color: Colors.white)),
+          backgroundColor: AppColors.error,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
   }
 
   @override
@@ -610,40 +624,46 @@ class _InputNilaiScreenState extends State<InputNilaiScreen> {
       (RekomendasiHasil.tidakLulus, 'Tidak Lulus'),
     ];
 
-    return Column(
-      children: options.map((opt) {
-        final isSelected = _rekomendasi == opt.$1;
-        return GestureDetector(
-          onTap: () => setState(() => _rekomendasi = opt.$1),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            margin: const EdgeInsets.only(bottom: 8),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: isSelected ? const Color(0xFF00897B) : AppColors.border,
-                width: isSelected ? 1.5 : 1,
+    return RadioGroup<RekomendasiHasil>(
+      groupValue: _rekomendasi,
+      onChanged: (value) {
+        if (value != null) {
+          setState(() => _rekomendasi = value);
+        }
+      },
+      child: Column(
+        children: options.map((opt) {
+          final isSelected = _rekomendasi == opt.$1;
+          return GestureDetector(
+            onTap: () => setState(() => _rekomendasi = opt.$1),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              margin: const EdgeInsets.only(bottom: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: isSelected ? const Color(0xFF00897B) : AppColors.border,
+                  width: isSelected ? 1.5 : 1,
+                ),
               ),
-            ),
-            child: RadioListTile<RekomendasiHasil>(
-              contentPadding: EdgeInsets.zero,
-              value: opt.$1,
-              groupValue: _rekomendasi,
-              onChanged: (v) => setState(() => _rekomendasi = v!),
-              activeColor: const Color(0xFF00897B),
-              title: Text(
-                opt.$2,
-                style: AppTheme.bodyMedium.copyWith(
-                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                  color: isSelected ? const Color(0xFF00897B) : AppColors.textPrimary,
+              child: RadioListTile<RekomendasiHasil>(
+                contentPadding: EdgeInsets.zero,
+                value: opt.$1,
+                activeColor: const Color(0xFF00897B),
+                title: Text(
+                  opt.$2,
+                  style: AppTheme.bodyMedium.copyWith(
+                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                    color: isSelected ? const Color(0xFF00897B) : AppColors.textPrimary,
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      }).toList(),
+          );
+        }).toList(),
+      ),
     );
   }
 

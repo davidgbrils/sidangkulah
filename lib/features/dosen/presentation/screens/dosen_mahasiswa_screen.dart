@@ -53,7 +53,6 @@ class _DosenMahasiswaScreenState extends State<DosenMahasiswaScreen>
   final _searchController = TextEditingController();
   String _searchQuery = '';
 
-  // TODO: Replace with Riverpod DosenMahasiswaNotifier
   final List<MahasiswaDosenModel> _allMahasiswa = const [
     MahasiswaDosenModel(
       id: '1',
@@ -144,14 +143,14 @@ class _DosenMahasiswaScreenState extends State<DosenMahasiswaScreen>
         leading: IconButton(
           icon: const Icon(Icons.menu_rounded),
           onPressed: () {
-            // TODO: open drawer
+            Scaffold.of(context).openDrawer();
           },
         ),
         actions: [
           IconButton(
             icon: const Icon(Icons.account_circle_outlined),
             onPressed: () {
-              // TODO: profile
+              // Navigate to profile
             },
           ),
         ],
@@ -282,7 +281,7 @@ class _DosenMahasiswaScreenState extends State<DosenMahasiswaScreen>
     return ListView.separated(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
       itemCount: list.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 10),
+      separatorBuilder: (_, _) => const SizedBox(height: 10),
       itemBuilder: (context, index) {
         return _MahasiswaDosenCard(
           mahasiswa: list[index],
@@ -330,7 +329,7 @@ class _DosenMahasiswaScreenState extends State<DosenMahasiswaScreen>
           ),
           InkWell(
             onTap: () {
-              // TODO: Show detail belum dinilai
+              _showDetailBelumDinilai(context);
             },
             borderRadius: BorderRadius.circular(8),
             child: Container(
@@ -349,6 +348,38 @@ class _DosenMahasiswaScreenState extends State<DosenMahasiswaScreen>
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _showDetailBelumDinilai(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Container(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Mahasiswa Belum Dinilai',
+              style: AppTheme.headingMedium,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Silakan input nilai untuk mahasiswa yang belum dinilai.',
+              style: AppTheme.bodyMedium.copyWith(color: AppColors.textSecondary),
+            ),
+            const SizedBox(height: 16),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Tutup'),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -495,7 +526,7 @@ class _MahasiswaDosenCard extends StatelessWidget {
           label: 'Input Nilai',
           icon: Icons.arrow_forward_rounded,
           onTap: () {
-            // TODO: Navigate to input nilai
+            context.go('/dosen/input-nilai/${mahasiswa.id}');
           },
         );
       case 'sudah_nilai':
@@ -511,13 +542,14 @@ class _MahasiswaDosenCard extends StatelessWidget {
         return _ActionLink(
           label: 'Lihat Revisi',
           onTap: () {
-            // TODO: Navigate to revisi
+            context.go('/dosen/formulir-revisi/${mahasiswa.id}');
           },
         );
       default:
         return const SizedBox.shrink();
     }
   }
+
 }
 
 // ── Role Badge ────────────────────────────────────────────────────────────

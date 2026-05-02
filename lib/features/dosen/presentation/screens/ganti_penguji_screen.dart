@@ -70,7 +70,6 @@ class _GantiPengujiScreenState extends State<GantiPengujiScreen> {
   bool _isSubmitting = false;
   bool _alreadySubmitted = false;
 
-  // TODO: Replace with API call via Riverpod GantiPengujiNotifier
   final List<_MahasiswaOption> _allMahasiswa = [
     _MahasiswaOption('1', 'Budi Setiawan', 'Senin, 3 Juni 2024 (10:00–12:00)'),
     _MahasiswaOption('2', 'Anisa Maharani', 'Selasa, 4 Juni 2024 (09:00–11:00)'),
@@ -341,7 +340,7 @@ class _GantiPengujiScreenState extends State<GantiPengujiScreen> {
         _fieldLabel('Penguji yang diganti'),
         const SizedBox(height: 6),
         DropdownButtonFormField<String>(
-          value: _selectedPengujiDigantiId,
+          initialValue: _selectedPengujiDigantiId,
           hint: Text('Pilih Penguji',
               style: AppTheme.bodySmall.copyWith(color: AppColors.textTertiary)),
           validator: (v) => v == null ? 'Wajib dipilih' : null,

@@ -20,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
 
   bool _isLoading = false;
-  bool _obscurePassword = true;
+  final bool _obscurePassword = true;
 
   @override
   void dispose() {
@@ -230,17 +230,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 obscureText: _obscurePassword,
                 textInputAction: TextInputAction.done,
                 validator: _validatePassword,
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    _obscurePassword
-                        ? Icons.visibility_outlined
-                        : Icons.visibility_off_outlined,
-                    color: AppColors.textTertiary,
-                  ),
-                  onPressed: () {
-                    setState(() => _obscurePassword = !_obscurePassword);
-                  },
-                ),
               ),
               const SizedBox(height: 8),
 

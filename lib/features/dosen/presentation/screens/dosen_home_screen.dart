@@ -258,7 +258,7 @@ class _DosenHomeScreenState extends State<DosenHomeScreen> {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: statsData.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 12),
+        separatorBuilder: (_, _) => const SizedBox(width: 12),
         itemBuilder: (context, index) {
           final item = statsData[index];
           return _buildStatCard(item);

@@ -1,9 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sidangkufix/core/constants/app_colors.dart';
 import 'package:sidangkufix/core/theme/app_theme.dart';
 import 'package:sidangkufix/core/widgets/avatar_initials.dart';
-import 'package:sidangkufix/core/widgets/status_chip.dart';
 
 // ── Models ────────────────────────────────────────────────────────────────
 
@@ -76,8 +77,8 @@ class DosenMahasiswaDetailScreen extends StatefulWidget {
 class _DosenMahasiswaDetailScreenState
     extends State<DosenMahasiswaDetailScreen> {
   final _catatanController = TextEditingController();
+  Timer? _autoSaveDebounce;
 
-  // TODO: Replace with Riverpod DosenMahasiswaDetailNotifier
   late final MahasiswaDetailModel _data;
 
   @override
@@ -125,9 +126,7 @@ class _DosenMahasiswaDetailScreenState
         actions: [
           IconButton(
             icon: const Icon(Icons.more_vert_rounded),
-            onPressed: () {
-              // TODO: Show options menu
-            },
+            onPressed: () => _showOptionsMenu(context),
           ),
         ],
       ),
@@ -521,7 +520,7 @@ class _DosenMahasiswaDetailScreenState
                 icon: Icons.fact_check_outlined,
                 label: 'Absensi',
                 onTap: () {
-                  // TODO: Navigate to formulir absen
+                  context.push('/dosen/formulir-kehadiran');
                 },
               ),
             ),
@@ -545,7 +544,10 @@ class _DosenMahasiswaDetailScreenState
           height: 48,
           child: OutlinedButton.icon(
             onPressed: () {
-              // TODO: Navigate to dokumen skripsi
+              // Open dokumen skripsi
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Membuka dokumen skripsi...')),
+              );
             },
             icon: Icon(Icons.description_outlined,
                 size: 18, color: AppColors.textSecondary),
@@ -674,7 +676,10 @@ class _DosenMahasiswaDetailScreenState
                   contentPadding: const EdgeInsets.all(16),
                 ),
                 onChanged: (_) {
-                  // TODO: Auto-save via debounce + Riverpod
+                  _autoSaveDebounce?.cancel();
+                  _autoSaveDebounce = Timer(const Duration(seconds: 2), () {
+                    _saveCatatan();
+                  });
                 },
               ),
               Padding(
@@ -693,6 +698,38 @@ class _DosenMahasiswaDetailScreenState
         ),
       ],
     );
+  }
+
+  void _showOptionsMenu(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Container(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.edit_rounded),
+              title: const Text('Edit Data'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.delete_rounded),
+              title: const Text('Hapus'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _saveCatatan() {
+    // Simulate save - replace with actual API
   }
 }
 

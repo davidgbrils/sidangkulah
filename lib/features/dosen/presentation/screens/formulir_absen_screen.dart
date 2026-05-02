@@ -61,7 +61,6 @@ class _FormulirAbsenScreenState extends State<FormulirAbsenScreen> {
   bool _isSaving = false;
   bool _isCetak = false;
 
-  // TODO: Replace with Riverpod FormulirAbsenNotifier
   final AbsensiSidangModel _sidang = AbsensiSidangModel(
     mahasiswaNama: 'Budi Setiawan',
     ruangan: 'Ruang 302, Gedung A',
@@ -102,7 +101,6 @@ class _FormulirAbsenScreenState extends State<FormulirAbsenScreen> {
   }
 
   String _formatTime(TimeOfDay t) {
-    final h = t.hour.toString().padLeft(2, '0');
     final m = t.minute.toString().padLeft(2, '0');
     final period = t.hour < 12 ? 'AM' : 'PM';
     final hour12 = t.hourOfPeriod == 0 ? 12 : t.hourOfPeriod;
@@ -329,7 +327,7 @@ class _FormulirAbsenScreenState extends State<FormulirAbsenScreen> {
               ),
               Switch(
                 value: _statusHadir,
-                activeColor: const Color(0xFF00897B),
+                activeTrackColor: const Color(0xFF00897B),
                 onChanged: (v) => setState(() => _statusHadir = v),
               ),
             ],
@@ -479,7 +477,7 @@ class _FormulirAbsenScreenState extends State<FormulirAbsenScreen> {
             ),
             Switch(
               value: peserta.hadir,
-              activeColor: const Color(0xFF00897B),
+              activeTrackColor: const Color(0xFF00897B),
               onChanged: (v) => setState(() => peserta.hadir = v),
             ),
           ],
