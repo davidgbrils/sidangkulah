@@ -250,7 +250,7 @@ class _DokumenHonorScreenState extends State<DokumenHonorScreen>
                   vertical: 8,
                 ),
               ),
-              value: 'Juni',
+              initialValue: 'Juni',
               items: const ['Juni', 'Mei', 'April']
                   .map((b) => DropdownMenuItem(value: b, child: Text(b)))
                   .toList(),
@@ -270,7 +270,7 @@ class _DokumenHonorScreenState extends State<DokumenHonorScreen>
                   vertical: 8,
                 ),
               ),
-              value: '2024',
+              initialValue: '2024',
               items: const ['2024', '2023', '2022']
                   .map((t) => DropdownMenuItem(value: t, child: Text(t)))
                   .toList(),
@@ -316,29 +316,24 @@ class _SKCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String statusLabel;
-    Color statusColor;
-    IconData statusIcon;
+    StatusChipType statusType;
 
     switch (sk.status) {
       case DokumenStatus.belumGenerate:
         statusLabel = 'Belum Generate';
-        statusColor = AppColors.textTertiary;
-        statusIcon = Icons.hourglass_empty;
+        statusType = StatusChipType.pending;
         break;
       case DokumenStatus.draft:
         statusLabel = 'Draft';
-        statusColor = AppColors.warning;
-        statusIcon = Icons.edit;
+        statusType = StatusChipType.revision;
         break;
       case DokumenStatus.final_:
         statusLabel = 'Final';
-        statusColor = AppColors.success;
-        statusIcon = Icons.check_circle;
+        statusType = StatusChipType.done;
         break;
       case DokumenStatus.cetak:
         statusLabel = 'Dicetak';
-        statusColor = AppColors.primary;
-        statusIcon = Icons.print;
+        statusType = StatusChipType.approved;
         break;
     }
 
@@ -357,7 +352,7 @@ class _SKCardWidget extends StatelessWidget {
           children: [
             StatusChip(
               label: statusLabel,
-              color: statusColor,
+              type: statusType,
             ),
             const SizedBox(width: 8),
             if (sk.status == DokumenStatus.belumGenerate)
@@ -402,7 +397,7 @@ class _HonorDosenCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
       child: ListTile(
-        leading: AvatarInitials(nama: honor.nama),
+        leading: AvatarInitials(name: honor.nama),
         title: Text(
           honor.nama,
           style: AppTheme.bodyMedium.copyWith(
@@ -423,11 +418,8 @@ class _HonorDosenCard extends StatelessWidget {
                 color: AppColors.primary,
               ),
             ),
-            StatusChip(
-              label: honor.status,
-              color: honor.status == 'Sudah Dibayar'
-                  ? AppColors.success
-                  : AppColors.error,
+            StatusChip.fromString(
+              honor.status == 'Sudah Dibayar' ? 'approved' : 'pending',
             ),
           ],
         ),

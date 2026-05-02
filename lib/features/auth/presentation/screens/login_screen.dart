@@ -6,6 +6,7 @@ import 'package:sidangkufix/core/constants/app_strings.dart';
 import 'package:sidangkufix/core/theme/app_theme.dart';
 import 'package:sidangkufix/core/widgets/sidangku_button.dart';
 import 'package:sidangkufix/core/widgets/sidangku_text_field.dart';
+import 'package:sidangkufix/features/auth/domain/user_model.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -52,18 +53,38 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _isLoading = true);
 
     try {
-      await Future.delayed(const Duration(seconds: 2));
+      final email = _emailController.text.trim();
+      final password = _passwordController.text;
 
-      const String role = 'mahasiswa';
-      const String token = 'dummy_token';
+      final user = SeedUsers.authenticate(email, password);
+
+      if (user == null) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Email atau password salah',
+              style: AppTheme.bodyMedium.copyWith(color: Colors.white),
+            ),
+            backgroundColor: AppColors.error,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(borderRadius: AppTheme.borderRadiusSmall),
+            margin: const EdgeInsets.all(16),
+          ),
+        );
+        setState(() => _isLoading = false);
+        return;
+      }
 
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('auth_token', token);
-      await prefs.setString('user_role', role);
+      await prefs.setString('auth_token', 'seed_token_${user.id}');
+      await prefs.setString('user_role', user.roleString);
+      await prefs.setString('user_id', user.id);
+      await prefs.setString('user_nama', user.nama);
 
       if (!mounted) return;
 
-      switch (role) {
+      switch (user.roleString) {
         case 'mahasiswa':
           context.go('/mahasiswa');
           break;
@@ -97,16 +118,6 @@ class _LoginScreenState extends State<LoginScreen> {
       if (mounted) setState(() => _isLoading = false);
     }
   }
-
-  void _showInfo(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -299,6 +310,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 height: 52,
               ),
+              const SizedBox(height: 24),
+              _buildSeedAccountsInfo(),
             ],
           ),
         ),
@@ -362,6 +375,110 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSeedAccountsInfo() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: AppColors.infoLight.withValues(alpha: 0.3),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.info.withValues(alpha: 0.3)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.info_outline, size: 16, color: AppColors.info),
+              const SizedBox(width: 8),
+              Text(
+                'Akun Demo (Seed Data)',
+                style: AppTheme.bodySmall.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.info,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          _buildSeedAccountTile(
+            'Operator/Admin',
+            'admin@itpln.ac.id',
+            'admin123',
+            Icons.admin_panel_settings_rounded,
+          ),
+          _buildSeedAccountTile(
+            'Kaprodi',
+            'kaprodi@itpln.ac.id',
+            'kaprodi123',
+            Icons.supervisor_account_rounded,
+          ),
+          _buildSeedAccountTile(
+            'Dosen',
+            'heru@itpln.ac.id',
+            'dosen123',
+            Icons.badge_rounded,
+          ),
+          _buildSeedAccountTile(
+            'Mahasiswa',
+            '202011001@student.itpln.ac.id',
+            'mahasiswa123',
+            Icons.school_rounded,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSeedAccountTile(String role, String email, String password, IconData icon) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 6),
+      child: InkWell(
+        onTap: () {
+          _emailController.text = email;
+          _passwordController.text = password;
+        },
+        child: Row(
+          children: [
+            Icon(icon, size: 14, color: AppColors.textSecondary),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                role,
+                style: AppTheme.caption.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            Text(
+              email,
+              style: AppTheme.caption.copyWith(
+                color: AppColors.textSecondary,
+                fontSize: 10,
+              ),
+            ),
+            const SizedBox(width: 4),
+            Text(
+              '/ $password',
+              style: AppTheme.caption.copyWith(
+                color: AppColors.info,
+                fontSize: 10,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showInfo(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        behavior: SnackBarBehavior.floating,
       ),
     );
   }

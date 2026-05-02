@@ -19,7 +19,7 @@ class MahasiswaModel {
     required this.nama,
     required this.nim,
     required this.prodi,
-    this.angkatan,
+    required this.angkatan,
     required this.email,
     required this.noHp,
     required this.status,
@@ -212,7 +212,7 @@ class _KelolaMahasiswaScreenState extends State<KelolaMahasiswaScreen> {
                   _selectedIds.add(mahasiswa.id);
                 });
               },
-              leading: AvatarInitials(nama: mahasiswa.nama),
+              leading: AvatarInitials(name: mahasiswa.nama),
               title: Text(
                 mahasiswa.nama,
                 style: AppTheme.bodyMedium.copyWith(
@@ -223,7 +223,7 @@ class _KelolaMahasiswaScreenState extends State<KelolaMahasiswaScreen> {
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  StatusChip(label: mahasiswa.status),
+                  StatusChip.fromString(mahasiswa.status),
                   PopupMenuButton(
                     itemBuilder: (context) => [
                       PopupMenuItem(

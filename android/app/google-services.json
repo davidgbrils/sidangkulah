@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "436856805668",
+    "firebase_url": "https://sidang-6865a-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "sidang-6865a",
+    "storage_bucket": "sidang-6865a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:436856805668:android:078ff97488cf926a7bbbb1",
+        "android_client_info": {
+          "package_name": "com.example.sidangkufix"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChQ0WyEy_vYrqqwZPwCaSxy0Qnebu4l6M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

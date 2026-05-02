@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:sidangkufix/features/auth/presentation/screens/splash_screen.dart';
 import 'package:sidangkufix/features/auth/presentation/screens/login_screen.dart';
 import 'package:sidangkufix/features/mahasiswa/presentation/screens/mahasiswa_home_screen.dart';
+import 'package:sidangkufix/features/mahasiswa/presentation/screens/daftar_sidang_screen.dart';
+import 'package:sidangkufix/features/mahasiswa/presentation/screens/nilai_screen.dart';
+import 'package:sidangkufix/features/shared/presentation/screens/notifikasi_screen.dart';
 import 'package:sidangkufix/features/dosen/presentation/screens/dosen_home_screen.dart';
 import 'package:sidangkufix/features/dosen/presentation/screens/dosen_mahasiswa_screen.dart';
 import 'package:sidangkufix/features/dosen/presentation/screens/dosen_mahasiswa_detail_screen.dart';
@@ -13,6 +16,8 @@ import 'package:sidangkufix/features/dosen/presentation/screens/formulir_revisi_
 import 'package:sidangkufix/features/dosen/presentation/screens/ganti_penguji_screen.dart';
 import 'package:sidangkufix/features/operator/presentation/screens/operator_home_screen.dart';
 import 'package:sidangkufix/features/kaprodi/presentation/screens/kaprodi_home_screen.dart';
+import 'package:sidangkufix/features/kaprodi/presentation/screens/kaprodi_jadwal_screen.dart';
+import 'package:sidangkufix/features/kaprodi/presentation/screens/kaprodi_rekap_nilai_screen.dart';
 
 /// Placeholder page untuk rute yang belum diimplementasikan
 class _PlaceholderPage extends StatelessWidget {
@@ -173,14 +178,6 @@ class AppRouter {
         builder: (context, state) => const LoginScreen(),
       ),
 
-      // ── Notifikasi (shared) ─────────────────────────────────────────
-      GoRoute(
-        path: _notifikasiPath,
-        name: notifikasi,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Notifikasi'),
-      ),
-
       // ── Mahasiswa Routes ────────────────────────────────────────────
       GoRoute(
         path: _mahasiswaBerandaPath,
@@ -190,14 +187,13 @@ class AppRouter {
       GoRoute(
         path: _mahasiswaJadwalPath,
         name: mahasiswaJadwal,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Jadwal Sidang'),
+        builder: (context, state) => const _PlaceholderPage(title: 'Jadwal Sidang'),
       ),
       GoRoute(
         path: _mahasiswaDokumenPath,
         name: mahasiswaDokumen,
         builder: (context, state) =>
-            const _PlaceholderPage(title: 'Dokumen'),
+            const _PlaceholderPage(title: 'Berkas'),
       ),
       GoRoute(
         path: _mahasiswaProfilPath,
@@ -208,26 +204,22 @@ class AppRouter {
       GoRoute(
         path: _pendaftaranDataDiriPath,
         name: pendaftaranSidangDataDiri,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Pendaftaran - Data Diri'),
+        builder: (context, state) => const DaftarSidangScreen(),
       ),
       GoRoute(
         path: _pendaftaranUploadPath,
         name: pendaftaranSidangUpload,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Pendaftaran - Upload Berkas'),
+        builder: (context, state) => const DaftarSidangScreen(),
       ),
       GoRoute(
         path: _pendaftaranKonfirmasiPath,
         name: pendaftaranSidangKonfirmasi,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Pendaftaran - Konfirmasi'),
+        builder: (context, state) => const DaftarSidangScreen(),
       ),
       GoRoute(
         path: _statusBerkasPath,
         name: statusBerkas,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Status Berkas'),
+        builder: (context, state) => const _PlaceholderPage(title: 'Status Berkas'),
       ),
       GoRoute(
         path: _detailJadwalPath,
@@ -240,8 +232,12 @@ class AppRouter {
       GoRoute(
         path: _hasilSidangPath,
         name: hasilSidang,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Hasil Sidang'),
+        builder: (context, state) => const NilaiScreen(),
+      ),
+      GoRoute(
+        path: _notifikasiPath,
+        name: notifikasi,
+        builder: (context, state) => const NotifikasiScreen(),
       ),
 
       // ── Dosen Routes ────────────────────────────────────────────────
@@ -384,13 +380,13 @@ class AppRouter {
         path: _jadwalSidangFinalPath,
         name: jadwalSidangFinal,
         builder: (context, state) =>
-            const _PlaceholderPage(title: 'Jadwal Sidang Final'),
+            const KaprodiJadwalScreen(),
       ),
       GoRoute(
         path: _rekapNilaiPath,
         name: rekapNilaiSidang,
         builder: (context, state) =>
-            const _PlaceholderPage(title: 'Rekap Nilai Sidang'),
+            const KaprodiRekapNilaiScreen(),
       ),
       GoRoute(
         path: _rekapHonorDosenPath,

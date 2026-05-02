@@ -1,36 +1,90 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sidangkufix/core/constants/app_colors.dart';
 import 'package:sidangkufix/core/theme/app_theme.dart';
 
 class KaprodiStatsModel {
-  final int totalMahasiswaSidang;
+  final int totalSidang;
   final int lulus;
   final int revis;
   final int tidakLulus;
-  final double presentaseLulus;
-  final String semester;
+  final int pengujiRequest;
 
   const KaprodiStatsModel({
-    required this.totalMahasiswaSidang,
+    required this.totalSidang,
     required this.lulus,
     required this.revis,
     required this.tidakLulus,
-    required this.presentaseLulus,
-    required this.semester,
+    this.pengujiRequest = 0,
   });
+
+  double get presentaseLulus => totalSidang > 0 ? (lulus / totalSidang) * 100 : 0;
 }
 
-class QuickLinkModel {
-  final IconData icon;
-  final String label;
-  final VoidCallback? onTap;
+class SidangHariIni {
+  final String waktu;
+  final String nama;
+  final String nim;
+  final String ruangan;
+  final String status;
 
-  const QuickLinkModel({
-    required this.icon,
-    required this.label,
-    this.onTap,
-  });
+  const SidangHariIni({required this.waktu, required this.nama, required this.nim, required this.ruangan, required this.status});
+}
+
+class GradeDist {
+  final String grade;
+  final int count;
+  final Color color;
+
+  const GradeDist({required this.grade, required this.count, required this.color});
+}
+
+class KaprodiHomeNotifier extends ChangeNotifier {
+  KaprodiStatsModel? _stats;
+  String _nama = '';
+  String _semester = 'Ganjil 2024/2025';
+  List<GradeDist> _gradeDist = [];
+  List<SidangHariIni> _sidangHariIni = [];
+  bool _isLoading = true;
+
+  KaprodiStatsModel? get stats => _stats;
+  String get nama => _nama;
+  String get semester => _semester;
+  List<GradeDist> get gradeDist => _gradeDist;
+  List<SidangHariIni> get sidangHariIni => _sidangHariIni;
+  bool get isLoading => _isLoading;
+
+  Future<void> loadData() async {
+    setState(() => _isLoading = true);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      _nama = prefs.getString('user_nama') ?? 'Dr. Ahmad Wijaya';
+
+      _stats = const KaprodiStatsModel(totalSidang: 156, lulus: 138, revis: 15, tidakLulus: 3, pengujiRequest: 5);
+      _gradeDist = [
+        const GradeDist(grade: 'A', count: 45, color: AppColors.success),
+        const GradeDist(grade: 'A-', count: 38, color: Color(0xFF90EE90)),
+        const GradeDist(grade: 'B+', count: 30, color: AppColors.primary),
+        const GradeDist(grade: 'B', count: 25, color: Color(0xFF87CEEB)),
+        const GradeDist(grade: 'C', count: 18, color: Colors.orange),
+      ];
+      _sidangHariIni = [
+        const SidangHariIni(waktu: '08:00 - 10:00', nama: 'Budi Santoso', nim: '202011001', ruangan: 'Ruang Sidang 1', status: 'BERLANGSUNG'),
+        const SidangHariIni(waktu: '10:00 - 12:00', nama: 'Siti Aminah', nim: '202011002', ruangan: 'Ruang Sidang 2', status: 'TERJADWAL'),
+        const SidangHariIni(waktu: '13:00 - 15:00', nama: 'Ahmad Fauzi', nim: '202011003', ruangan: 'Ruang Sidang 1', status: 'TERJADWAL'),
+      ];
+    } catch (e) {
+      debugPrint('Error loading kaprodi data: $e');
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
+
+  void setState(VoidCallback fn) {
+    fn();
+    notifyListeners();
+  }
 }
 
 class KaprodiHomeScreen extends StatefulWidget {
@@ -42,157 +96,97 @@ class KaprodiHomeScreen extends StatefulWidget {
 
 class _KaprodiHomeScreenState extends State<KaprodiHomeScreen> {
   int _currentNavIndex = 0;
+  final notifier = KaprodiHomeNotifier();
 
-  final _stats = const KaprodiStatsModel(
-    totalMahasiswaSidang: 156,
-    lulus: 138,
-    revis: 15,
-    tidakLulus: 3,
-    presentaseLulus: 89.0,
-    semester: 'Ganjil 2024/2025',
-  );
-
-  final _quickLinks = const [
-    QuickLinkModel(
-      icon: Icons.calendar_month_rounded,
-      label: 'Lihat Semua Jadwal',
-    ),
-    QuickLinkModel(
-      icon: Icons.analytics_rounded,
-      label: 'Rekap Nilai',
-    ),
-    QuickLinkModel(
-      icon: Icons.payments_rounded,
-      label: 'Rekap Honor',
-    ),
-    QuickLinkModel(
-      icon: Icons.description_rounded,
-      label: 'Laporan Sidang',
-    ),
-  ];
-
-  void _handleQuickLinkTap(int index) {
-    switch (index) {
-      case 0:
-        context.push('/kaprodi/jadwal-final');
-        break;
-      case 1:
-        context.push('/kaprodi/rekap-nilai');
-        break;
-      case 2:
-        context.push('/kaprodi/rekap-honor');
-        break;
-      case 3:
-        context.push('/kaprodi/laporan-sidang');
-        break;
-    }
-  }
-
-  void _handleBottomNavTap(int index) {
-    setState(() => _currentNavIndex = index);
-    switch (index) {
-      case 0:
-        context.go('/kaprodi');
-        break;
-      case 1:
-        context.go('/kaprodi/jadwal-final');
-        break;
-      case 2:
-        context.go('/kaprodi/approval-penguji');
-        break;
-      case 3:
-        context.go('/kaprodi/rekap-nilai');
-        break;
-      case 4:
-        context.go('/kaprodi/profil');
-        break;
-    }
+  @override
+  void initState() {
+    super.initState();
+    notifier.loadData();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.scaffoldBackground,
-      body: CustomScrollView(
-        slivers: [
-          _buildSliverAppBar(),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildWelcomeSection(),
-                  const SizedBox(height: 16),
-                  _buildStatsGrid(),
-                  const SizedBox(height: 20),
-                  _buildAlertSection(),
-                  const SizedBox(height: 24),
-                  _buildQuickLinksSection(),
-                  const SizedBox(height: 24),
-                ],
+    return ListenableBuilder(
+      listenable: notifier,
+      builder: (context, _) {
+        if (notifier.isLoading) {
+          return const Scaffold(body: Center(child: CircularProgressIndicator()));
+        }
+
+        return Scaffold(
+          backgroundColor: AppColors.scaffoldBackground,
+          body: CustomScrollView(
+            slivers: [
+              _buildSliverAppBar(),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildExecutiveStats(),
+                      const SizedBox(height: 16),
+                      if (notifier.stats!.pengujiRequest > 0) ...[
+                        _buildAlertCard(),
+                        const SizedBox(height: 16),
+                      ],
+                      _buildGradeDistBar(),
+                      const SizedBox(height: 24),
+                      _buildQuickLinks(),
+                      const SizedBox(height: 24),
+                      _buildSidangHariIni(),
+                      const SizedBox(height: 100),
+                    ],
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
-      bottomNavigationBar: _buildBottomNavBar(),
+          bottomNavigationBar: _buildBottomNavBar(),
+        );
+      },
     );
   }
 
-  Widget _buildSliverAppBar() {
+  SliverAppBar _buildSliverAppBar() {
     return SliverAppBar(
       pinned: true,
-      floating: false,
-      expandedHeight: 60,
+      expandedHeight: 120,
       backgroundColor: AppColors.primary,
       surfaceTintColor: Colors.transparent,
-      automaticallyImplyLeading: false,
-      title: const Text(''),
+      title: Text('Dashboard Kaprodi', style: TextStyle(color: Colors.white, fontSize: 18)),
+      actions: [
+        Container(
+          padding: const EdgeInsets.only(right: 16),
+          child: Center(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(8)),
+              child: DropdownButton<String>(
+                value: notifier.semester,
+                dropdownColor: AppColors.primary,
+                underline: const SizedBox(),
+                icon: const Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 20),
+                items: ['Ganjil 2024/2025', 'Genap 2023/2024'].map((s) => DropdownMenuItem(value: s, child: Text(s, style: const TextStyle(color: Colors.white, fontSize: 12)))).toList(),
+                onChanged: (v) {},
+              ),
+            ),
+          ),
+        ),
+      ],
       flexibleSpace: FlexibleSpaceBar(
         background: Container(
-          decoration: const BoxDecoration(
-            gradient: AppColors.headerGradient,
-          ),
+          decoration: const BoxDecoration(gradient: AppColors.headerGradient),
           child: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
+              padding: const EdgeInsets.fromLTRB(16, 60, 16, 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.3),
-                        width: 2,
-                      ),
-                    ),
-                    child: const Icon(
-                      Icons.person_rounded,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Text(
-                      'Kaprodi Dashboard',
-                      style: AppTheme.headingMedium.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () => context.push('/notifikasi'),
-                    icon: const Icon(
-                      Icons.notifications_outlined,
-                      color: Colors.white,
-                      size: 24,
-                    ),
-                  ),
+                  Text(notifier.nama, style: AppTheme.headingSmall.copyWith(color: Colors.white, fontWeight: FontWeight.w700)),
+                  const SizedBox(height: 4),
+                  Text('Ketua Program Studi Informatika', style: AppTheme.bodySmall.copyWith(color: Colors.white.withValues(alpha: 0.8))),
                 ],
               ),
             ),
@@ -202,223 +196,237 @@ class _KaprodiHomeScreenState extends State<KaprodiHomeScreen> {
     );
   }
 
-  Widget _buildWelcomeSection() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: AppColors.primaryGradient,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primary.withValues(alpha: 0.3),
-            blurRadius: 12,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Selamat Datang,',
-            style: AppTheme.bodySmall.copyWith(
-              color: Colors.white.withValues(alpha: 0.7),
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            'Dr. Academic Leader',
-            style: AppTheme.headingMedium.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: Colors.white.withValues(alpha: 0.2),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Icon(
-                      Icons.calendar_today_rounded,
-                      color: Colors.white.withValues(alpha: 0.7),
-                      size: 20,
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      _stats.semester,
-                      style: AppTheme.bodyMedium.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-                Icon(
-                  Icons.expand_more_rounded,
-                  color: Colors.white,
-                  size: 20,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStatsGrid() {
+  Widget _buildExecutiveStats() {
+    final stats = notifier.stats!;
     return GridView.count(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       crossAxisCount: 2,
       mainAxisSpacing: 12,
       crossAxisSpacing: 12,
-      childAspectRatio: 1.2,
+      childAspectRatio: 1.4,
       children: [
-        _StatCard(
-          label: 'Mahasiswa Sidang',
-          value: '${_stats.totalMahasiswaSidang}',
-          subValue: 'Total Periode Ini',
-          color: AppColors.primary,
-        ),
-        _StatCard(
-          label: 'Lulus',
-          value: '${_stats.lulus}',
-          subValue: '${_stats.presentaseLulus.toStringAsFixed(0)}% Mahasiswa',
-          color: AppColors.success,
-        ),
-        _StatCard(
-          label: 'Revisi',
-          value: '${_stats.revis}',
-          subValue: '${((_stats.revis / _stats.totalMahasiswaSidang) * 100).toStringAsFixed(1)}% Total',
-          color: AppColors.warning,
-        ),
-        _StatCard(
-          label: 'Tidak Lulus',
-          value: '${_stats.tidakLulus}',
-          subValue: '${((_stats.tidakLulus / _stats.totalMahasiswaSidang) * 100).toStringAsFixed(1)}% Tingkat',
-          color: AppColors.error,
-        ),
+        _buildStatCard('Total Sidang', '${stats.totalSidang}', Icons.calendar_month_rounded, AppColors.primary),
+        _buildStatCard('Lulus', '${stats.lulus} (${stats.presentaseLulus.toStringAsFixed(0)}%)', Icons.check_circle_rounded, AppColors.success),
+        _buildStatCard('Revisi', '${stats.revis}', Icons.build_rounded, Colors.orange),
+        _buildStatCard('Tidak Lulus', '${stats.tidakLulus}', Icons.cancel_rounded, AppColors.error),
       ],
     );
   }
 
-  Widget _buildAlertSection() {
-    return GestureDetector(
-      onTap: () => context.push('/kaprodi/approval-penguji'),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: AppColors.warningLight,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: AppColors.warning.withValues(alpha: 0.3),
+  Widget _buildStatCard(String label, String value, IconData icon, Color color) {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.borderLight)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
+            child: Icon(icon, color: color, size: 20),
           ),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: AppColors.warning.withValues(alpha: 0.15),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.pending_actions_rounded,
-                color: AppColors.warning,
-                size: 22,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '5 Approval Menunggu',
-                    style: AppTheme.bodyMedium.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xFFE65100),
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    'Request ganti penguji sidang',
-                    style: AppTheme.bodySmall.copyWith(
-                      color: AppColors.warning,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Icon(
-              Icons.chevron_right_rounded,
-              color: AppColors.warning.withValues(alpha: 0.6),
-              size: 22,
-            ),
-          ],
-        ),
+          const Spacer(),
+          Text(label, style: AppTheme.caption.copyWith(color: AppColors.textSecondary)),
+          const SizedBox(height: 2),
+          Text(value, style: AppTheme.bodyMedium.copyWith(fontWeight: FontWeight.w700, color: color)),
+        ],
       ),
     );
   }
 
-  Widget _buildQuickLinksSection() {
+  Widget _buildAlertCard() {
+    final count = notifier.stats!.pengujiRequest;
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12), border: Border.all(color: Colors.orange)),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(color: Colors.orange.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
+            child: const Icon(Icons.swap_horiz_rounded, color: Colors.orange),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('$count request ganti penguji', style: AppTheme.bodySmall.copyWith(fontWeight: FontWeight.w600, color: Colors.orange)),
+                Text('Menunggu persetujuan Anda', style: AppTheme.caption.copyWith(color: AppColors.textSecondary)),
+              ],
+            ),
+          ),
+          IconButton(
+            onPressed: () => context.push('/kaprodi/approval'),
+            icon: const Icon(Icons.arrow_forward_rounded, color: Colors.orange),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGradeDistBar() {
+    final gradeDist = notifier.gradeDist;
+    final total = gradeDist.fold<int>(0, (sum, g) => sum + g.count);
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.borderLight)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Distribusi Nilai', style: AppTheme.bodySmall.copyWith(fontWeight: FontWeight.w600)),
+          const SizedBox(height: 12),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: SizedBox(
+              height: 24,
+              child: Row(
+                children: gradeDist.map((g) => Expanded(
+                  flex: g.count,
+                  child: Container(color: g.color),
+                )).toList(),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 12,
+            runSpacing: 8,
+            children: gradeDist.map((g) => Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(width: 12, height: 12, decoration: BoxDecoration(color: g.color, borderRadius: BorderRadius.circular(2))),
+                const SizedBox(width: 4),
+                Text('${g.grade}: ${g.count}', style: AppTheme.caption.copyWith(fontSize: 11)),
+              ],
+            )).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQuickLinks() {
+    final menuItems = [
+      {'icon': Icons.calendar_month_rounded, 'label': 'Jadwal Final', 'route': '/kaprodi/jadwal'},
+      {'icon': Icons.grade_rounded, 'label': 'Rekap Nilai', 'route': '/kaprodi/nilai'},
+      {'icon': Icons.payments_rounded, 'label': 'Rekap Honor', 'route': '/kaprodi/honor'},
+      {'icon': Icons.assessment_rounded, 'label': 'Laporan', 'route': '/kaprodi/laporan'},
+    ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Akses Cepat',
-          style: AppTheme.headingSmall.copyWith(
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+        Text('Menu Utama', style: AppTheme.bodySmall.copyWith(fontWeight: FontWeight.w600)),
         const SizedBox(height: 12),
-        ..._quickLinks.asMap().entries.map((entry) {
-          final index = entry.key;
-          final link = entry.value;
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: _QuickLinkCard(
-              icon: link.icon,
-              label: link.label,
-              onTap: () => _handleQuickLinkTap(index),
-            ),
-          );
-        }),
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 12, crossAxisSpacing: 12, childAspectRatio: 2.2),
+          itemCount: menuItems.length,
+          itemBuilder: (context, index) {
+            final menu = menuItems[index];
+            return Material(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              child: InkWell(
+                onTap: () => context.push(menu['route'] as String),
+                borderRadius: BorderRadius.circular(12),
+                child: Container(
+                  padding: const EdgeInsets.all(14),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.borderLight)),
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
+                        child: Icon(menu['icon'] as IconData, color: AppColors.primary, size: 20),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(child: Text(menu['label'] as String, style: AppTheme.bodySmall.copyWith(fontWeight: FontWeight.w500))),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
       ],
+    );
+  }
+
+  Widget _buildSidangHariIni() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Sidang Hari Ini', style: AppTheme.bodySmall.copyWith(fontWeight: FontWeight.w600)),
+        const SizedBox(height: 12),
+        ...notifier.sidangHariIni.map((s) => _buildSidangCard(s)),
+      ],
+    );
+  }
+
+  Widget _buildSidangCard(SidangHariIni sidang) {
+    Color statusColor;
+    switch (sidang.status) {
+      case 'BERLANGSUNG':
+        statusColor = AppColors.success;
+        break;
+      case 'SELESAI':
+        statusColor = AppColors.textTertiary;
+        break;
+      default:
+        statusColor = AppColors.primary;
+    }
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.borderLight)),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(color: statusColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
+            child: Icon(Icons.schedule_rounded, color: statusColor, size: 24),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(sidang.waktu, style: AppTheme.bodySmall.copyWith(fontWeight: FontWeight.w600)),
+                Text('${sidang.nama} - ${sidang.nim}', style: AppTheme.caption.copyWith(color: AppColors.textSecondary)),
+                Text(sidang.ruangan, style: AppTheme.caption.copyWith(color: AppColors.textTertiary, fontSize: 11)),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            decoration: BoxDecoration(color: statusColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)),
+            child: Text(sidang.status, style: AppTheme.caption.copyWith(color: statusColor, fontWeight: FontWeight.w600, fontSize: 10)),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildBottomNavBar() {
     final items = [
-      _BottomNavData(Icons.dashboard_rounded, Icons.dashboard_outlined, 'Dashboard'),
-      _BottomNavData(Icons.calendar_month_rounded, Icons.calendar_month_outlined, 'Jadwal'),
-      _BottomNavData(Icons.verified_user_rounded, Icons.verified_user_outlined, 'Approval'),
-      _BottomNavData(Icons.analytics_rounded, Icons.analytics_outlined, 'Rekap'),
-      _BottomNavData(Icons.person_rounded, Icons.person_outlined, 'Profil'),
+      {'icon': Icons.dashboard_rounded, 'activeIcon': Icons.dashboard_rounded, 'label': 'Dashboard'},
+      {'icon': Icons.calendar_month_outlined, 'activeIcon': Icons.calendar_month_rounded, 'label': 'Jadwal'},
+      {'icon': Icons.approval_rounded, 'activeIcon': Icons.approval_rounded, 'label': 'Approval'},
+      {'icon': Icons.table_chart_outlined, 'activeIcon': Icons.table_chart_rounded, 'label': 'Rekap'},
+      {'icon': Icons.person_outline, 'activeIcon': Icons.person_rounded, 'label': 'Profil'},
     ];
 
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadow,
-            blurRadius: 16,
-            offset: const Offset(0, -4),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: AppColors.shadow, blurRadius: 16, offset: const Offset(0, -4))],
       ),
       child: SafeArea(
         top: false,
@@ -426,49 +434,26 @@ class _KaprodiHomeScreenState extends State<KaprodiHomeScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: items.asMap().entries.map((entry) {
-              final i = entry.key;
-              final item = entry.value;
+            children: items.asMap().entries.map((e) {
+              final i = e.key;
+              final item = e.value;
               final isSelected = i == _currentNavIndex;
-
               return InkWell(
                 onTap: () => _handleBottomNavTap(i),
                 borderRadius: BorderRadius.circular(12),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   decoration: BoxDecoration(
-                    color: isSelected
-                        ? AppColors.primary.withValues(alpha: 0.1)
-                        : Colors.transparent,
+                    color: isSelected ? AppColors.primary.withValues(alpha: 0.1) : Colors.transparent,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        isSelected ? item.activeIcon : item.icon,
-                        size: 24,
-                        color: isSelected
-                            ? AppColors.primary
-                            : AppColors.textTertiary,
-                      ),
+                      Icon(isSelected ? item['activeIcon'] as IconData : item['icon'] as IconData, size: 24, color: isSelected ? AppColors.primary : AppColors.textTertiary),
                       const SizedBox(height: 4),
-                      Text(
-                        item.label,
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: isSelected
-                              ? FontWeight.w600
-                              : FontWeight.w400,
-                          color: isSelected
-                              ? AppColors.primary
-                              : AppColors.textTertiary,
-                        ),
-                      ),
+                      Text(item['label'] as String, style: TextStyle(fontSize: 11, fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400, color: isSelected ? AppColors.primary : AppColors.textTertiary)),
                     ],
                   ),
                 ),
@@ -479,129 +464,25 @@ class _KaprodiHomeScreenState extends State<KaprodiHomeScreen> {
       ),
     );
   }
-}
 
-class _StatCard extends StatelessWidget {
-  final String label;
-  final String value;
-  final String subValue;
-  final Color color;
-
-  const _StatCard({
-    required this.label,
-    required this.value,
-    required this.subValue,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.borderLight),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: AppTheme.caption.copyWith(
-              color: AppColors.textSecondary,
-            ),
-            maxLines: 1,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                value,
-                style: AppTheme.headingMedium.copyWith(
-                  color: color,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              Text(
-                subValue,
-                style: AppTheme.caption.copyWith(
-                  color: color.withValues(alpha: 0.7),
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+  void _handleBottomNavTap(int index) {
+    setState(() => _currentNavIndex = index);
+    switch (index) {
+      case 0:
+        context.go('/kaprodi');
+        break;
+      case 1:
+        context.go('/kaprodi/jadwal');
+        break;
+      case 2:
+        context.go('/kaprodi/approval');
+        break;
+      case 3:
+        context.go('/kaprodi/nilai');
+        break;
+      case 4:
+        context.go('/kaprodi/profil');
+        break;
+    }
   }
-}
-
-class _QuickLinkCard extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback? onTap;
-
-  const _QuickLinkCard({
-    required this.icon,
-    required this.label,
-    this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(14),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(14),
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: AppColors.borderLight),
-          ),
-          child: Row(
-            children: [
-              Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
-                  color: AppColors.primary.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(icon, color: AppColors.primary, size: 22),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  label,
-                  style: AppTheme.bodyMedium.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.textPrimary,
-                  ),
-                ),
-              ),
-              Icon(
-                Icons.chevron_right_rounded,
-                color: AppColors.textTertiary,
-                size: 22,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _BottomNavData {
-  final IconData icon;
-  final IconData activeIcon;
-  final String label;
-
-  const _BottomNavData(this.icon, this.activeIcon, this.label);
 }
