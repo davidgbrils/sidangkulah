@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .signature-canvas {
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 31px, #e5eeff 31px, #e5eeff 32px);
+            background-size: 100% 32px;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#5e4200",
+                        "secondary-fixed-dim": "#bfc8ce",
+                        "on-tertiary-fixed": "#271900",
+                        "primary": "#001e40",
+                        "tertiary": "#2a1b00",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-primary": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#fbbc34",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#d3e4fe",
+                        "surface-dim": "#cbdbf5",
+                        "on-secondary-fixed": "#151d22",
+                        "surface-container-high": "#dce9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#003366",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#40484d",
+                        "outline-variant": "#c3c6d1",
+                        "surface-container-low": "#eff4ff",
+                        "inverse-surface": "#213145",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary-fixed-dim": "#a7c8ff",
+                        "on-primary-container": "#799dd6",
+                        "inverse-primary": "#a7c8ff",
+                        "outline": "#737780",
+                        "surface-tint": "#3a5f94",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-container": "#c99100",
+                        "secondary-fixed": "#dbe3ea",
+                        "primary-fixed": "#d5e3ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdea6",
+                        "secondary": "#575f65",
+                        "on-surface-variant": "#43474f",
+                        "on-background": "#0b1c30",
+                        "on-surface": "#0b1c30",
+                        "on-primary-fixed": "#001b3c",
+                        "secondary-container": "#dbe3ea",
+                        "on-primary-fixed-variant": "#1f477b",
+                        "on-secondary-container": "#5d656b",
+                        "on-error-container": "#93000a",
+                        "background": "#f8f9ff",
+                        "tertiary-container": "#452f00"
+                    },
+                    "fontFamily": {
+                        "title-lg": ["Public Sans"],
+                        "body-md": ["Public Sans"],
+                        "label-lg": ["Inter"],
+                        "display-lg": ["Public Sans"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Public Sans"],
+                        "body-lg": ["Public Sans"],
+                        "title-md": ["Public Sans"],
+                        "headline-lg": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500"}],
+                        "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                        "headline-md": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}],
+                        "title-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0.15px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body-md text-on-surface antialiased min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="bg-white fixed top-0 w-full z-50 flex justify-between items-center px-4 h-16 border-b border-slate-100 shadow-sm">
+<div class="flex items-center gap-4">
+<button class="transition-colors duration-200 active:opacity-70 p-2 -ml-2 rounded-full hover:bg-slate-50">
+<span class="material-symbols-outlined text-cyan-900" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-public-sans antialiased tracking-tight text-lg font-bold text-cyan-950">Tanda Tangan &amp; Dokumen</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-slate-200">
+<img alt="Lecturer Profile" class="w-full h-full object-cover" data-alt="Close up portrait of a professional academic professor with glasses and a friendly expression in a brightly lit university office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiSkcEpulQNvwuPUMyAY7totx-PCUjt67wKAl4UNXUDGXDXg_P2Rrzh8ktGE07RouiSUuR-sQcEYtHBacxeVOQgFUkoSAddkWfJASTPGY7Q02eT5tvjNfoe-VGiOWci9JYNT1LbnTk8CQL3aZXXpFDyLAlLO4giKYF2PNULur_ZGqYu07l1QMIH_xi461hTsklwbgNMYHjDiLvKU2KjEuUouH0fn9_w6wLVkGDLvHZ_ZbHgpus8U9uBj8oqVyDHkAfotBYgnElbVU"/>
+</div>
+</header>
+<main class="pt-20 px-4 space-y-8">
+<!-- Preview Section -->
+<section>
+<div class="flex items-center justify-between mb-3">
+<h2 class="font-title-md text-cyan-900">Pratinjau Dokumen</h2>
+<span class="text-xs font-label-md text-slate-500">2 Dokumen</span>
+</div>
+<div class="flex gap-4 overflow-x-auto pb-2 scroll-smooth">
+<!-- Doc 1 -->
+<div class="flex-none w-40 aspect-[3/4] bg-white rounded-xl shadow-sm border border-slate-200 p-3 flex flex-col items-center justify-center text-center">
+<div class="w-full h-24 mb-3 rounded border border-slate-100 bg-slate-50 overflow-hidden relative">
+<img alt="Berita Acara" class="w-full h-full object-cover opacity-60" data-alt="Macro photo of a formal academic document with lines of text and official stamp placeholders on high-quality paper" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYmo4suqZX7RjBhZF9ZvvxOCRJkrbBZDm9WUA030M9-Ej9uUJta_nf2OU9ieg_0nGRIQLVaRA6W_Madnz64mkW7ED5y_Y-a3JRHkYFbH4M5kQntKByrelrmQeUSKEwGJr7-ET8cJbd8UA9Rf6j6Az4tjcvMFswtOBS1IkMRZKVnArgwgoxRORvDosvK2mWrlq0fHILiqmkuMRY3Xhr47hyEfy-sGID6K8aR5j6bwCWhGBao3D0lQfheEhnozThgotJsYK2s9-IqJE"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-cyan-700 text-3xl" data-icon="description">description</span>
+</div>
+</div>
+<p class="font-label-md text-[11px] leading-tight text-on-surface">Berita Acara Sidang</p>
+</div>
+<!-- Doc 2 -->
+<div class="flex-none w-40 aspect-[3/4] bg-white rounded-xl shadow-sm border border-slate-200 p-3 flex flex-col items-center justify-center text-center">
+<div class="w-full h-24 mb-3 rounded border border-slate-100 bg-slate-50 overflow-hidden relative">
+<img alt="Lembar Nilai" class="w-full h-full object-cover opacity-60" data-alt="Overhead shot of a grading sheet with professional typography and empty grid for scores on a clean white desk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBgv8BkCUquhqUcSRMoK2iBib8vAWxKVzIWB5v79BPNSwEaepXTcYnm2ytZrLpI3f_kMIUuzsYwzl8Ex0pOApScB7-gRRpNBoRnOa0IVaw46qPdRqazi70aW1E4DbpGf1alhXmuUWqaZRaHw3ceimhNgr3yjKTg9SPFCkcX1hJVnAYaw4b00qIvVYM8-9RV9WU4An8Kv2USQBCgTsX_Kstb32pvvv1qNypQ9FRVkAU4Gomz8lDU_6cszCuweko0jW9cdd5-hu3GEs"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-cyan-700 text-3xl" data-icon="table_chart">table_chart</span>
+</div>
+</div>
+<p class="font-label-md text-[11px] leading-tight text-on-surface">Lembar Nilai Akhir</p>
+</div>
+</div>
+</section>
+<!-- Signature Pad Section -->
+<section class="space-y-4">
+<h2 class="font-title-md text-cyan-900">Area Tanda Tangan</h2>
+<div class="relative w-full aspect-video bg-white rounded-2xl border-2 border-dashed border-cyan-200 flex flex-col items-center justify-center signature-canvas shadow-inner">
+<span class="material-symbols-outlined text-slate-300 mb-2 text-4xl" data-icon="gesture">gesture</span>
+<p class="text-slate-400 font-label-md">Tanda tangan di sini</p>
+<!-- Canvas Area Sim -->
+<div class="absolute inset-0 cursor-crosshair"></div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-2 py-3 px-6 rounded-xl border border-slate-300 text-slate-600 font-label-lg transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm" data-icon="refresh">refresh</span>
+                    Bersihkan
+                </button>
+<button class="flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-cyan-800 text-white font-label-lg transition-all active:scale-95 shadow-md">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span>
+                    Gunakan
+                </button>
+</div>
+</section>
+<!-- Saved Signature -->
+<section class="p-4 bg-cyan-50/50 rounded-2xl border border-cyan-100 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-16 h-10 bg-white rounded-lg border border-cyan-100 p-1 flex items-center justify-center overflow-hidden">
+<img alt="Signature Preview" class="w-full h-auto grayscale contrast-150" data-alt="Stylized cursive ink signature on white paper background, professional and clean" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDS2Bc8wsjyoKA2rji2bVOTeuJeNWz2_O-6FMeXn-PIA0xaXjrT8h-EoHfjx7HM5-XPiJHxLxQUw8fsCF-6G40fgbPACmlyKRDJQHHQgGQ_5_y8KIbv9TPXRyDmctEkQlD_ZlWWj1lt22NmQC2Osx5x1kYRZZ0y-y7Jwv03UlmMbzq2LcQ846Tw7EVPGaisLraDE754VWc2w2M4JLqJ3FO6DrVbAdhzIH_sPX_TqeLrjng9r8Auwy3WbywPS5l5v9JpVAmj3hwP2Wg"/>
+</div>
+<div>
+<p class="text-sm font-semibold text-cyan-900">Gunakan TTD tersimpan</p>
+<p class="text-xs text-slate-500">Terakhir digunakan 2 jam lalu</p>
+</div>
+</div>
+<button class="p-2 rounded-full hover:bg-cyan-100 text-cyan-700">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+</button>
+</section>
+<!-- Checklist Section -->
+<section class="space-y-4">
+<h2 class="font-title-md text-cyan-900">Pilih Dokumen untuk Ditandatangani</h2>
+<div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+<label class="flex items-center gap-4 p-4 border-b border-slate-50 active:bg-slate-50 transition-colors">
+<input checked="" class="w-5 h-5 rounded border-slate-300 text-cyan-700 focus:ring-cyan-500" type="checkbox"/>
+<span class="text-sm font-medium text-slate-700">Berita Acara Sidang</span>
+</label>
+<label class="flex items-center gap-4 p-4 border-b border-slate-50 active:bg-slate-50 transition-colors">
+<input checked="" class="w-5 h-5 rounded border-slate-300 text-cyan-700 focus:ring-cyan-500" type="checkbox"/>
+<span class="text-sm font-medium text-slate-700">Lembar Nilai</span>
+</label>
+<label class="flex items-center gap-4 p-4 active:bg-slate-50 transition-colors">
+<input class="w-5 h-5 rounded border-slate-300 text-cyan-700 focus:ring-cyan-500" type="checkbox"/>
+<span class="text-sm font-medium text-slate-700">Formulir Revisi</span>
+</label>
+</div>
+</section>
+</main>
+<!-- Bottom Actions (Floating Footer) -->
+<div class="fixed bottom-20 left-0 w-full p-4 bg-gradient-to-t from-surface via-surface/95 to-transparent z-40">
+<div class="flex flex-col gap-3">
+<button class="w-full bg-cyan-800 text-white py-4 rounded-xl font-bold text-base shadow-lg shadow-cyan-900/10 flex items-center justify-center gap-3 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="draw">draw</span>
+                Tanda Tangani &amp; Unduh
+            </button>
+<button class="w-full bg-white border border-cyan-800 text-cyan-800 py-4 rounded-xl font-bold text-base flex items-center justify-center gap-3 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="picture_as_pdf">picture_as_pdf</span>
+                Ekspor PDF
+            </button>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 pb-safe px-2 bg-white border-t border-slate-100 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] rounded-t-lg">
+<a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 transition-transform duration-150 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[11px] font-medium font-public-sans">Beranda</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-cyan-50 text-cyan-800 rounded-xl px-4 py-1 transition-transform duration-150 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="description" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="text-[11px] font-medium font-public-sans">Dokumen</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 transition-transform duration-150 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="text-[11px] font-medium font-public-sans">Jadwal</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-4 py-1 transition-transform duration-150 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[11px] font-medium font-public-sans">Profil</span>
+</a>
+</nav>
+</body></html>

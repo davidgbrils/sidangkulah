@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SidangKu - Student Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#cbdbf5",
+                        "secondary-fixed": "#dbe3ea",
+                        "on-tertiary-fixed": "#271900",
+                        "on-tertiary-container": "#c99100",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#fbbc34",
+                        "surface-container": "#e5eeff",
+                        "on-surface-variant": "#43474f",
+                        "on-surface": "#0b1c30",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#575f65",
+                        "tertiary-container": "#452f00",
+                        "tertiary-fixed": "#ffdea6",
+                        "tertiary": "#2a1b00",
+                        "outline-variant": "#c3c6d1",
+                        "inverse-primary": "#a7c8ff",
+                        "on-secondary-container": "#5d656b",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#151d22",
+                        "surface": "#f8f9ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-tint": "#3a5f94",
+                        "primary-container": "#003366",
+                        "secondary-fixed-dim": "#bfc8ce",
+                        "surface-variant": "#d3e4fe",
+                        "on-secondary-fixed-variant": "#40484d",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container-high": "#dce9ff",
+                        "primary-fixed": "#d5e3ff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#1f477b",
+                        "outline": "#737780",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#a7c8ff",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#5e4200",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#799dd6",
+                        "background": "#f8f9ff",
+                        "on-primary-fixed": "#001b3c",
+                        "on-background": "#0b1c30",
+                        "surface-container-low": "#eff4ff",
+                        "inverse-surface": "#213145",
+                        "secondary-container": "#dbe3ea",
+                        "surface-bright": "#f8f9ff",
+                        "primary": "#001e40"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "margin-desktop": "32px",
+                        "sm": "12px",
+                        "margin-mobile": "16px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Inter"],
+                        "title-md": ["Public Sans"],
+                        "title-lg": ["Public Sans"],
+                        "body-lg": ["Public Sans"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Public Sans"],
+                        "headline-md": ["Public Sans"],
+                        "headline-lg": ["Public Sans"],
+                        "body-md": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500"}],
+                        "title-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0.15px", "fontWeight": "600"}],
+                        "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                        "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                        "headline-md": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body {
+            background-color: #f8f9ff;
+            max-width: 375px;
+            margin: 0 auto;
+            min-height: 812px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 h-16 bg-slate-50 border-b border-slate-200">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-variant border border-primary-fixed">
+<img alt="Student Profile Photo" class="w-full h-full object-cover" data-alt="Close up portrait of a young male student wearing a professional shirt with a friendly and confident expression, university setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDHxmPeyt_SYlf3TZFiSejqGkmTVTgo55Oy71abTO1zP9T05YShqcauw9p4mIKvyRKT32JLoP1Z-gBchCGf1YAZtBSynD0J8Pf_ONMwnOinU5Yap29eD38FXuaoDxpHcFAQJ_wVLtpPhWzt6s5JEoPcs17Mt8R9yK3VSNPuzUd6ktfWvDdSEKWYTVwGdJBEIMZMkcYw_0PFwl9JPAiYXX6g6D00yAXbN47_F5XXLAF5R9OAbPomdf8vLUUAzLMAu6Q7iLK3iegkdI"/>
+</div>
+<div class="flex flex-col">
+<span class="font-public-sans text-lg font-bold text-blue-900">Hi, Student!</span>
+<span class="font-label-md text-slate-500">Selamat datang, Budi Santoso</span>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-blue-900 transition-all duration-200 active:scale-95 hover:bg-slate-100">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<main class="pt-20 pb-24 px-4 space-y-6">
+<!-- Student Info Card -->
+<section class="relative overflow-hidden bg-primary-container text-white rounded-xl p-5 shadow-lg">
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
+<div class="relative z-10 space-y-4">
+<div class="flex justify-between items-start">
+<div class="space-y-1">
+<h2 class="font-title-lg text-on-primary-container">Budi Santoso</h2>
+<p class="font-label-md opacity-80">NIM: 202011001</p>
+</div>
+<div class="bg-tertiary-fixed text-on-tertiary-fixed px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase">
+                        Terjadwal
+                    </div>
+</div>
+<div class="pt-2 border-t border-white/10">
+<p class="font-label-md opacity-70 mb-1">Judul Skripsi</p>
+<p class="font-title-md leading-snug line-clamp-2">Analisis Sistem Keamanan Jaringan Menggunakan...</p>
+</div>
+</div>
+</section>
+<!-- Quick Info Grid -->
+<section class="grid grid-cols-2 gap-4">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest border border-slate-100 p-4 rounded-xl shadow-sm space-y-2">
+<div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-900">
+<span class="material-symbols-outlined text-[20px]" data-icon="calendar_month">calendar_month</span>
+</div>
+<div>
+<p class="font-label-md text-slate-500">Jadwal Sidang</p>
+<p class="font-title-md text-on-surface">24 Jan 2024</p>
+<p class="text-[11px] text-slate-400 font-medium">10:00 WIB</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest border border-slate-100 p-4 rounded-xl shadow-sm space-y-2">
+<div class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center text-green-700">
+<span class="material-symbols-outlined text-[20px]" data-icon="verified_user">verified_user</span>
+</div>
+<div>
+<p class="font-label-md text-slate-500">Status Berkas</p>
+<p class="font-title-md text-on-surface">Lengkap</p>
+<p class="text-[11px] text-green-600 font-medium">Telah Diverifikasi</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest border border-slate-100 p-4 rounded-xl shadow-sm space-y-2">
+<div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-400">
+<span class="material-symbols-outlined text-[20px]" data-icon="lock">lock</span>
+</div>
+<div>
+<p class="font-label-md text-slate-500">Nilai Akhir</p>
+<p class="font-title-md text-slate-400">Terkunci</p>
+<p class="text-[11px] text-slate-400 font-medium">Belum Diproses</p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest border border-slate-100 p-4 rounded-xl shadow-sm space-y-2">
+<div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-900">
+<span class="material-symbols-outlined text-[20px]" data-icon="person_search">person_search</span>
+</div>
+<div>
+<p class="font-label-md text-slate-500">Pembimbing</p>
+<p class="font-title-md text-on-surface leading-tight">Dr. Ir. Heru Setiawan</p>
+</div>
+</div>
+</section>
+<!-- Menu Section -->
+<section class="space-y-3">
+<h3 class="font-title-md text-primary px-1">Menu Utama</h3>
+<div class="grid grid-cols-2 gap-3">
+<button class="group flex flex-col items-center justify-center gap-2 p-5 bg-white border border-slate-100 rounded-2xl shadow-sm hover:bg-blue-50 transition-colors duration-200">
+<div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-900 flex items-center justify-center group-active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[28px]" data-icon="calendar_month">calendar_month</span>
+</div>
+<span class="font-label-lg text-on-surface">Jadwal Sidang</span>
+</button>
+<button class="group flex flex-col items-center justify-center gap-2 p-5 bg-white border border-slate-100 rounded-2xl shadow-sm hover:bg-blue-50 transition-colors duration-200">
+<div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-900 flex items-center justify-center group-active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[28px]" data-icon="upload_file">upload_file</span>
+</div>
+<span class="font-label-lg text-on-surface">Upload Berkas</span>
+</button>
+<button class="group flex flex-col items-center justify-center gap-2 p-5 bg-white border border-slate-100 rounded-2xl shadow-sm hover:bg-blue-50 transition-colors duration-200">
+<div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-900 flex items-center justify-center group-active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[28px]" data-icon="grade">grade</span>
+</div>
+<span class="font-label-lg text-on-surface">Nilai</span>
+</button>
+<button class="group flex flex-col items-center justify-center gap-2 p-5 bg-white border border-slate-100 rounded-2xl shadow-sm hover:bg-blue-50 transition-colors duration-200">
+<div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-900 flex items-center justify-center group-active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[28px]" data-icon="notifications_active">notifications_active</span>
+</div>
+<span class="font-label-lg text-on-surface">Notifikasi</span>
+</button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-safe pt-2 bg-white rounded-t-2xl border-t border-slate-100 shadow-[0_-4px_6px_-1px_rgba(0,51,102,0.1)]">
+<!-- Home (Active) -->
+<a class="flex flex-col items-center justify-center bg-blue-50 text-blue-900 rounded-xl px-3 py-1 transition-transform duration-200 ease-in-out active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-public-sans text-[10px] font-medium mt-0.5">Home</span>
+</a>
+<!-- Jadwal -->
+<a class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 transition-transform duration-200 ease-in-out active:scale-90 hover:bg-slate-50" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-public-sans text-[10px] font-medium mt-0.5">Jadwal</span>
+</a>
+<!-- Berkas -->
+<a class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 transition-transform duration-200 ease-in-out active:scale-90 hover:bg-slate-50" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-public-sans text-[10px] font-medium mt-0.5">Berkas</span>
+</a>
+<!-- Notif -->
+<a class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 transition-transform duration-200 ease-in-out active:scale-90 hover:bg-slate-50" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="font-public-sans text-[10px] font-medium mt-0.5">Notif</span>
+</a>
+<!-- Profil -->
+<a class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 transition-transform duration-200 ease-in-out active:scale-90 hover:bg-slate-50" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-public-sans text-[10px] font-medium mt-0.5">Profil</span>
+</a>
+</nav>
+</body></html>

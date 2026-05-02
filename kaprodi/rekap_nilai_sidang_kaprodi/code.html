@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rekap Nilai Sidang - SidangKu</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f8f9ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "surface-tint": "#3a5f94",
+                        "background": "#f8f9ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#003366",
+                        "on-secondary-fixed": "#151d22",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#43474f",
+                        "on-tertiary-fixed-variant": "#5e4200",
+                        "tertiary-container": "#452f00",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#dce9ff",
+                        "secondary-fixed": "#dbe3ea",
+                        "on-tertiary-container": "#c99100",
+                        "on-secondary-container": "#5d656b",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#1f477b",
+                        "on-background": "#0b1c30",
+                        "inverse-surface": "#213145",
+                        "surface-container": "#e5eeff",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#001b3c",
+                        "on-secondary-fixed-variant": "#40484d",
+                        "tertiary-fixed": "#ffdea6",
+                        "surface": "#f8f9ff",
+                        "tertiary": "#2a1b00",
+                        "secondary-container": "#dbe3ea",
+                        "primary-fixed": "#d5e3ff",
+                        "outline": "#737780",
+                        "on-surface": "#0b1c30",
+                        "inverse-primary": "#a7c8ff",
+                        "on-primary": "#ffffff",
+                        "primary": "#001e40",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary": "#575f65",
+                        "secondary-fixed-dim": "#bfc8ce",
+                        "on-primary-container": "#799dd6",
+                        "outline-variant": "#c3c6d1",
+                        "tertiary-fixed-dim": "#fbbc34",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container-low": "#eff4ff",
+                        "primary-fixed-dim": "#a7c8ff",
+                        "on-tertiary-fixed": "#271900",
+                        "deep-purple": {
+                            "50": "#f3e5f5",
+                            "100": "#e1bee7",
+                            "400": "#ab47bc",
+                            "700": "#7b1fa2",
+                            "800": "#6a1b9a",
+                            "900": "#4a148c"
+                        }
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "md": "16px",
+                        "sm": "12px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "base": "8px",
+                        "margin-desktop": "32px",
+                        "xl": "32px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Public Sans"],
+                        "label-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "title-md": ["Public Sans"],
+                        "title-lg": ["Public Sans"],
+                        "body-md": ["Public Sans"],
+                        "headline-lg": ["Public Sans"],
+                        "headline-md": ["Public Sans"],
+                        "body-lg": ["Public Sans"]
+                    },
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-bright text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-4 h-16">
+<button class="p-2 text-deep-purple-700 dark:text-deep-purple-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors active:scale-95 duration-150 rounded-full">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-public-sans font-bold text-lg tracking-tight text-deep-purple-700 dark:text-deep-purple-400">Rekap Nilai Sidang</h1>
+<button class="p-2 text-deep-purple-700 dark:text-deep-purple-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors active:scale-95 duration-150 rounded-full">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+</header>
+<main class="px-4 py-6 space-y-6">
+<!-- Filter Section -->
+<section class="space-y-3">
+<div class="relative">
+<select class="w-full h-12 pl-4 pr-10 bg-white border border-outline-variant rounded-lg font-body-md text-on-surface appearance-none focus:ring-2 focus:ring-deep-purple-700 focus:border-transparent outline-none">
+<option>Ganjil 2024/2025</option>
+<option>Genap 2023/2024</option>
+<option>Ganjil 2023/2024</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 text-outline pointer-events-none">expand_more</span>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-3 text-outline">search</span>
+<input class="w-full h-12 pl-10 pr-4 bg-white border border-outline-variant rounded-lg font-body-md text-on-surface focus:ring-2 focus:ring-deep-purple-700 focus:border-transparent outline-none" placeholder="Cari nama atau NIM..." type="text"/>
+</div>
+</section>
+<!-- Summary Stats Row -->
+<section class="grid grid-cols-3 gap-2">
+<div class="bg-white p-3 rounded-xl border border-slate-100 shadow-sm flex flex-col items-center">
+<span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Rata-rata</span>
+<span class="text-xl font-extrabold text-deep-purple-700 mt-1">84.2</span>
+</div>
+<div class="bg-white p-3 rounded-xl border border-slate-100 shadow-sm flex flex-col items-center">
+<span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Tertinggi</span>
+<span class="text-xl font-extrabold text-emerald-600 mt-1">98</span>
+</div>
+<div class="bg-white p-3 rounded-xl border border-slate-100 shadow-sm flex flex-col items-center">
+<span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Terendah</span>
+<span class="text-xl font-extrabold text-rose-600 mt-1">62</span>
+</div>
+</section>
+<!-- Grade Distribution Chart -->
+<section class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm space-y-4">
+<div class="flex justify-between items-center">
+<h2 class="font-title-md text-on-surface">Distribusi Nilai</h2>
+<span class="text-xs font-medium text-slate-400">Total 42 Mhs</span>
+</div>
+<div class="w-full h-10 flex rounded-full overflow-hidden">
+<div class="h-full bg-deep-purple-900 w-[40%] flex items-center justify-center text-[10px] text-white font-bold" title="A">A</div>
+<div class="h-full bg-deep-purple-700 w-[25%] flex items-center justify-center text-[10px] text-white font-bold" title="A-">A-</div>
+<div class="h-full bg-deep-purple-400 w-[20%] flex items-center justify-center text-[10px] text-white font-bold" title="B+">B+</div>
+<div class="h-full bg-deep-purple-100 w-[10%] flex items-center justify-center text-[10px] text-deep-purple-900 font-bold" title="B">B</div>
+<div class="h-full bg-slate-200 w-[5%] flex items-center justify-center text-[10px] text-slate-500 font-bold" title="C+">C+</div>
+</div>
+<div class="flex flex-wrap gap-x-4 gap-y-2 pt-2 border-t border-slate-50">
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-deep-purple-900"></div>
+<span class="text-[11px] font-medium text-slate-600">A (16)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-deep-purple-700"></div>
+<span class="text-[11px] font-medium text-slate-600">A- (11)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-deep-purple-400"></div>
+<span class="text-[11px] font-medium text-slate-600">B+ (8)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-deep-purple-100"></div>
+<span class="text-[11px] font-medium text-slate-600">B (4)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-slate-200"></div>
+<span class="text-[11px] font-medium text-slate-600">C+ (3)</span>
+</div>
+</div>
+</section>
+<!-- Student Grade Table -->
+<section class="space-y-3">
+<h2 class="font-title-md text-on-surface px-1">Daftar Mahasiswa</h2>
+<div class="overflow-x-auto bg-white rounded-xl border border-slate-100 shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead class="bg-slate-50 text-[10px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100">
+<tr>
+<th class="px-4 py-3">Mhs / NIM</th>
+<th class="px-2 py-3 text-center">Nilai</th>
+<th class="px-2 py-3 text-center">Grade</th>
+<th class="px-4 py-3 text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-50 font-body-md">
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-4 py-3">
+<div class="font-semibold text-slate-900">Aditya Pratama</div>
+<div class="text-[11px] text-slate-400">202111045</div>
+</td>
+<td class="px-2 py-3 text-center font-bold text-deep-purple-700">92</td>
+<td class="px-2 py-3 text-center">
+<span class="px-2 py-0.5 bg-deep-purple-50 text-deep-purple-700 rounded-md font-bold text-xs border border-deep-purple-100">A</span>
+</td>
+<td class="px-4 py-3 text-right">
+<span class="px-2 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded-full uppercase border border-emerald-100">Lulus</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-4 py-3">
+<div class="font-semibold text-slate-900">Bunga Citra</div>
+<div class="text-[11px] text-slate-400">202111032</div>
+</td>
+<td class="px-2 py-3 text-center font-bold text-deep-purple-700">88</td>
+<td class="px-2 py-3 text-center">
+<span class="px-2 py-0.5 bg-deep-purple-50 text-deep-purple-700 rounded-md font-bold text-xs border border-deep-purple-100">A-</span>
+</td>
+<td class="px-4 py-3 text-right">
+<span class="px-2 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded-full uppercase border border-emerald-100">Lulus</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-4 py-3">
+<div class="font-semibold text-slate-900">Dedi Kusnandar</div>
+<div class="text-[11px] text-slate-400">202111089</div>
+</td>
+<td class="px-2 py-3 text-center font-bold text-deep-purple-700">76</td>
+<td class="px-2 py-3 text-center">
+<span class="px-2 py-0.5 bg-slate-50 text-slate-700 rounded-md font-bold text-xs border border-slate-200">B+</span>
+</td>
+<td class="px-4 py-3 text-right">
+<span class="px-2 py-1 bg-orange-50 text-orange-700 text-[10px] font-bold rounded-full uppercase border border-orange-100">Revisi</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-4 py-3">
+<div class="font-semibold text-slate-900">Farhan Ghani</div>
+<div class="text-[11px] text-slate-400">202111011</div>
+</td>
+<td class="px-2 py-3 text-center font-bold text-deep-purple-700">58</td>
+<td class="px-2 py-3 text-center">
+<span class="px-2 py-0.5 bg-slate-50 text-slate-700 rounded-md font-bold text-xs border border-slate-200">C</span>
+</td>
+<td class="px-4 py-3 text-right">
+<span class="px-2 py-1 bg-rose-50 text-rose-700 text-[10px] font-bold rounded-full uppercase border border-rose-100">Tidak Lulus</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Export Actions -->
+<section class="grid grid-cols-2 gap-4 pb-4">
+<button class="flex items-center justify-center gap-2 h-12 bg-deep-purple-700 text-white rounded-xl font-bold text-sm shadow-md active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-lg">table_view</span>
+                Ekspor Excel
+            </button>
+<button class="flex items-center justify-center gap-2 h-12 bg-white text-deep-purple-700 border-2 border-deep-purple-700 rounded-xl font-bold text-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-lg">picture_as_pdf</span>
+                Cetak PDF
+            </button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-2 py-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md z-50 border-t border-slate-200 dark:border-slate-800 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+<button class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 hover:text-deep-purple-600 active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-public-sans text-[11px] font-medium">Dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 hover:text-deep-purple-600 active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-public-sans text-[11px] font-medium">Jadwal</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 hover:text-deep-purple-600 active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-public-sans text-[11px] font-medium">Approval</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-deep-purple-50 dark:bg-deep-purple-900/30 text-deep-purple-700 dark:text-deep-purple-300 rounded-xl px-3 py-1 active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-public-sans text-[11px] font-medium">Rekap</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 hover:text-deep-purple-600 active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined">person</span>
+<span class="font-public-sans text-[11px] font-medium">Profil</span>
+</button>
+</nav>
+</body></html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "on-tertiary-fixed-variant": "#5e4200",
+                  "surface-container-lowest": "#ffffff",
+                  "on-primary-container": "#799dd6",
+                  "background": "#f8f9ff",
+                  "surface-container-high": "#dce9ff",
+                  "primary-fixed": "#d5e3ff",
+                  "on-secondary": "#ffffff",
+                  "on-primary-fixed-variant": "#1f477b",
+                  "outline": "#737780",
+                  "on-error": "#ffffff",
+                  "primary-fixed-dim": "#a7c8ff",
+                  "error": "#ba1a1a",
+                  "secondary-container": "#dbe3ea",
+                  "surface-bright": "#f8f9ff",
+                  "primary": "#001e40",
+                  "on-primary-fixed": "#001b3c",
+                  "on-background": "#0b1c30",
+                  "surface-container-low": "#eff4ff",
+                  "inverse-surface": "#213145",
+                  "secondary": "#575f65",
+                  "tertiary-container": "#452f00",
+                  "tertiary-fixed": "#ffdea6",
+                  "tertiary": "#2a1b00",
+                  "outline-variant": "#c3c6d1",
+                  "inverse-primary": "#a7c8ff",
+                  "on-secondary-container": "#5d656b",
+                  "error-container": "#ffdad6",
+                  "surface-container": "#e5eeff",
+                  "on-surface-variant": "#43474f",
+                  "on-surface": "#0b1c30",
+                  "on-tertiary": "#ffffff",
+                  "secondary-fixed-dim": "#bfc8ce",
+                  "surface-variant": "#d3e4fe",
+                  "on-secondary-fixed-variant": "#40484d",
+                  "on-primary": "#ffffff",
+                  "surface-container-highest": "#d3e4fe",
+                  "on-secondary-fixed": "#151d22",
+                  "surface": "#f8f9ff",
+                  "inverse-on-surface": "#eaf1ff",
+                  "surface-tint": "#3a5f94",
+                  "primary-container": "#003366",
+                  "coral-accent": "#FF7043"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "fontFamily": {
+                  "body-md": ["Public Sans"],
+                  "headline-lg": ["Public Sans"],
+                  "title-md": ["Public Sans"],
+                  "title-lg": ["Public Sans"],
+                  "body-lg": ["Public Sans"],
+                  "label-md": ["Inter"],
+                  "display-lg": ["Public Sans"],
+                  "label-lg": ["Inter"],
+                  "headline-md": ["Public Sans"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    body { font-family: 'Public Sans', sans-serif; }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-20">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 shadow-sm flex items-center px-4 h-16 w-full">
+<div class="flex items-center gap-4 w-full">
+<span class="material-symbols-outlined text-orange-600 dark:text-orange-400">menu</span>
+<h1 class="font-['Public_Sans'] font-semibold text-lg text-orange-600 dark:text-orange-400">Dokumen &amp; Rekap Honor</h1>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 px-4 space-y-6">
+<!-- Navigation Tabs -->
+<div class="flex items-center bg-white rounded-xl p-1 shadow-sm border border-slate-100">
+<button class="flex-1 py-2 text-center rounded-lg font-body-md text-body-md bg-orange-50 text-orange-600 font-semibold transition-all">
+        SK Penguji
+      </button>
+<button class="flex-1 py-2 text-center rounded-lg font-body-md text-body-md text-secondary hover:bg-slate-50 transition-all">
+        Rekap Honor
+      </button>
+</div>
+<!-- Filter Section -->
+<section class="grid grid-cols-3 gap-2">
+<div class="relative">
+<label class="block font-label-md text-[10px] uppercase text-outline mb-1 ml-1">Bulan</label>
+<div class="flex items-center justify-between bg-white border border-outline-variant rounded-lg px-2 py-2">
+<span class="font-body-md text-on-surface truncate">Oktober</span>
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</div>
+</div>
+<div class="relative">
+<label class="block font-label-md text-[10px] uppercase text-outline mb-1 ml-1">Periode</label>
+<div class="flex items-center justify-between bg-white border border-outline-variant rounded-lg px-2 py-2">
+<span class="font-body-md text-on-surface truncate">2023</span>
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</div>
+</div>
+<div class="relative">
+<label class="block font-label-md text-[10px] uppercase text-outline mb-1 ml-1">Status</label>
+<div class="flex items-center justify-between bg-white border border-outline-variant rounded-lg px-2 py-2">
+<span class="font-body-md text-on-surface truncate">Semua</span>
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</div>
+</div>
+</section>
+<!-- Primary Action -->
+<button class="w-full bg-[#FF7043] text-white py-4 rounded-xl font-title-md text-title-md flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+      Generate Semua SK Bulan Ini
+    </button>
+<!-- Student Cards List -->
+<div class="space-y-4">
+<h2 class="font-title-md text-title-md text-primary px-1">Daftar Mahasiswa</h2>
+<!-- Card 1 -->
+<div class="bg-white rounded-xl p-4 border border-slate-100 shadow-sm flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<div>
+<h3 class="font-title-md text-on-background">Andi Wijaya</h3>
+<p class="font-body-md text-secondary">Sidang: 24 Oct 2023</p>
+</div>
+</div>
+<span class="px-2 py-1 bg-red-50 text-red-600 rounded-full font-label-md text-[11px] font-semibold border border-red-100">
+            Belum
+          </span>
+</div>
+<button class="w-full border border-[#FF7043] text-[#FF7043] py-2.5 rounded-lg font-label-lg flex items-center justify-center gap-2 hover:bg-orange-50 transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="description">description</span>
+          Generate SK
+        </button>
+</div>
+<!-- Card 2 -->
+<div class="bg-white rounded-xl p-4 border border-slate-100 shadow-sm flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<div>
+<h3 class="font-title-md text-on-background">Siti Aminah</h3>
+<p class="font-body-md text-secondary">Sidang: 22 Oct 2023</p>
+</div>
+</div>
+<span class="px-2 py-1 bg-blue-50 text-blue-600 rounded-full font-label-md text-[11px] font-semibold border border-blue-100">
+            Sudah Generate
+          </span>
+</div>
+<button class="w-full bg-[#FF7043] text-white py-2.5 rounded-lg font-label-lg flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+          Unduh
+        </button>
+</div>
+<!-- Card 3 -->
+<div class="bg-white rounded-xl p-4 border border-slate-100 shadow-sm flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<div>
+<h3 class="font-title-md text-on-background">Budi Santoso</h3>
+<p class="font-body-md text-secondary">Sidang: 20 Oct 2023</p>
+</div>
+</div>
+<span class="px-2 py-1 bg-green-50 text-green-600 rounded-full font-label-md text-[11px] font-semibold border border-green-100">
+            Sudah Cetak
+          </span>
+</div>
+<button class="w-full bg-[#FF7043] text-white py-2.5 rounded-lg font-label-lg flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+          Unduh
+        </button>
+</div>
+</div>
+<!-- Summary Preview (Conceptualized for Tab 2 context) -->
+<div class="opacity-40 pointer-events-none select-none border-t border-dashed border-outline-variant pt-4">
+<p class="text-center font-label-md text-outline mb-2">Pratinjau Rekap Honor</p>
+<div class="bg-primary-container p-4 rounded-2xl">
+<p class="font-label-md text-on-primary-container opacity-80">Total honor bulan ini</p>
+<p class="font-headline-md text-white">Rp 4.500.000</p>
+</div>
+</div>
+</main>
+<!-- FAB -->
+<div class="fixed bottom-20 right-4">
+<button class="w-14 h-14 bg-white text-[#FF7043] rounded-2xl shadow-[0_8px_24px_rgba(255,112,67,0.3)] border border-orange-100 flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[28px]" data-icon="add">add</span>
+</button>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 shadow-[0_-2px_10px_rgba(255,112,67,0.1)] flex justify-around items-center h-16 px-2 w-full">
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Public_Sans'] text-[11px] font-medium">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-['Public_Sans'] text-[11px] font-medium">Jadwal</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+<span class="font-['Public_Sans'] text-[11px] font-medium">Data</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="font-['Public_Sans'] text-[11px] font-medium">Approval</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 rounded-xl px-3 py-1 transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="description" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="font-['Public_Sans'] text-[11px] font-medium">Dokumen</span>
+</div>
+</nav>
+</body></html>

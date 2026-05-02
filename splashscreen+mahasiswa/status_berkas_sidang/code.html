@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#452f00",
+                    "on-surface-variant": "#43474f",
+                    "on-error": "#ffffff",
+                    "surface-container": "#e5eeff",
+                    "on-tertiary-fixed": "#271900",
+                    "surface": "#f8f9ff",
+                    "surface-variant": "#d3e4fe",
+                    "primary-container": "#003366",
+                    "surface-tint": "#3a5f94",
+                    "on-primary-container": "#799dd6",
+                    "primary": "#001e40",
+                    "on-secondary-fixed-variant": "#40484d",
+                    "surface-bright": "#f8f9ff",
+                    "secondary-fixed-dim": "#bfc8ce",
+                    "on-surface": "#0b1c30",
+                    "on-background": "#0b1c30",
+                    "background": "#f8f9ff",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed": "#ffdea6",
+                    "outline-variant": "#c3c6d1",
+                    "inverse-surface": "#213145",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#cbdbf5",
+                    "on-secondary-fixed": "#151d22",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#dbe3ea",
+                    "outline": "#737780",
+                    "secondary": "#575f65",
+                    "on-tertiary-fixed-variant": "#5e4200",
+                    "surface-container-low": "#eff4ff",
+                    "primary-fixed": "#d5e3ff",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-container": "#c99100",
+                    "surface-container-highest": "#d3e4fe",
+                    "primary-fixed-dim": "#a7c8ff",
+                    "on-primary-fixed-variant": "#1f477b",
+                    "on-primary-fixed": "#001b3c",
+                    "tertiary": "#2a1b00",
+                    "surface-container-high": "#dce9ff",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-secondary-container": "#5d656b",
+                    "tertiary-fixed-dim": "#fbbc34",
+                    "secondary-container": "#dbe3ea",
+                    "inverse-primary": "#a7c8ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "xl": "32px",
+                    "sm": "12px",
+                    "margin-desktop": "32px",
+                    "xs": "4px",
+                    "gutter": "16px",
+                    "md": "16px",
+                    "margin-mobile": "16px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "label-lg": ["Inter"],
+                    "body-md": ["Public Sans"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Public Sans"],
+                    "body-lg": ["Public Sans"],
+                    "title-lg": ["Public Sans"],
+                    "title-md": ["Public Sans"],
+                    "display-lg": ["Public Sans"],
+                    "headline-lg": ["Public Sans"]
+            },
+            "fontSize": {
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                    "headline-md": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}],
+                    "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0.15px", "fontWeight": "600"}],
+                    "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body-md text-on-surface overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-4 h-16 bg-white border-b border-slate-100 shadow-none">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-blue-900 active:opacity-70 transition-opacity cursor-pointer">arrow_back</span>
+<h1 class="font-public-sans font-semibold text-lg text-blue-900">Status Berkas Sidang</h1>
+</div>
+<span class="material-symbols-outlined text-blue-900 active:opacity-70 transition-opacity cursor-pointer">account_circle</span>
+</header>
+<main class="pt-20 pb-32 px-4 max-w-[375px] mx-auto min-h-screen">
+<!-- Status Banner -->
+<div class="mb-6 rounded-xl bg-tertiary-fixed p-4 flex items-center gap-3 border border-on-tertiary-container/10">
+<div class="bg-tertiary-container rounded-full p-2 text-white">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+</div>
+<div>
+<p class="font-label-md text-on-tertiary-fixed-variant leading-none mb-1">Status Keseluruhan</p>
+<h2 class="font-title-md text-tertiary-container">Dalam Review</h2>
+</div>
+</div>
+<!-- Document List Heading -->
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-title-md text-on-surface">Daftar Dokumen</h3>
+<span class="font-label-md text-outline">4 Dokumen</span>
+</div>
+<!-- Vertical Cards Container -->
+<div class="space-y-4">
+<!-- 1. KRS Aktif -->
+<div class="bg-white p-4 rounded-xl border border-outline-variant hover:bg-slate-50 transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">description</span>
+<div>
+<p class="font-title-md text-on-surface">KRS Aktif</p>
+<p class="font-label-md text-outline">Update: 12 Okt 2023</p>
+</div>
+</div>
+<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full font-label-md">Diterima</span>
+</div>
+</div>
+<!-- 2. Transkrip Nilai -->
+<div class="bg-white p-4 rounded-xl border border-outline-variant hover:bg-slate-50 transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">article</span>
+<div>
+<p class="font-title-md text-on-surface">Transkrip Nilai</p>
+<p class="font-label-md text-outline">Update: 12 Okt 2023</p>
+</div>
+</div>
+<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full font-label-md">Diterima</span>
+</div>
+</div>
+<!-- 3. Lembar Persetujuan (Rejected Case) -->
+<div class="bg-white p-4 rounded-xl border-2 border-error/20 bg-error-container/5">
+<div class="flex items-start justify-between mb-3">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">assignment_late</span>
+<div>
+<p class="font-title-md text-on-surface">Lembar Persetujuan</p>
+<p class="font-label-md text-outline">Update: 14 Okt 2023</p>
+</div>
+</div>
+<span class="bg-error text-on-error px-3 py-1 rounded-full font-label-md shadow-sm">Ditolak</span>
+</div>
+<div class="bg-error-container/30 rounded-lg p-3 mb-3 border border-error/10">
+<p class="font-label-md text-on-error-container flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">info</span>
+                        Catatan operator:
+                    </p>
+<p class="font-body-md text-on-error-container mt-1">Tanda tangan pembimbing tidak jelas</p>
+</div>
+<button class="w-full bg-primary-container text-white font-title-md py-3 rounded-lg flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]">upload</span>
+                    Upload Ulang
+                </button>
+</div>
+<!-- 4. Plagiasi -->
+<div class="bg-white p-4 rounded-xl border border-outline-variant opacity-75">
+<div class="flex items-start justify-between">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-outline" style="font-variation-settings: 'FILL' 1;">spellcheck</span>
+<div>
+<p class="font-title-md text-on-surface">Plagiasi</p>
+<p class="font-label-md text-outline">Update: 15 Okt 2023</p>
+</div>
+</div>
+<span class="bg-secondary-container text-secondary px-3 py-1 rounded-full font-label-md">Menunggu</span>
+</div>
+</div>
+</div>
+<!-- Primary CTA Section -->
+<div class="mt-8 mb-6">
+<button class="w-full bg-white border border-primary-container text-primary-container font-title-md py-4 rounded-xl flex items-center justify-center gap-3 hover:bg-primary-container/5 active:scale-95 transition-all">
+<span class="material-symbols-outlined">support_agent</span>
+                Hubungi Operator
+            </button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-white border-t border-slate-100 pb-safe pt-2 px-4 shadow-[0_-1px_3px_0_rgba(0,0,0,0.05)]">
+<div class="flex flex-col items-center justify-center text-slate-500 px-3 py-1 cursor-pointer transition-all hover:text-blue-800 active:scale-95">
+<span class="material-symbols-outlined">home</span>
+<span class="font-public-sans text-[11px] font-medium mt-1">Beranda</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-blue-50 text-blue-900 rounded-2xl px-4 py-1 cursor-pointer active:scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment_turned_in</span>
+<span class="font-public-sans text-[11px] font-medium mt-1">Status</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 px-3 py-1 cursor-pointer transition-all hover:text-blue-800 active:scale-95">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-public-sans text-[11px] font-medium mt-1">Jadwal</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 px-3 py-1 cursor-pointer transition-all hover:text-blue-800 active:scale-95">
+<span class="material-symbols-outlined">person</span>
+<span class="font-public-sans text-[11px] font-medium mt-1">Profil</span>
+</div>
+</nav>
+</body></html>

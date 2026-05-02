@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#e5eeff",
+                    "on-surface": "#0b1c30",
+                    "on-secondary-container": "#5d656b",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#452f00",
+                    "surface-dim": "#cbdbf5",
+                    "secondary-fixed-dim": "#bfc8ce",
+                    "outline": "#737780",
+                    "on-surface-variant": "#43474f",
+                    "surface-tint": "#3a5f94",
+                    "on-secondary-fixed-variant": "#40484d",
+                    "on-error-container": "#93000a",
+                    "on-background": "#0b1c30",
+                    "inverse-primary": "#a7c8ff",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed-dim": "#fbbc34",
+                    "primary-fixed": "#d5e3ff",
+                    "surface-container-high": "#dce9ff",
+                    "on-primary-fixed-variant": "#1f477b",
+                    "on-primary-fixed": "#001b3c",
+                    "background": "#f8f9ff",
+                    "on-error": "#ffffff",
+                    "primary-container": "#003366",
+                    "secondary-fixed": "#dbe3ea",
+                    "inverse-on-surface": "#eaf1ff",
+                    "inverse-surface": "#213145",
+                    "on-secondary-fixed": "#151d22",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-tertiary-fixed-variant": "#5e4200",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#dbe3ea",
+                    "surface-bright": "#f8f9ff",
+                    "on-tertiary-container": "#c99100",
+                    "surface": "#f8f9ff",
+                    "tertiary": "#2a1b00",
+                    "on-primary-container": "#799dd6",
+                    "on-tertiary-fixed": "#271900",
+                    "primary-fixed-dim": "#a7c8ff",
+                    "tertiary-fixed": "#ffdea6",
+                    "surface-variant": "#d3e4fe",
+                    "secondary": "#575f65",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#c3c6d1",
+                    "primary": "#001e40",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#eff4ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "margin-mobile": "16px",
+                    "gutter": "16px",
+                    "base": "8px",
+                    "sm": "12px",
+                    "margin-desktop": "32px"
+            },
+            "fontFamily": {
+                    "label-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Public Sans"],
+                    "body-lg": ["Public Sans"],
+                    "display-lg": ["Public Sans"],
+                    "title-md": ["Public Sans"],
+                    "body-md": ["Public Sans"],
+                    "title-lg": ["Public Sans"],
+                    "headline-md": ["Public Sans"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 shadow-sm dark:shadow-none flex justify-between items-center w-full px-4 h-16 fixed top-0 z-50">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-orange-100 overflow-hidden flex items-center justify-center">
+<img alt="Staff Operator Profile" class="w-full h-full object-cover" data-alt="close-up portrait of a professional university administrator in business casual attire with soft office lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqxeOP8sQZz_j8Eg7_ljcKBLyy6Qx1MuiPoNfIQShDHZaEdiZA_svwzObmqce37Li7dM3QyPxPR5j_uatrYIJVATQE8L9wfE2o34H_b_ae3Y7wgFfzkMO7H8PJtUlQVLLJvtQJL97dUaBd87NDBBm8F2YnfC52NFSwxuPEIBX0b4NiLEXcYRga_Ia1p5oUh-1Tm21KCnTHWWIqFaDvMfaXuyDexfom1GxChTtMaMS_6N-S6XU6aCBV6d2mvrQ5PH2eMrROoZJ7s8k"/>
+</div>
+<div class="flex flex-col">
+<span class="font-public-sans antialiased tracking-tight text-xl font-bold text-slate-900 dark:text-white">SidangKu</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 ease-in-out rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="mt-16 px-4 pt-6 space-y-6">
+<!-- Header Info -->
+<section class="space-y-1">
+<h1 class="text-title-lg font-headline-lg text-primary">Dashboard Operator — FTEN</h1>
+<p class="text-body-md text-on-secondary-container">Senin, 20 Mei 2024</p>
+</section>
+<!-- Stats Row (Horizontal Scroll) -->
+<section class="flex overflow-x-auto gap-4 no-scrollbar -mx-4 px-4">
+<div class="min-w-[140px] bg-white border border-outline-variant p-4 rounded-xl flex flex-col gap-2">
+<span class="text-label-md text-secondary">Total Mahasiswa</span>
+<span class="text-headline-md text-orange-600">42</span>
+</div>
+<div class="min-w-[140px] bg-white border border-outline-variant p-4 rounded-xl flex flex-col gap-2">
+<span class="text-label-md text-secondary">Jadwal Hari Ini</span>
+<span class="text-headline-md text-orange-600">5</span>
+</div>
+<div class="min-w-[140px] bg-white border border-outline-variant p-4 rounded-xl flex flex-col gap-2">
+<span class="text-label-md text-secondary">Menunggu Approval</span>
+<span class="text-headline-md text-orange-600">3</span>
+</div>
+<div class="min-w-[140px] bg-white border border-outline-variant p-4 rounded-xl flex flex-col gap-2">
+<span class="text-label-md text-secondary">Berkas Pending</span>
+<span class="text-headline-md text-orange-600">7</span>
+</div>
+</section>
+<!-- Alert Section -->
+<section class="bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-lg flex items-start gap-3">
+<span class="material-symbols-outlined text-orange-600">error</span>
+<p class="text-body-md text-orange-900 leading-tight">3 request pergantian penguji menunggu persetujuan</p>
+</section>
+<!-- Action Cards Grid (2x2 style flow) -->
+<section class="grid grid-cols-2 gap-4">
+<button class="flex flex-col items-start text-left p-4 bg-white border border-outline-variant rounded-xl hover:bg-slate-50 transition-colors gap-3">
+<div class="w-10 h-10 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center">
+<span class="material-symbols-outlined">add_box</span>
+</div>
+<span class="text-label-lg font-semibold text-primary">Input Jadwal Sidang</span>
+</button>
+<button class="flex flex-col items-start text-left p-4 bg-white border border-outline-variant rounded-xl hover:bg-slate-50 transition-colors gap-3">
+<div class="w-10 h-10 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center">
+<span class="material-symbols-outlined">upload_file</span>
+</div>
+<span class="text-label-lg font-semibold text-primary">Import Excel</span>
+</button>
+<button class="flex flex-col items-start text-left p-4 bg-white border border-outline-variant rounded-xl hover:bg-slate-50 transition-colors gap-3">
+<div class="w-10 h-10 rounded-lg bg-slate-100 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">group</span>
+</div>
+<span class="text-label-lg font-semibold text-primary">Kelola Data Mahasiswa</span>
+</button>
+<button class="flex flex-col items-start text-left p-4 bg-white border border-outline-variant rounded-xl hover:bg-slate-50 transition-colors gap-3">
+<div class="w-10 h-10 rounded-lg bg-slate-100 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">badge</span>
+</div>
+<span class="text-label-lg font-semibold text-primary">Kelola Data Dosen</span>
+</button>
+<button class="relative flex flex-col items-start text-left p-4 bg-white border border-outline-variant rounded-xl hover:bg-slate-50 transition-colors gap-3">
+<div class="w-10 h-10 rounded-lg bg-slate-100 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">how_to_reg</span>
+</div>
+<span class="text-label-lg font-semibold text-primary">Approval Penguji</span>
+<span class="absolute top-2 right-2 bg-orange-600 text-white text-[10px] px-2 py-0.5 rounded-full">3</span>
+</button>
+<button class="flex flex-col items-start text-left p-4 bg-white border border-outline-variant rounded-xl hover:bg-slate-50 transition-colors gap-3">
+<div class="w-10 h-10 rounded-lg bg-slate-100 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">description</span>
+</div>
+<span class="text-label-lg font-semibold text-primary">Generate SK</span>
+</button>
+</section>
+<!-- Recent Activity (Supplementary Visual) -->
+<section class="space-y-4">
+<h2 class="text-title-md font-bold text-primary">Aktivitas Terkini</h2>
+<div class="space-y-3">
+<div class="flex items-center gap-4 bg-white p-3 rounded-lg border border-slate-100">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">schedule</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-lg text-primary">Jadwal Sidang #A23 diperbarui</span>
+<span class="text-label-md text-secondary">2 jam yang lalu</span>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-white p-3 rounded-lg border border-slate-100">
+<div class="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm text-green-600">check_circle</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-lg text-primary">SK Sidang Periode II selesai</span>
+<span class="text-label-md text-secondary">5 jam yang lalu</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 shadow-[0_-1px_3px_0_rgba(0,0,0,0.05)] h-20 pb-safe px-2 flex justify-around items-center">
+<!-- Dashboard (Active) -->
+<a class="flex flex-col items-center justify-center bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 rounded-xl px-3 py-1 font-public-sans text-[11px] font-medium transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Jadwal -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 font-public-sans text-[11px] font-medium hover:text-orange-500 dark:hover:text-orange-300 transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span>Jadwal</span>
+</a>
+<!-- Data -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 font-public-sans text-[11px] font-medium hover:text-orange-500 dark:hover:text-orange-300 transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined">database</span>
+<span>Data</span>
+</a>
+<!-- Approval -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 font-public-sans text-[11px] font-medium hover:text-orange-500 dark:hover:text-orange-300 transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined">how_to_reg</span>
+<span>Approval</span>
+</a>
+<!-- Dokumen -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 font-public-sans text-[11px] font-medium hover:text-orange-500 dark:hover:text-orange-300 transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined">description</span>
+<span>Dokumen</span>
+</a>
+</nav>
+</body></html>

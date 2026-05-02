@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Notifikasi - SidangKu</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#0b1c30",
+                    "outline-variant": "#c3c6d1",
+                    "on-primary": "#ffffff",
+                    "surface-container-high": "#dce9ff",
+                    "primary-fixed-dim": "#a7c8ff",
+                    "surface-dim": "#cbdbf5",
+                    "on-error": "#ffffff",
+                    "inverse-primary": "#a7c8ff",
+                    "inverse-surface": "#213145",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "background": "#f8f9ff",
+                    "surface": "#f8f9ff",
+                    "on-tertiary-container": "#c99100",
+                    "surface-bright": "#f8f9ff",
+                    "secondary-fixed": "#dbe3ea",
+                    "on-tertiary-fixed-variant": "#5e4200",
+                    "surface-variant": "#d3e4fe",
+                    "tertiary-fixed": "#ffdea6",
+                    "on-primary-fixed": "#001b3c",
+                    "outline": "#737780",
+                    "on-tertiary-fixed": "#271900",
+                    "on-tertiary": "#ffffff",
+                    "surface-container": "#e5eeff",
+                    "secondary-container": "#dbe3ea",
+                    "surface-container-highest": "#d3e4fe",
+                    "error": "#ba1a1a",
+                    "primary": "#001e40",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#bfc8ce",
+                    "primary-container": "#003366",
+                    "tertiary": "#2a1b00",
+                    "surface-container-low": "#eff4ff",
+                    "on-surface-variant": "#43474f",
+                    "secondary": "#575f65",
+                    "on-secondary-fixed-variant": "#40484d",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#fbbc34",
+                    "on-surface": "#0b1c30",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#d5e3ff",
+                    "on-primary-container": "#799dd6",
+                    "on-secondary-container": "#5d656b",
+                    "on-secondary-fixed": "#151d22",
+                    "surface-tint": "#3a5f94",
+                    "on-primary-fixed-variant": "#1f477b",
+                    "tertiary-container": "#452f00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "xl": "32px",
+                    "xs": "4px",
+                    "margin-mobile": "16px",
+                    "base": "8px",
+                    "md": "16px",
+                    "gutter": "16px",
+                    "sm": "12px",
+                    "margin-desktop": "32px"
+            },
+            "fontFamily": {
+                    "title-md": ["Public Sans"],
+                    "headline-md": ["Public Sans"],
+                    "headline-lg": ["Public Sans"],
+                    "body-md": ["Public Sans"],
+                    "body-lg": ["Public Sans"],
+                    "label-md": ["Inter"],
+                    "display-lg": ["Public Sans"],
+                    "title-lg": ["Public Sans"],
+                    "label-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "title-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0.15px", "fontWeight": "600"}],
+                    "headline-md": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                    "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                    "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-24">
+<!-- TopAppBar Section -->
+<header class="bg-slate-50 shadow-sm sticky top-0 z-50 flex justify-between items-center w-full px-4 h-16 border-b border-slate-200">
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-full hover:bg-slate-100 transition-colors duration-200 text-blue-900">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-public-sans font-bold text-lg text-blue-900">Notifikasi</h1>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-slate-200">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Close up portrait of a professional student wearing a collared shirt, clean studio background, sharp focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN5L2eTe0Xq3TLUUo0SJCx11rQDsWqcSvuNn1HR7Qx9EkytWeSN8sNc9RtCmSABsvQHVTL1T909VfydCzhdKFRbs_awS-pQItbC6CaREBJYzDtxFI35kRAT8WXrNviI8cZKDAL0TG9zvbXHervf6ibUrL9uV2uzvmbw0bb13cXcuHaBUAao-Y_UahBRsY9Y0FhSQNfdNpMn9OvJKH_7kP1B57bOU0uNdCI6izBIxNIlLbwM3q0espEiNCaRMfmlIqTT0kRJQuwRVk"/>
+</div>
+</header>
+<!-- Content Area -->
+<main class="max-w-md mx-auto">
+<!-- Mark All Read Header -->
+<div class="px-margin-mobile py-md flex justify-between items-center">
+<h2 class="font-title-lg text-title-lg text-primary">Aktivitas Terbaru</h2>
+<button class="flex items-center gap-1 text-primary-container font-label-lg text-label-lg hover:underline transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="done_all">done_all</span>
+                Centang Semua Terbaca
+            </button>
+</div>
+<!-- Filter Tabs -->
+<div class="px-margin-mobile mb-md">
+<div class="flex gap-2 overflow-x-auto hide-scrollbar pb-2">
+<button class="px-5 py-2 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg whitespace-nowrap shadow-sm">Semua</button>
+<button class="px-5 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-lg text-label-lg whitespace-nowrap hover:bg-surface-container-high transition-colors">Jadwal</button>
+<button class="px-5 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-lg text-label-lg whitespace-nowrap hover:bg-surface-container-high transition-colors">Berkas</button>
+<button class="px-5 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-lg text-label-lg whitespace-nowrap hover:bg-surface-container-high transition-colors">Nilai</button>
+</div>
+</div>
+<!-- Notification List -->
+<div class="space-y-px">
+<!-- Item 1: Unread -->
+<div class="bg-surface-container-high px-margin-mobile py-lg flex gap-4 transition-colors hover:bg-surface-variant cursor-pointer border-l-4 border-primary-container">
+<div class="w-12 h-12 rounded-xl bg-tertiary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<h3 class="font-title-md text-title-md text-on-surface pr-4">Hasil Sidang Skripsi Tersedia</h3>
+<span class="text-xs font-label-md text-primary-container font-bold whitespace-nowrap">2m</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Nilai sidang skripsi Anda sudah keluar. Silakan cek di menu Nilai.</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-white px-margin-mobile py-lg flex gap-4 transition-colors hover:bg-slate-50 cursor-pointer border-b border-slate-100">
+<div class="w-12 h-12 rounded-xl bg-error-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-error" data-icon="close">close</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<h3 class="font-title-md text-title-md text-on-surface pr-4">Berkas Lembar Persetujuan Ditolak</h3>
+<span class="text-xs font-label-md text-outline whitespace-nowrap">1j</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Berkas Lembar Persetujuan Anda ditolak oleh operator. Silakan cek catatan revisi.</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-white px-margin-mobile py-lg flex gap-4 transition-colors hover:bg-slate-50 cursor-pointer border-b border-slate-100">
+<div class="w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-orange-600" data-icon="schedule">schedule</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<h3 class="font-title-md text-title-md text-on-surface pr-4">Jadwal Sidang Berubah</h3>
+<span class="text-xs font-label-md text-outline whitespace-nowrap">3j</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Jadwal sidang Anda dipindahkan ke Ruang 302.</p>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="bg-white px-margin-mobile py-lg flex gap-4 transition-colors hover:bg-slate-50 cursor-pointer border-b border-slate-100">
+<div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-emerald-700" data-icon="check_circle">check_circle</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<h3 class="font-title-md text-title-md text-on-surface pr-4">Berkas KRS Aktif Diterima</h3>
+<span class="text-xs font-label-md text-outline whitespace-nowrap">1h</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Berkas KRS Aktif Anda telah diverifikasi.</p>
+</div>
+</div>
+<!-- Item 5 -->
+<div class="bg-white px-margin-mobile py-lg flex gap-4 transition-colors hover:bg-slate-50 cursor-pointer border-b border-slate-100">
+<div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-blue-700" data-icon="person">person</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<h3 class="font-title-md text-title-md text-on-surface pr-4">Penguji Sidang Diperbarui</h3>
+<span class="text-xs font-label-md text-outline whitespace-nowrap">2h</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Ada perubahan dosen penguji untuk sidang Anda.</p>
+</div>
+</div>
+<!-- Empty State Illustration Placeholder -->
+<div class="py-12 flex flex-col items-center justify-center opacity-40">
+<div class="w-24 h-24 mb-4 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl" data-icon="history">history</span>
+</div>
+<p class="font-label-md text-label-md">Tidak ada notifikasi lama</p>
+</div>
+</div>
+</main>
+<!-- BottomNavBar Section -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 pb-safe bg-white shadow-[0_-2px_10px_rgba(0,51,102,0.08)] border-t border-slate-200">
+<a class="flex flex-col items-center justify-center text-slate-500 px-5 py-1 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-public-sans text-[11px] font-medium">Beranda</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 px-5 py-1 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="font-public-sans text-[11px] font-medium">Tugas</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-blue-50 text-blue-900 rounded-2xl px-5 py-1 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="notifications" style="font-variation-settings: 'FILL' 1;">notifications</span>
+<span class="font-public-sans text-[11px] font-medium">Notifikasi</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 px-5 py-1 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-public-sans text-[11px] font-medium">Profil</span>
+</a>
+</nav>
+</body></html>
