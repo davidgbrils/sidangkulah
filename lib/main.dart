@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,9 +12,7 @@ import 'router/app_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  unawaited(_initializeFirebaseInBackground());
 
   // Lock orientasi ke portrait
   await SystemChrome.setPreferredOrientations([
@@ -35,6 +35,18 @@ Future<void> main() async {
       child: SidangKuApp(),
     ),
   );
+}
+
+Future<void> _initializeFirebaseInBackground() async {
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    ).timeout(const Duration(seconds: 4));
+  } on TimeoutException catch (e) {
+    debugPrint('Firebase init timeout: $e');
+  } catch (e) {
+    debugPrint('Firebase init failed: $e');
+  }
 }
 
 /// Root widget aplikasi SidangKu

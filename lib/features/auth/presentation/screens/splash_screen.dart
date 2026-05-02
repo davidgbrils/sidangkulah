@@ -12,10 +12,10 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
+  static const Duration _minSplashDuration = Duration(milliseconds: 900);
   late AnimationController _fadeController;
   late AnimationController _slideController;
   late AnimationController _dotsController;
-  Timer? _navigationTimer;
   bool _isNavigating = false;
 
   late Animation<double> _fadeAnimation;
@@ -56,40 +56,36 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       if (mounted) _slideController.forward();
     });
 
-    _startNavigationTimer();
+    _startNavigationFlow();
   }
 
   @override
   void dispose() {
-    _navigationTimer?.cancel();
     _fadeController.dispose();
     _slideController.dispose();
     _dotsController.dispose();
     super.dispose();
   }
 
-  void _startNavigationTimer() {
-    _navigationTimer = Timer(const Duration(milliseconds: 2500), _navigate);
-  }
+  Future<void> _startNavigationFlow() async {
+    final routeFuture = _resolveInitialRoute();
+    await Future.delayed(_minSplashDuration);
+    final targetRoute = await routeFuture;
 
-  Future<void> _navigate() async {
     if (!mounted || _isNavigating) return;
     _isNavigating = true;
+    context.go(targetRoute);
+  }
 
+  Future<String> _resolveInitialRoute() async {
     final prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('auth_token');
     final String? role = prefs.getString('user_role')?.toLowerCase().trim();
 
-    if (!mounted) {
-      _isNavigating = false;
-      return;
-    }
-
     if (token != null && token.isNotEmpty && role != null) {
-      context.go(_routeByRole(role));
-    } else {
-      context.go('/login');
+      return _routeByRole(role);
     }
+    return '/login';
   }
 
   String _routeByRole(String role) {
