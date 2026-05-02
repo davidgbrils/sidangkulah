@@ -120,11 +120,18 @@ class KaprodiRekapNilaiNotifier extends ChangeNotifier {
   }
 
   Future<void> exportExcel() async {
+    final ctx = navigatorKey.currentContext;
+    if (ctx == null) return;
     setState(() => _isExporting = true);
     try {
       await Future.delayed(const Duration(seconds: 2));
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Berhasil mengekspor Excel'), backgroundColor: AppColors.success));
+      if (ctx.mounted) {
+        ScaffoldMessenger.of(ctx).showSnackBar(
+          const SnackBar(
+            content: Text('Berhasil mengekspor Excel'),
+            backgroundColor: AppColors.success,
+          ),
+        );
       }
     } finally {
       setState(() => _isExporting = false);
@@ -132,11 +139,18 @@ class KaprodiRekapNilaiNotifier extends ChangeNotifier {
   }
 
   Future<void> exportPdf() async {
+    final ctx = navigatorKey.currentContext;
+    if (ctx == null) return;
     setState(() => _isExporting = true);
     try {
       await Future.delayed(const Duration(seconds: 2));
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Berhasil mengekspor PDF'), backgroundColor: AppColors.success));
+      if (ctx.mounted) {
+        ScaffoldMessenger.of(ctx).showSnackBar(
+          const SnackBar(
+            content: Text('Berhasil mengekspor PDF'),
+            backgroundColor: AppColors.success,
+          ),
+        );
       }
     } finally {
       setState(() => _isExporting = false);

@@ -267,7 +267,7 @@ class _DaftarSidangScreenState extends State<DaftarSidangScreen> {
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(color: AppColors.inputFill, borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.border)),
+            decoration: BoxDecoration(color: AppColors.surfaceContainerLow, borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.border)),
             child: Text(value, style: AppTheme.bodyMedium.copyWith(color: AppColors.textPrimary)),
           ),
         ],
