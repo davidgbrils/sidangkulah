@@ -61,7 +61,7 @@ class ApprovalPengujiScreen extends StatefulWidget {
 class _ApprovalPengujiScreenState extends State<ApprovalPengujiScreen> {
   int _selectedFilter = 0; // 0 = Menunggu, 1 = Disetujui, 2 = Ditolak, 3 = Semua
 
-  List<RequestGantiPengujiModel> _requests = [
+  final List<RequestGantiPengujiModel> _requests = [
     const RequestGantiPengujiModel(
       id: '1',
       mahasiswaNama: 'Budi Setiawan',

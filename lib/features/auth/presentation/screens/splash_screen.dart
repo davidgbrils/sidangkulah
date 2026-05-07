@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sidangkufix/core/constants/app_colors.dart';
-import 'package:sidangkufix/core/providers/firebase_providers.dart';
 import 'package:sidangkufix/features/auth/presentation/providers/auth_provider.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
@@ -76,8 +75,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with TickerProvider
       
       if (!mounted || _isNavigating) return;
 
-      final user = ref.read(authRepositoryProvider).getCurrentUser();
-      
       final String targetRoute = await _resolveInitialRoute();
 
       if (!mounted || _isNavigating) return;

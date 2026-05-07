@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sidangkufix/core/constants/app_colors.dart';
 import 'package:sidangkufix/core/theme/app_theme.dart';
+import 'package:sidangkufix/core/widgets/bottom_nav_bar.dart';
 import 'package:sidangkufix/core/widgets/section_header.dart';
 
 class DosenStatsModel {
@@ -396,79 +397,11 @@ class _DosenHomeScreenState extends State<DosenHomeScreen> {
   }
 
   Widget _buildBottomNavBar() {
-    final items = [
-      _BottomNavData(Icons.home_outlined, Icons.home_rounded, 'Home'),
-      _BottomNavData(Icons.people_outline_rounded, Icons.people_rounded, 'Mahasiswa'),
-      _BottomNavData(Icons.calendar_today_outlined, Icons.calendar_today_rounded, 'Jadwal'),
-      _BottomNavData(Icons.description_outlined, Icons.description_rounded, 'Formulir'),
-      _BottomNavData(Icons.person_outline_rounded, Icons.person_rounded, 'Profil'),
-    ];
-
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadow,
-            blurRadius: 16,
-            offset: const Offset(0, -4),
-          ),
-        ],
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: items.asMap().entries.map((entry) {
-              final i = entry.key;
-              final item = entry.value;
-              final isSelected = i == _currentNavIndex;
-
-              return InkWell(
-                onTap: () => _handleBottomNavTap(i),
-                borderRadius: BorderRadius.circular(12),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: isSelected
-                        ? AppColors.tertiary.withValues(alpha: 0.1)
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        isSelected ? item.activeIcon : item.icon,
-                        size: 24,
-                        color: isSelected
-                            ? AppColors.tertiary
-                            : AppColors.textTertiary,
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        item.label,
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: isSelected
-                              ? FontWeight.w600
-                              : FontWeight.w400,
-                          color: isSelected
-                              ? AppColors.tertiary
-                              : AppColors.textTertiary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-        ),
-      ),
+    return BottomNavBar(
+      currentIndex: _currentNavIndex,
+      items: BottomNavBar.dosenItems,
+      activeColor: AppColors.tertiary,
+      onTap: _handleBottomNavTap,
     );
   }
 }
@@ -639,12 +572,4 @@ class _StatItem {
     required this.value,
     required this.color,
   });
-}
-
-class _BottomNavData {
-  final IconData icon;
-  final IconData activeIcon;
-  final String label;
-
-  const _BottomNavData(this.icon, this.activeIcon, this.label);
 }

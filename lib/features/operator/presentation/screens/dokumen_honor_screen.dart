@@ -296,7 +296,7 @@ class _DokumenHonorScreenState extends State<DokumenHonorScreen>
         children: [
           Expanded(
             child: DropdownButtonFormField<String>(
-              value: _selectedBulan,
+              initialValue: _selectedBulan,
               decoration: const InputDecoration(
                 labelText: 'Bulan',
                 contentPadding: EdgeInsets.symmetric(
@@ -315,7 +315,7 @@ class _DokumenHonorScreenState extends State<DokumenHonorScreen>
           const SizedBox(width: AppTheme.spacing12),
           Expanded(
             child: DropdownButtonFormField<String>(
-              value: _selectedTahun,
+              initialValue: _selectedTahun,
               decoration: const InputDecoration(
                 labelText: 'Tahun',
                 contentPadding: EdgeInsets.symmetric(

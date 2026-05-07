@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sidangkufix/core/providers/firebase_providers.dart';
 import 'package:sidangkufix/features/auth/data/repositories/firebase_auth_repository.dart';
 import 'package:sidangkufix/features/auth/domain/repositories/auth_repository.dart';
@@ -47,12 +49,59 @@ class AuthNotifier extends StateNotifier<AuthState> {
     state = state.copyWith(isLoading: true, errorMessage: null);
     try {
       final user = await _repository.login(email, password);
+      if (user == null) {
+        state = state.copyWith(
+          isLoading: false,
+          errorMessage: 'Akun tidak ditemukan di sistem. Hubungi admin.',
+        );
+        return;
+      }
+      
+      // Save to SharedPreferences for offline/fast access
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('user_nama', user.nama);
+      await prefs.setString('user_id', user.nim ?? user.id);
+      await prefs.setString('user_role', user.role.name);
+      
       state = state.copyWith(user: user, isLoading: false);
+    } on FirebaseAuthException catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        errorMessage: _mapFirebaseAuthError(e.code),
+      );
+    } on FirebaseException catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        errorMessage: 'Terjadi kesalahan server: ${e.message}',
+      );
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
-        errorMessage: 'Login gagal: Email atau password salah',
+        errorMessage: 'Login gagal. Periksa koneksi internet Anda.',
       );
+    }
+  }
+
+  /// Mapping Firebase Auth error codes ke pesan user-friendly
+  String _mapFirebaseAuthError(String code) {
+    switch (code) {
+      case 'user-not-found':
+        return 'Akun dengan email tersebut tidak ditemukan.';
+      case 'wrong-password':
+      case 'invalid-credential':
+        return 'Password yang Anda masukkan salah.';
+      case 'user-disabled':
+        return 'Akun Anda telah dinonaktifkan. Hubungi admin.';
+      case 'too-many-requests':
+        return 'Terlalu banyak percobaan login. Coba lagi nanti.';
+      case 'invalid-email':
+        return 'Format email tidak valid.';
+      case 'network-request-failed':
+        return 'Tidak dapat terhubung. Periksa koneksi internet Anda.';
+      case 'operation-not-allowed':
+        return 'Metode login ini tidak diaktifkan. Hubungi admin.';
+      default:
+        return 'Login gagal. Silakan coba lagi.';
     }
   }
 
@@ -66,3 +115,4 @@ class AuthNotifier extends StateNotifier<AuthState> {
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   return AuthNotifier(ref.watch(authRepositoryProvider));
 });
+

@@ -1,0 +1,138 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ── Helper Functions ───────────────────────────────────────────────
+    
+    /// Cek apakah user sudah login
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    /// Ambil data user dari Firestore
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+    
+    /// Cek role user
+    function hasRole(role) {
+      return isAuthenticated() && getUserData().role == role;
+    }
+    
+    /// Cek apakah user mengakses data miliknya sendiri
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    /// Cek apakah user adalah admin/operator
+    function isOperator() {
+      return hasRole('operator');
+    }
+    
+    /// Cek apakah user adalah dosen
+    function isDosen() {
+      return hasRole('dosen');
+    }
+    
+    /// Cek apakah user adalah kaprodi
+    function isKaprodi() {
+      return hasRole('kaprodi');
+    }
+    
+    /// Cek apakah user adalah mahasiswa
+    function isMahasiswa() {
+      return hasRole('mahasiswa');
+    }
+    
+    /// Cek apakah user adalah staff (operator, dosen, atau kaprodi)
+    function isStaff() {
+      return isOperator() || isDosen() || isKaprodi();
+    }
+    
+    // ── Users Collection ───────────────────────────────────────────────
+    match /users/{userId} {
+      // User bisa baca data mereka sendiri
+      // Operator bisa baca semua user
+      // Dosen & Kaprodi bisa baca data mahasiswa
+      allow read: if isOwner(userId) || isStaff();
+      
+      // Hanya operator yang bisa create/update user
+      allow create, update: if isOperator();
+      
+      // Tidak ada yang boleh delete user dari client
+      allow delete: if false;
+    }
+    
+    // ── Sidang Collection ──────────────────────────────────────────────
+    match /sidang/{sidangId} {
+      // Semua user yang login bisa baca data sidang
+      allow read: if isAuthenticated();
+      
+      // Operator bisa create & update sidang
+      allow create, update: if isOperator();
+      
+      // Dosen bisa update sidang (misal: input nilai)
+      allow update: if isDosen();
+      
+      // Kaprodi bisa update sidang (misal: approval)
+      allow update: if isKaprodi();
+      
+      // Delete hanya oleh operator
+      allow delete: if isOperator();
+    }
+    
+    // ── Jadwal Collection ──────────────────────────────────────────────
+    match /jadwal/{jadwalId} {
+      allow read: if isAuthenticated();
+      allow create, update, delete: if isOperator();
+    }
+    
+    // ── Nilai Collection ───────────────────────────────────────────────
+    match /nilai/{nilaiId} {
+      // Semua user login bisa baca (mahasiswa lihat nilai mereka via query)
+      allow read: if isAuthenticated();
+      
+      // Hanya dosen yang bisa input/update nilai
+      allow create, update: if isDosen();
+      
+      // Delete hanya operator
+      allow delete: if isOperator();
+    }
+    
+    // ── Dokumen Collection ─────────────────────────────────────────────
+    match /dokumen/{docId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated(); // Mahasiswa upload berkas
+      allow update: if isStaff();
+      allow delete: if isOperator();
+    }
+    
+    // ── Notifikasi Collection ──────────────────────────────────────────
+    match /notifikasi/{notifId} {
+      // User hanya bisa baca notifikasi mereka sendiri
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      
+      // System/operator bisa create notifikasi
+      allow create: if isOperator();
+      
+      // User bisa update (mark as read) notifikasi mereka sendiri
+      allow update: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      
+      allow delete: if false;
+    }
+    
+    // ── Pengajuan Ganti Penguji Collection ─────────────────────────────
+    match /pengajuan_ganti_penguji/{pengajuanId} {
+      allow read: if isAuthenticated();
+      allow create: if isDosen();
+      allow update: if isOperator() || isKaprodi();
+      allow delete: if isOperator();
+    }
+    
+    // ── Default: deny all ──────────────────────────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -3,18 +3,19 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sidangkufix/core/constants/app_colors.dart';
 import 'package:sidangkufix/core/theme/app_theme.dart';
+import 'package:sidangkufix/core/widgets/bottom_nav_bar.dart';
 
 class KaprodiStatsModel {
   final int totalSidang;
   final int lulus;
-  final int revis;
+  final int revisi;
   final int tidakLulus;
   final int pengujiRequest;
 
   const KaprodiStatsModel({
     required this.totalSidang,
     required this.lulus,
-    required this.revis,
+    required this.revisi,
     required this.tidakLulus,
     this.pengujiRequest = 0,
   });
@@ -61,7 +62,7 @@ class KaprodiHomeNotifier extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       _nama = prefs.getString('user_nama') ?? 'Dr. Ahmad Wijaya';
 
-      _stats = const KaprodiStatsModel(totalSidang: 156, lulus: 138, revis: 15, tidakLulus: 3, pengujiRequest: 5);
+      _stats = const KaprodiStatsModel(totalSidang: 156, lulus: 138, revisi: 15, tidakLulus: 3, pengujiRequest: 5);
       _gradeDist = [
         const GradeDist(grade: 'A', count: 45, color: AppColors.success),
         const GradeDist(grade: 'A-', count: 38, color: Color(0xFF90EE90)),
@@ -208,7 +209,7 @@ class _KaprodiHomeScreenState extends State<KaprodiHomeScreen> {
       children: [
         _buildStatCard('Total Sidang', '${stats.totalSidang}', Icons.calendar_month_rounded, AppColors.primary),
         _buildStatCard('Lulus', '${stats.lulus} (${stats.presentaseLulus.toStringAsFixed(0)}%)', Icons.check_circle_rounded, AppColors.success),
-        _buildStatCard('Revisi', '${stats.revis}', Icons.build_rounded, Colors.orange),
+        _buildStatCard('Revisi', '${stats.revisi}', Icons.build_rounded, Colors.orange),
         _buildStatCard('Tidak Lulus', '${stats.tidakLulus}', Icons.cancel_rounded, AppColors.error),
       ],
     );
@@ -259,7 +260,7 @@ class _KaprodiHomeScreenState extends State<KaprodiHomeScreen> {
             ),
           ),
           IconButton(
-            onPressed: () => context.push('/kaprodi/approval'),
+            onPressed: () => context.push('/kaprodi/approval-penguji'),
             icon: const Icon(Icons.arrow_forward_rounded, color: Colors.orange),
           ),
         ],
@@ -311,10 +312,10 @@ class _KaprodiHomeScreenState extends State<KaprodiHomeScreen> {
 
   Widget _buildQuickLinks() {
     final menuItems = [
-      {'icon': Icons.calendar_month_rounded, 'label': 'Jadwal Final', 'route': '/kaprodi/jadwal'},
-      {'icon': Icons.grade_rounded, 'label': 'Rekap Nilai', 'route': '/kaprodi/nilai'},
-      {'icon': Icons.payments_rounded, 'label': 'Rekap Honor', 'route': '/kaprodi/honor'},
-      {'icon': Icons.assessment_rounded, 'label': 'Laporan', 'route': '/kaprodi/laporan'},
+      {'icon': Icons.calendar_month_rounded, 'label': 'Jadwal Final', 'route': '/kaprodi/jadwal-final'},
+      {'icon': Icons.grade_rounded, 'label': 'Rekap Nilai', 'route': '/kaprodi/rekap-nilai'},
+      {'icon': Icons.payments_rounded, 'label': 'Rekap Honor', 'route': '/kaprodi/rekap-honor'},
+      {'icon': Icons.assessment_rounded, 'label': 'Laporan', 'route': '/kaprodi/laporan-sidang'},
     ];
 
     return Column(
@@ -415,53 +416,10 @@ class _KaprodiHomeScreenState extends State<KaprodiHomeScreen> {
   }
 
   Widget _buildBottomNavBar() {
-    final items = [
-      {'icon': Icons.dashboard_rounded, 'activeIcon': Icons.dashboard_rounded, 'label': 'Dashboard'},
-      {'icon': Icons.calendar_month_outlined, 'activeIcon': Icons.calendar_month_rounded, 'label': 'Jadwal'},
-      {'icon': Icons.approval_rounded, 'activeIcon': Icons.approval_rounded, 'label': 'Approval'},
-      {'icon': Icons.table_chart_outlined, 'activeIcon': Icons.table_chart_rounded, 'label': 'Rekap'},
-      {'icon': Icons.person_outline, 'activeIcon': Icons.person_rounded, 'label': 'Profil'},
-    ];
-
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [BoxShadow(color: AppColors.shadow, blurRadius: 16, offset: const Offset(0, -4))],
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: items.asMap().entries.map((e) {
-              final i = e.key;
-              final item = e.value;
-              final isSelected = i == _currentNavIndex;
-              return InkWell(
-                onTap: () => _handleBottomNavTap(i),
-                borderRadius: BorderRadius.circular(12),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: isSelected ? AppColors.primary.withValues(alpha: 0.1) : Colors.transparent,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(isSelected ? item['activeIcon'] as IconData : item['icon'] as IconData, size: 24, color: isSelected ? AppColors.primary : AppColors.textTertiary),
-                      const SizedBox(height: 4),
-                      Text(item['label'] as String, style: TextStyle(fontSize: 11, fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400, color: isSelected ? AppColors.primary : AppColors.textTertiary)),
-                    ],
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-        ),
-      ),
+    return BottomNavBar(
+      currentIndex: _currentNavIndex,
+      items: BottomNavBar.kaprodiItems,
+      onTap: _handleBottomNavTap,
     );
   }
 
@@ -472,13 +430,13 @@ class _KaprodiHomeScreenState extends State<KaprodiHomeScreen> {
         context.go('/kaprodi');
         break;
       case 1:
-        context.go('/kaprodi/jadwal');
+        context.go('/kaprodi/jadwal-final');
         break;
       case 2:
-        context.go('/kaprodi/approval');
+        context.go('/kaprodi/approval-penguji');
         break;
       case 3:
-        context.go('/kaprodi/nilai');
+        context.go('/kaprodi/rekap-nilai');
         break;
       case 4:
         context.go('/kaprodi/profil');
