@@ -10,6 +10,7 @@ import 'package:sidangkufix/features/auth/domain/user_model.dart';
 import 'package:sidangkufix/core/utils/firebase_seeder.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:sidangkufix/features/auth/presentation/providers/auth_provider.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -312,8 +313,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
               ),
               GestureDetector(
-                onTap: () {
-                  _showInfo('Silakan hubungi admin prodi melalui kanal resmi kampus.');
+                onTap: () async {
+                  final Uri url = Uri.parse('https://wa.me/6285719211998');
+                  if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+                    _showInfo('Tidak dapat membuka WhatsApp. Silakan hubungi 6285719211998');
+                  }
                 },
                 child: Text(
                   'Hubungi Admin Prodi',

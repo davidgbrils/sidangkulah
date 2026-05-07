@@ -8,54 +8,75 @@ class FirebaseSeeder {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<void> seedInitialData() async {
-    debugPrint('🚀 Memulai Seeding Data Firebase...');
+    debugPrint('🚀 [SEEDER] Memulai Seeding Data Firebase...');
+    int successCount = 0;
+    int failCount = 0;
 
     try {
-      // 1. Seed Users (Auth & Firestore)
       for (final user in SeedUsers.all) {
-        await _seedUser(user);
+        final success = await _seedUser(user);
+        if (success) {
+          successCount++;
+        } else {
+          failCount++;
+        }
+        // Beri jeda sedikit agar tidak terkena rate limit
+        await Future.delayed(const Duration(milliseconds: 500));
       }
 
-      // 2. Seed Sidang Data (Contoh)
       await _seedSidang();
 
-      debugPrint('✅ Seeding Selesai!');
+      debugPrint('✅ [SEEDER] Seeding Selesai!');
+      debugPrint('📊 [SEEDER] Berhasil: $successCount, Gagal: $failCount');
     } catch (e) {
-      debugPrint('❌ Seeding Gagal: $e');
+      debugPrint('❌ [SEEDER] Error Global: $e');
     }
   }
 
-  Future<void> _seedUser(UserModel user) async {
+  Future<bool> _seedUser(UserModel user) async {
     try {
-      debugPrint('Mencoba membuat user: ${user.email}');
+      debugPrint('🟡 [SEEDER] Memproses: ${user.email}...');
       
-      // Buat User di Firebase Auth
-      UserCredential credential;
+      String? uid;
+
       try {
-        credential = await _auth.createUserWithEmailAndPassword(
+        // Coba buat user baru
+        final credential = await _auth.createUserWithEmailAndPassword(
           email: user.email,
           password: user.password,
         );
+        uid = credential.user?.uid;
+        debugPrint('🟢 [SEEDER] Akun BARU dibuat: ${user.email}');
       } on FirebaseAuthException catch (e) {
         if (e.code == 'email-already-in-use') {
-          debugPrint('User ${user.email} sudah ada di Auth.');
-          // Jika sudah ada, kita coba login untuk dapat UID nya
-          credential = await _auth.signInWithEmailAndPassword(
+          debugPrint('🔵 [SEEDER] Akun SUDAH ADA: ${user.email}. Mencoba sinkronisasi data...');
+          // Jika sudah ada, kita butuh UID-nya. 
+          // Karena kita tidak bisa ambil UID tanpa login, kita coba login sementara.
+          final loginCred = await _auth.signInWithEmailAndPassword(
             email: user.email,
             password: user.password,
           );
+          uid = loginCred.user?.uid;
         } else {
-          rethrow;
+          debugPrint('🔴 [SEEDER] Gagal membuat ${user.email}: ${e.message}');
+          return false;
         }
       }
 
-      final uid = credential.user!.uid;
-
-      // Buat Document di Firestore
-      await _firestore.collection('users').doc(uid).set(user.toFirestore());
-      debugPrint('Berhasil seeding user: ${user.nama} (ID: $uid)');
+      if (uid != null) {
+        // Update/Set data di Firestore
+        await _firestore.collection('users').doc(uid).set(user.toFirestore());
+        debugPrint('✨ [SEEDER] Firestore Sync Berhasil: ${user.nama}');
+        
+        // Logout setelah sinkronisasi agar tidak mengganggu state aplikasi
+        await _auth.signOut();
+        return true;
+      }
+      
+      return false;
     } catch (e) {
-      debugPrint('Error seeding user ${user.email}: $e');
+      debugPrint('🔴 [SEEDER] Error pada ${user.email}: $e');
+      return false;
     }
   }
 
