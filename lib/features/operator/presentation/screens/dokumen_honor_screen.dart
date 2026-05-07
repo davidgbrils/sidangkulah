@@ -188,7 +188,7 @@ class _DokumenHonorScreenState extends State<DokumenHonorScreen>
     final hasBelum =
         _skCards.any((s) => s.status == DokumenStatus.belumGenerate);
     if (!hasBelum) return const SizedBox.shrink();
-    return TextButton.icon(
+    return ElevatedButton.icon(
       onPressed: () {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Membuat semua SK...')),
@@ -196,8 +196,9 @@ class _DokumenHonorScreenState extends State<DokumenHonorScreen>
       },
       icon: const Icon(Icons.auto_awesome_rounded, size: 16),
       label: const Text('Generate Semua'),
-      style: TextButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        minimumSize: const Size(0, 36),
       ),
     );
   }
@@ -215,11 +216,11 @@ class _DokumenHonorScreenState extends State<DokumenHonorScreen>
       children: [
         // Summary card
         Container(
-          margin: const EdgeInsets.all(16),
-          padding: const EdgeInsets.all(20),
+          margin: const EdgeInsets.all(AppTheme.spacing16),
+          padding: const EdgeInsets.all(AppTheme.spacing20),
           decoration: BoxDecoration(
             gradient: AppColors.primaryGradient,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: AppTheme.borderRadiusLarge,
             boxShadow: AppTheme.shadowMedium,
           ),
           child: Row(
@@ -290,20 +291,17 @@ class _DokumenHonorScreenState extends State<DokumenHonorScreen>
     const tahunList = ['2024', '2023', '2022'];
 
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(AppTheme.spacing16),
       child: Row(
         children: [
           Expanded(
             child: DropdownButtonFormField<String>(
               value: _selectedBulan,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Bulan',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
                 ),
               ),
               items: bulanList
@@ -314,18 +312,15 @@ class _DokumenHonorScreenState extends State<DokumenHonorScreen>
               },
             ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: AppTheme.spacing12),
           Expanded(
             child: DropdownButtonFormField<String>(
               value: _selectedTahun,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Tahun',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
                 ),
               ),
               items: tahunList
@@ -359,39 +354,42 @@ class _DokumenHonorScreenState extends State<DokumenHonorScreen>
 
   Widget _buildBottomActions() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
+      padding: const EdgeInsets.fromLTRB(AppTheme.spacing16, AppTheme.spacing12, AppTheme.spacing16, AppTheme.spacing16),
+      decoration: const BoxDecoration(
+        color: AppColors.surface,
         border: Border(
           top: BorderSide(color: AppColors.borderLight),
         ),
       ),
-      child: Row(
-        children: [
-          Expanded(
-            child: OutlinedButton.icon(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Mengekspor Excel...')),
-                );
-              },
-              icon: const Icon(Icons.table_chart_rounded, size: 18),
-              label: const Text('Ekspor Excel'),
+      child: SafeArea(
+        top: false,
+        child: Row(
+          children: [
+            Expanded(
+              child: OutlinedButton.icon(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Mengekspor Excel...')),
+                  );
+                },
+                icon: const Icon(Icons.table_chart_rounded, size: 18),
+                label: const Text('Ekspor Excel'),
+              ),
             ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: ElevatedButton.icon(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Mencetak PDF...')),
-                );
-              },
-              icon: const Icon(Icons.picture_as_pdf_rounded, size: 18),
-              label: const Text('Cetak PDF'),
+            const SizedBox(width: AppTheme.spacing12),
+            Expanded(
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Mencetak PDF...')),
+                  );
+                },
+                icon: const Icon(Icons.picture_as_pdf_rounded, size: 18),
+                label: const Text('Cetak PDF'),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -426,10 +424,15 @@ class _SKCardWidget extends StatelessWidget {
         break;
     }
 
-    return Card(
-      margin: const EdgeInsets.only(bottom: 8),
+    return Container(
+      margin: const EdgeInsets.only(bottom: AppTheme.spacing8),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: AppTheme.borderRadiusMedium,
+        boxShadow: AppTheme.shadowSmall,
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(AppTheme.spacing16),
         child: Row(
           children: [
             Container(
@@ -463,7 +466,7 @@ class _SKCardWidget extends StatelessWidget {
                       color: AppColors.textSecondary,
                     ),
                   ),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: AppTheme.spacing8),
                   StatusChip(label: statusLabel, type: statusType),
                 ],
               ),
@@ -510,15 +513,20 @@ class _HonorDosenCard extends StatelessWidget {
     );
     final isBelumBayar = honor.status == 'Belum Dibayar';
 
-    return Card(
-      margin: const EdgeInsets.only(bottom: 8),
+    return Container(
+      margin: const EdgeInsets.only(bottom: AppTheme.spacing8),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: AppTheme.borderRadiusMedium,
+        boxShadow: AppTheme.shadowSmall,
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(14),
+        padding: const EdgeInsets.all(AppTheme.spacing16),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AvatarInitials(name: honor.nama),
-            const SizedBox(width: 12),
+            const SizedBox(width: AppTheme.spacing12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -534,13 +542,13 @@ class _HonorDosenCard extends StatelessWidget {
                     style:
                         AppTheme.caption.copyWith(color: AppColors.textTertiary),
                   ),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: AppTheme.spacing8),
                   Row(
                     children: [
                       _infoChip(
                           '${honor.jumlahSidangPenguji}x Penguji',
                           Icons.person_search_rounded),
-                      const SizedBox(width: 6),
+                      const SizedBox(width: AppTheme.spacing8),
                       _infoChip(
                           '${honor.jumlahSidangPembimbing}x Pembimbing',
                           Icons.supervisor_account_rounded),

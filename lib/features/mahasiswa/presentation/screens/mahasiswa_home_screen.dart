@@ -39,9 +39,10 @@ class MahasiswaHomeNotifier extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       _nama = prefs.getString('user_nama') ?? 'Mahasiswa';
       _nim = prefs.getString('user_id') ?? '202011001';
-      
+
       _prodi = 'Teknik Informatika';
-      _judulSkripsi = 'Analisis Sistem Keamanan Jaringan Menggunakan Metode Deep Learning pada IoT';
+      _judulSkripsi =
+          'Analisis Sistem Keamanan Jaringan Menggunakan Metode Deep Learning pada IoT';
       _statusBerkas = 'LENGKAP';
       _jadwalSidang = '15 Januari 2025';
       _waktuSidang = '09:00 WIB';
@@ -135,7 +136,10 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
           children: [
             IconButton(
               onPressed: () => context.push('/notifikasi'),
-              icon: const Icon(Icons.notifications_outlined, color: Colors.white),
+              icon: const Icon(
+                Icons.notifications_outlined,
+                color: Colors.white,
+              ),
             ),
             if (notifier.unreadCount > 0)
               Positioned(
@@ -200,7 +204,13 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
         color: hasJadwal ? null : Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: hasJadwal
-            ? [BoxShadow(color: AppColors.primary.withValues(alpha: 0.3), blurRadius: 12, offset: const Offset(0, 6))]
+            ? [
+                BoxShadow(
+                  color: AppColors.primary.withValues(alpha: 0.3),
+                  blurRadius: 12,
+                  offset: const Offset(0, 6),
+                ),
+              ]
             : [BoxShadow(color: AppColors.shadow, blurRadius: 8)],
       ),
       child: hasJadwal
@@ -210,7 +220,12 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Jadwal Sidang', style: AppTheme.bodyMedium.copyWith(color: Colors.white.withValues(alpha: 0.8))),
+                    Text(
+                      'Jadwal Sidang',
+                      style: AppTheme.bodyMedium.copyWith(
+                        color: Colors.white.withValues(alpha: 0.8),
+                      ),
+                    ),
                     _buildStatusChip(notifier.statusSidang ?? 'TERJADWAL'),
                   ],
                 ),
@@ -221,18 +236,38 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(notifier.jadwalSidang!, style: AppTheme.headingMedium.copyWith(color: Colors.white, fontWeight: FontWeight.w700)),
+                          Text(
+                            notifier.jadwalSidang!,
+                            style: AppTheme.headingMedium.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                           const SizedBox(height: 4),
-                          Text(notifier.waktuSidang!, style: AppTheme.bodyMedium.copyWith(color: Colors.white.withValues(alpha: 0.9))),
+                          Text(
+                            notifier.waktuSidang!,
+                            style: AppTheme.bodyMedium.copyWith(
+                              color: Colors.white.withValues(alpha: 0.9),
+                            ),
+                          ),
                         ],
                       ),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Icon(Icons.location_on_rounded, color: Colors.white.withValues(alpha: 0.8), size: 20),
+                        Icon(
+                          Icons.location_on_rounded,
+                          color: Colors.white.withValues(alpha: 0.8),
+                          size: 20,
+                        ),
                         const SizedBox(height: 4),
-                        Text(notifier.ruangan ?? '-', style: AppTheme.bodySmall.copyWith(color: Colors.white)),
+                        Text(
+                          notifier.ruangan ?? '-',
+                          style: AppTheme.bodySmall.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -243,9 +278,19 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text('Lihat Detail', style: AppTheme.bodySmall.copyWith(color: Colors.white, fontWeight: FontWeight.w600)),
+                      Text(
+                        'Lihat Detail',
+                        style: AppTheme.bodySmall.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                       const SizedBox(width: 4),
-                      const Icon(Icons.arrow_forward_rounded, color: Colors.white, size: 16),
+                      const Icon(
+                        Icons.arrow_forward_rounded,
+                        color: Colors.white,
+                        size: 16,
+                      ),
                     ],
                   ),
                 ),
@@ -253,11 +298,25 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
             )
           : Column(
               children: [
-                Icon(Icons.calendar_today_rounded, size: 48, color: AppColors.textTertiary),
+                Icon(
+                  Icons.calendar_today_rounded,
+                  size: 48,
+                  color: AppColors.textTertiary,
+                ),
                 const SizedBox(height: 12),
-                Text('Belum ada jadwal sidang', style: AppTheme.bodyMedium.copyWith(color: AppColors.textSecondary)),
+                Text(
+                  'Belum ada jadwal sidang',
+                  style: AppTheme.bodyMedium.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
+                ),
                 const SizedBox(height: 8),
-                Text('Silakan lengkapi persyaratan terlebih dahulu', style: AppTheme.caption.copyWith(color: AppColors.textTertiary)),
+                Text(
+                  'Silakan lengkapi persyaratan terlebih dahulu',
+                  style: AppTheme.caption.copyWith(
+                    color: AppColors.textTertiary,
+                  ),
+                ),
               ],
             ),
     );
@@ -285,30 +344,65 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
     }
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(20)),
-      child: Text(status, style: AppTheme.caption.copyWith(color: textColor, fontWeight: FontWeight.w600)),
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        status,
+        style: AppTheme.caption.copyWith(
+          color: textColor,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
     );
   }
 
   Widget _buildStatsRow() {
     return Row(
       children: [
-        Expanded(child: _buildInfoCard('Status Berkas', notifier.statusBerkas, Icons.verified_user_rounded, AppColors.success)),
+        Expanded(
+          child: _buildInfoCard(
+            'Status Berkas',
+            notifier.statusBerkas,
+            Icons.verified_user_rounded,
+            AppColors.success,
+          ),
+        ),
         const SizedBox(width: 12),
-        Expanded(child: _buildInfoCard('Status Nilai', 'BELUM', Icons.lock_rounded, AppColors.textTertiary)),
+        Expanded(
+          child: _buildInfoCard(
+            'Status Nilai',
+            'BELUM',
+            Icons.lock_rounded,
+            AppColors.textTertiary,
+          ),
+        ),
       ],
     );
   }
 
-  Widget _buildInfoCard(String label, String value, IconData icon, Color color) {
+  Widget _buildInfoCard(
+    String label,
+    String value,
+    IconData icon,
+    Color color,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.borderLight)),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.borderLight),
+      ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: Icon(icon, color: color, size: 24),
           ),
           const SizedBox(width: 12),
@@ -316,8 +410,19 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(label, style: AppTheme.caption.copyWith(color: AppColors.textSecondary)),
-                Text(value, style: AppTheme.bodyMedium.copyWith(fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                Text(
+                  label,
+                  style: AppTheme.caption.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+                Text(
+                  value,
+                  style: AppTheme.bodyMedium.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
               ],
             ),
           ),
@@ -335,18 +440,24 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Tim Dosen', style: AppTheme.bodyMedium.copyWith(fontWeight: FontWeight.w600)),
+        Text(
+          'Tim Dosen',
+          style: AppTheme.bodyMedium.copyWith(fontWeight: FontWeight.w600),
+        ),
         const SizedBox(height: 12),
         SizedBox(
           height: 50,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: dosen.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 12),
+            separatorBuilder: (_, _) => const SizedBox(width: 12),
             itemBuilder: (context, index) {
               final d = dosen[index];
               return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(25),
@@ -357,15 +468,33 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
                     CircleAvatar(
                       radius: 14,
                       backgroundColor: AppColors.primary.withValues(alpha: 0.1),
-                      child: Text(d['nama']![0], style: TextStyle(color: AppColors.primary, fontSize: 12, fontWeight: FontWeight.w600)),
+                      child: Text(
+                        d['nama']![0],
+                        style: TextStyle(
+                          color: AppColors.primary,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 8),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(d['nama']!, style: AppTheme.bodySmall.copyWith(fontWeight: FontWeight.w500)),
-                        Text(d['role']!, style: AppTheme.caption.copyWith(color: AppColors.textTertiary, fontSize: 10)),
+                        Text(
+                          d['nama']!,
+                          style: AppTheme.bodySmall.copyWith(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          d['role']!,
+                          style: AppTheme.caption.copyWith(
+                            color: AppColors.textTertiary,
+                            fontSize: 10,
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -380,25 +509,53 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
 
   Widget _buildQuickMenuGrid() {
     final menuItems = [
-      {'icon': Icons.calendar_month_rounded, 'label': 'Jadwal Sidang', 'route': '/mahasiswa/jadwal'},
-      {'icon': Icons.upload_file_rounded, 'label': 'Upload Berkas', 'route': '/mahasiswa/berkas'},
-      {'icon': Icons.grade_rounded, 'label': 'Nilai', 'route': '/mahasiswa/nilai'},
-      {'icon': Icons.notifications_rounded, 'label': 'Notifikasi', 'route': '/notifikasi'},
+      {
+        'icon': Icons.calendar_month_rounded,
+        'label': 'Jadwal Sidang',
+        'route': '/mahasiswa/jadwal',
+      },
+      {
+        'icon': Icons.upload_file_rounded,
+        'label': 'Upload Berkas',
+        'route': '/mahasiswa/berkas',
+      },
+      {
+        'icon': Icons.grade_rounded,
+        'label': 'Nilai',
+        'route': '/mahasiswa/nilai',
+      },
+      {
+        'icon': Icons.notifications_rounded,
+        'label': 'Notifikasi',
+        'route': '/notifikasi',
+      },
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Menu Utama', style: AppTheme.bodyMedium.copyWith(fontWeight: FontWeight.w600)),
+        Text(
+          'Menu Utama',
+          style: AppTheme.bodyMedium.copyWith(fontWeight: FontWeight.w600),
+        ),
         const SizedBox(height: 12),
         GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 12, crossAxisSpacing: 12, childAspectRatio: 1.4),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 12,
+            crossAxisSpacing: 12,
+            childAspectRatio: 1.4,
+          ),
           itemCount: menuItems.length,
           itemBuilder: (context, index) {
             final menu = menuItems[index];
-            return _buildMenuCard(menu['icon'] as IconData, menu['label'] as String, menu['route'] as String);
+            return _buildMenuCard(
+              menu['icon'] as IconData,
+              menu['label'] as String,
+              menu['route'] as String,
+            );
           },
         ),
       ],
@@ -414,18 +571,30 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
         borderRadius: BorderRadius.circular(14),
         child: Container(
           padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), border: Border.all(color: AppColors.borderLight)),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: AppColors.borderLight),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: Icon(icon, color: AppColors.primary, size: 24),
               ),
               const Spacer(),
-              Text(label, style: AppTheme.bodySmall.copyWith(fontWeight: FontWeight.w500, color: AppColors.textPrimary)),
+              Text(
+                label,
+                style: AppTheme.bodySmall.copyWith(
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.textPrimary,
+                ),
+              ),
             ],
           ),
         ),
@@ -435,17 +604,43 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
 
   Widget _buildBottomNavBar() {
     final items = [
-      {'icon': Icons.home_rounded, 'activeIcon': Icons.home_rounded, 'label': 'Home'},
-      {'icon': Icons.calendar_month_outlined, 'activeIcon': Icons.calendar_month_rounded, 'label': 'Jadwal'},
-      {'icon': Icons.description_outlined, 'activeIcon': Icons.description_rounded, 'label': 'Berkas'},
-      {'icon': Icons.grade_outlined, 'activeIcon': Icons.grade_rounded, 'label': 'Nilai'},
-      {'icon': Icons.person_outline, 'activeIcon': Icons.person_rounded, 'label': 'Profil'},
+      {
+        'icon': Icons.home_rounded,
+        'activeIcon': Icons.home_rounded,
+        'label': 'Home',
+      },
+      {
+        'icon': Icons.calendar_month_outlined,
+        'activeIcon': Icons.calendar_month_rounded,
+        'label': 'Jadwal',
+      },
+      {
+        'icon': Icons.description_outlined,
+        'activeIcon': Icons.description_rounded,
+        'label': 'Berkas',
+      },
+      {
+        'icon': Icons.grade_outlined,
+        'activeIcon': Icons.grade_rounded,
+        'label': 'Nilai',
+      },
+      {
+        'icon': Icons.person_outline,
+        'activeIcon': Icons.person_rounded,
+        'label': 'Profil',
+      },
     ];
 
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: [BoxShadow(color: AppColors.shadow, blurRadius: 16, offset: const Offset(0, -4))],
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.shadow,
+            blurRadius: 16,
+            offset: const Offset(0, -4),
+          ),
+        ],
       ),
       child: SafeArea(
         top: false,
@@ -462,17 +657,41 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
                 borderRadius: BorderRadius.circular(12),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
-                    color: isSelected ? AppColors.primary.withValues(alpha: 0.1) : Colors.transparent,
+                    color: isSelected
+                        ? AppColors.primary.withValues(alpha: 0.1)
+                        : Colors.transparent,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(isSelected ? item['activeIcon'] as IconData : item['icon'] as IconData, size: 24, color: isSelected ? AppColors.primary : AppColors.textTertiary),
+                      Icon(
+                        isSelected
+                            ? item['activeIcon'] as IconData
+                            : item['icon'] as IconData,
+                        size: 24,
+                        color: isSelected
+                            ? AppColors.primary
+                            : AppColors.textTertiary,
+                      ),
                       const SizedBox(height: 4),
-                      Text(item['label'] as String, style: TextStyle(fontSize: 11, fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400, color: isSelected ? AppColors.primary : AppColors.textTertiary)),
+                      Text(
+                        item['label'] as String,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: isSelected
+                              ? FontWeight.w600
+                              : FontWeight.w400,
+                          color: isSelected
+                              ? AppColors.primary
+                              : AppColors.textTertiary,
+                        ),
+                      ),
                     ],
                   ),
                 ),

@@ -1,18 +1,19 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sidangkufix/core/constants/app_colors.dart';
+import 'package:sidangkufix/core/providers/firebase_providers.dart';
+import 'package:sidangkufix/features/auth/presentation/providers/auth_provider.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
+class _SplashScreenState extends ConsumerState<SplashScreen> with TickerProviderStateMixin {
   static const Duration _minSplashDuration = Duration(milliseconds: 2000);
   late AnimationController _fadeController;
   late AnimationController _slideController;
@@ -70,12 +71,14 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
   Future<void> _startNavigationFlow() async {
     try {
-      final results = await Future.wait([
-        _resolveInitialRoute(),
-        Future.delayed(_minSplashDuration),
-      ]);
+      // Tunggu durasi minimum splash
+      await Future.delayed(_minSplashDuration);
       
-      final String targetRoute = results[0] as String;
+      if (!mounted || _isNavigating) return;
+
+      final user = ref.read(authRepositoryProvider).getCurrentUser();
+      
+      final String targetRoute = await _resolveInitialRoute();
 
       if (!mounted || _isNavigating) return;
       
@@ -97,12 +100,9 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
   Future<String> _resolveInitialRoute() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final String? token = prefs.getString('auth_token');
-      final String? role = prefs.getString('user_role')?.toLowerCase().trim();
-
-      if (token != null && token.isNotEmpty && role != null) {
-        return _routeByRole(role);
+      final user = await ref.read(authRepositoryProvider).getCurrentUser();
+      if (user != null) {
+        return _routeByRole(user.roleString);
       }
     } catch (e) {
       debugPrint('Error resolving route in splash: $e');

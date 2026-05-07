@@ -152,19 +152,18 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
     return SliverAppBar(
       pinned: true,
       floating: false,
-      expandedHeight: 150,
-      backgroundColor: Colors.white,
+      expandedHeight: 160,
+      backgroundColor: AppColors.surface,
       surfaceTintColor: Colors.transparent,
       elevation: 0,
       leading: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(AppTheme.spacing8),
         child: CircleAvatar(
           backgroundColor: AppColors.primary,
-          child: const Text('Op',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12)),
+          child: Text('Op',
+              style: AppTheme.labelMedium.copyWith(
+                  color: AppColors.textOnPrimary,
+                  fontWeight: FontWeight.w700)),
         ),
       ),
       actions: [
@@ -182,10 +181,12 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
                 top: 12,
                 right: 12,
                 child: Container(
-                  width: 8,
-                  height: 8,
-                  decoration: const BoxDecoration(
-                      color: AppColors.error, shape: BoxShape.circle),
+                  width: 10,
+                  height: 10,
+                  decoration: BoxDecoration(
+                      color: AppColors.error,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: AppColors.surface, width: 2)),
                 ),
               ),
             ],
@@ -195,7 +196,7 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
       flexibleSpace: LayoutBuilder(
         builder: (context, constraints) {
           // Hitung progres scroll (0.0 = collapsed, 1.0 = fully expanded)
-          final double expandedHeight = 150.0;
+          final double expandedHeight = 160.0;
           final double collapsedHeight = kToolbarHeight + MediaQuery.of(context).padding.top;
           final double t = ((constraints.maxHeight - collapsedHeight) / (expandedHeight - collapsedHeight)).clamp(0.0, 1.0);
 
@@ -205,41 +206,39 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
               opacity: (1.0 - (t * 2.0)).clamp(0.0, 1.0), // Muncul hanya saat collapsed
               child: Text(
                 'Dashboard',
-                style: TextStyle(
+                style: AppTheme.headingMedium.copyWith(
                   color: AppColors.primary,
                   fontWeight: FontWeight.w800,
-                  fontSize: 18,
                 ),
               ),
             ),
             background: Container(
-              color: Colors.white,
+              color: AppColors.surface,
               child: SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                  padding: const EdgeInsets.fromLTRB(AppTheme.spacing16, AppTheme.spacing12, AppTheme.spacing16, 0),
                   child: Opacity(
                     opacity: (t * 1.5 - 0.5).clamp(0.0, 1.0), // Hilang saat collapsed
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 10),
+                        const SizedBox(height: AppTheme.spacing12),
                         Text(
                           'SidangKu',
-                          style: TextStyle(
+                          style: AppTheme.headingLarge.copyWith(
                             color: AppColors.primary,
                             fontWeight: FontWeight.w900,
-                            fontSize: 22,
                             letterSpacing: 0.5,
                           ),
                         ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: AppTheme.spacing4),
                         Text(
                           'Dashboard Operator',
                           style: AppTheme.headingSmall.copyWith(
                               fontWeight: FontWeight.w800,
-                              color: AppColors.primary,
-                              fontSize: 18),
+                              color: AppColors.primary),
                         ),
+                        const SizedBox(height: AppTheme.spacing4),
                         Text(
                           _todayLabel,
                           style: AppTheme.caption.copyWith(
@@ -301,14 +300,14 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
                     .copyWith(color: AppColors.textTertiary)),
           ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppTheme.spacing12),
         SizedBox(
-          height: 125,
+          height: 120,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
             itemCount: items.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 12),
+            separatorBuilder: (_, __) => const SizedBox(width: AppTheme.spacing12),
             itemBuilder: (_, i) => items[i],
           ),
         ),
@@ -320,10 +319,10 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
     return GestureDetector(
       onTap: () => context.push('/operator/approval-ganti-penguji'),
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppTheme.spacing16),
         decoration: BoxDecoration(
           color: AppColors.warningLight,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: AppTheme.borderRadiusLarge,
           border: Border.all(color: AppColors.warning.withValues(alpha: 0.3)),
         ),
         child: Row(
@@ -338,7 +337,7 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
               child: const Icon(Icons.warning_amber_rounded,
                   color: AppColors.warning, size: 24),
             ),
-            const SizedBox(width: 16),
+            const SizedBox(width: AppTheme.spacing16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -346,24 +345,24 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
                   Text('Persetujuan Penguji',
                       style: AppTheme.bodyMedium.copyWith(
                           fontWeight: FontWeight.w800,
-                          color: const Color(0xFFD84315))),
-                  const SizedBox(height: 2),
+                          color: AppColors.textPrimary)),
+                  const SizedBox(height: AppTheme.spacing4),
                   Text(
                     '${_stats.menungguApproval} request perlu diproses',
                     style: AppTheme.bodySmall.copyWith(
-                        color: const Color(0xFFE64A19), height: 1.3),
+                        color: AppColors.warning, height: 1.3, fontWeight: FontWeight.w600),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: AppTheme.spacing8),
                   Row(
                     children: [
                       Text('PROSES SEKARANG',
                           style: AppTheme.caption.copyWith(
-                              color: const Color(0xFFD84315),
+                              color: AppColors.warning,
                               fontWeight: FontWeight.w900,
                               letterSpacing: 0.8)),
-                      const SizedBox(width: 4),
+                      const SizedBox(width: AppTheme.spacing4),
                       const Icon(Icons.arrow_forward_ios_rounded,
-                          size: 10, color: Color(0xFFD84315)),
+                          size: 10, color: AppColors.warning),
                     ],
                   ),
                 ],
@@ -428,8 +427,8 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
       itemCount: actions.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
+        crossAxisSpacing: AppTheme.spacing12,
+        mainAxisSpacing: AppTheme.spacing12,
         childAspectRatio: 1.3,
       ),
       itemBuilder: (_, i) => _buildActionCard(actions[i]),
@@ -440,21 +439,16 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
     return GestureDetector(
       onTap: item.onTap,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppTheme.spacing16),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
+          color: AppColors.surface,
+          borderRadius: AppTheme.borderRadiusLarge,
           border: Border.all(color: AppColors.borderLight.withValues(alpha: 0.5)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.02),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
+          boxShadow: AppTheme.shadowSmall,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Stack(
               clipBehavior: Clip.none,
@@ -464,7 +458,7 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
                   height: 40,
                   decoration: BoxDecoration(
                     color: item.bgColor,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: AppTheme.borderRadiusMedium,
                   ),
                   child: Icon(item.icon, color: item.iconColor, size: 20),
                 ),
@@ -474,18 +468,20 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
                     right: -4,
                     child: Container(
                       padding: const EdgeInsets.all(4),
-                      decoration: const BoxDecoration(
-                          color: AppColors.error, shape: BoxShape.circle),
+                      decoration: BoxDecoration(
+                          color: AppColors.error, 
+                          shape: BoxShape.circle,
+                          border: Border.all(color: AppColors.surface, width: 1.5)),
                       child: Text(item.badge!,
                           style: const TextStyle(
-                              color: Colors.white,
+                              color: AppColors.textOnDark,
                               fontSize: 9,
                               fontWeight: FontWeight.w900)),
                     ),
                   ),
               ],
             ),
-            const Spacer(),
+            const SizedBox(height: AppTheme.spacing12),
             Text(
               item.label,
               style: AppTheme.bodySmall.copyWith(
@@ -504,8 +500,8 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
   Widget _buildActivityList() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        color: AppColors.surface,
+        borderRadius: AppTheme.borderRadiusLarge,
         border: Border.all(color: AppColors.borderLight.withValues(alpha: 0.5)),
       ),
       child: ListView.separated(
@@ -513,7 +509,7 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
         physics: const NeverScrollableScrollPhysics(),
         itemCount: _activities.length,
         separatorBuilder: (_, __) =>
-            Divider(color: AppColors.borderLight.withValues(alpha: 0.3), height: 1, indent: 64),
+            const Divider(color: AppColors.divider, height: 1, indent: 64),
         itemBuilder: (_, i) => _buildActivityTile(_activities[i]),
       ),
     );
@@ -521,7 +517,7 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
 
   Widget _buildActivityTile(ActivityLogModel log) {
     return Padding(
-      padding: const EdgeInsets.all(14),
+      padding: const EdgeInsets.symmetric(horizontal: AppTheme.spacing16, vertical: AppTheme.spacing12),
       child: Row(
         children: [
           Container(
@@ -529,11 +525,11 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
             height: 40,
             decoration: BoxDecoration(
               color: log.iconColor.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: AppTheme.borderRadiusMedium,
             ),
             child: Icon(log.icon, size: 20, color: log.iconColor),
           ),
-          const SizedBox(width: 14),
+          const SizedBox(width: AppTheme.spacing16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -542,10 +538,10 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
                     style: AppTheme.bodySmall.copyWith(
                         fontWeight: FontWeight.w600,
                         color: AppColors.textPrimary)),
-                const SizedBox(height: 2),
+                const SizedBox(height: AppTheme.spacing4),
                 Text(log.timestamp,
                     style: AppTheme.caption
-                        .copyWith(color: AppColors.textTertiary, fontSize: 11)),
+                        .copyWith(color: AppColors.textTertiary)),
               ],
             ),
           ),
@@ -571,27 +567,28 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(top: BorderSide(color: AppColors.borderLight.withValues(alpha: 0.3))),
+        color: AppColors.surface,
+        border: Border(top: BorderSide(color: AppColors.borderLight.withValues(alpha: 0.8))),
+        boxShadow: AppTheme.shadowSmall,
       ),
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
+          padding: const EdgeInsets.symmetric(vertical: AppTheme.spacing8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: items.asMap().entries.map((entry) {
               final i = entry.key;
               final item = entry.value;
               final isActive = i == _currentNavIndex;
-              final hasApprovalBadge =
-                  i == 3 && _stats.menungguApproval > 0;
+              final hasApprovalBadge = i == 3 && _stats.menungguApproval > 0;
 
               return GestureDetector(
                 onTap: () => _handleBottomNavTap(i),
                 behavior: HitTestBehavior.opaque,
-                child: SizedBox(
-                  width: 68,
+                child: Container(
+                  width: 64,
+                  padding: const EdgeInsets.symmetric(vertical: AppTheme.spacing4),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -603,7 +600,7 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
                             color: isActive
                                 ? AppColors.primary
                                 : AppColors.textTertiary,
-                            size: 26,
+                            size: 24,
                           ),
                           if (hasApprovalBadge)
                             Positioned(
@@ -612,14 +609,15 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
                               child: Container(
                                 width: 10,
                                 height: 10,
-                                decoration: const BoxDecoration(
+                                decoration: BoxDecoration(
                                     color: AppColors.error,
-                                    shape: BoxShape.circle),
+                                    shape: BoxShape.circle,
+                                    border: Border.all(color: AppColors.surface, width: 1.5)),
                               ),
                             ),
                         ],
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: AppTheme.spacing4),
                       Text(item.$3,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -662,19 +660,13 @@ class _StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 145,
-      padding: const EdgeInsets.all(16),
+      width: 140,
+      padding: const EdgeInsets.all(AppTheme.spacing16),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        color: AppColors.surface,
+        borderRadius: AppTheme.borderRadiusMedium,
         border: Border(left: BorderSide(color: accentColor, width: 4)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: AppTheme.shadowSmall,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -683,24 +675,24 @@ class _StatCard extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: AppTheme.caption.copyWith(
-                  color: AppColors.textSecondary, fontWeight: FontWeight.w600, fontSize: 11)),
+                  color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
           const Spacer(),
           Text(value,
               style: AppTheme.headingLarge.copyWith(
                   fontWeight: FontWeight.w900,
                   color: AppColors.textPrimary,
                   fontSize: 28)),
-          const SizedBox(height: 6),
+          const SizedBox(height: AppTheme.spacing4),
           Row(
             children: [
               Icon(subIcon, size: 14, color: accentColor),
-              const SizedBox(width: 6),
+              const SizedBox(width: AppTheme.spacing4),
               Expanded(
                 child: Text(sub,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: AppTheme.caption.copyWith(
-                        color: accentColor, fontWeight: FontWeight.w800, fontSize: 10.5)),
+                        color: accentColor, fontWeight: FontWeight.w800)),
               ),
             ],
           ),

@@ -12,8 +12,17 @@ import 'core/constants/app_strings.dart';
 import 'router/app_router.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  unawaited(_initializeFirebaseInBackground());
+  runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      
+      // Inisialisasi Firebase
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+
+      // Inisialisasi Locale untuk intl
+      await initializeDateFormatting('id_ID', null);
 
       // Lock orientasi ke portrait
       await SystemChrome.setPreferredOrientations([
@@ -25,8 +34,7 @@ Future<void> main() async {
       SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
-          statusBarIconBrightness:
-              Brightness.dark, // Ubah ke dark agar terbaca di bg terang
+          statusBarIconBrightness: Brightness.dark,
           systemNavigationBarColor: Colors.white,
           systemNavigationBarIconBrightness: Brightness.dark,
         ),

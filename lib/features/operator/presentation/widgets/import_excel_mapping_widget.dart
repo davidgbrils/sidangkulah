@@ -28,8 +28,8 @@ class MappingRowWidget extends StatelessWidget {
         color: isAutoMatched
             ? AppColors.success.withValues(alpha: 0.08)
             : isUnmatched
-                ? AppColors.warning.withValues(alpha: 0.08)
-                : Colors.transparent,
+            ? AppColors.warning.withValues(alpha: 0.08)
+            : Colors.transparent,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
@@ -79,10 +79,7 @@ class MappingRowWidget extends StatelessWidget {
               items: fieldOptions.map((field) {
                 return DropdownMenuItem(
                   value: field,
-                  child: Text(
-                    field,
-                    style: AppTheme.bodySmall,
-                  ),
+                  child: Text(field, style: AppTheme.bodySmall),
                 );
               }).toList(),
               onChanged: onChanged,
@@ -107,7 +104,8 @@ class ImportExcelMappingWidget extends StatefulWidget {
   });
 
   @override
-  State<ImportExcelMappingWidget> createState() => _ImportExcelMappingWidgetState();
+  State<ImportExcelMappingWidget> createState() =>
+      _ImportExcelMappingWidgetState();
 }
 
 class _ImportExcelMappingWidgetState extends State<ImportExcelMappingWidget> {
@@ -146,14 +144,9 @@ class _ImportExcelMappingWidgetState extends State<ImportExcelMappingWidget> {
     'ruang': 'Ruangan',
     'ruangan': 'Ruangan',
     'pembimbing 1': 'Pembimbing 1',
-    'pembimbing 1': 'Pembimbing 1',
-    'pembimbing 2': 'Pembimbing 2',
     'pembimbing 2': 'Pembimbing 2',
     'penguji 1': 'Penguji 1',
-    'penguji 1': 'Penguji 1',
     'penguji 2': 'Penguji 2',
-    'penguji 2': 'Penguji 2',
-    'penguji 3': 'Penguji 3',
     'penguji 3': 'Penguji 3',
   };
 
@@ -188,15 +181,13 @@ class _ImportExcelMappingWidgetState extends State<ImportExcelMappingWidget> {
         const SizedBox(height: 24),
         Text(
           'Petakan kolom Excel ke field aplikasi',
-          style: AppTheme.headingSmall.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
+          style: AppTheme.headingSmall.copyWith(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 16),
         Expanded(
           child: ListView.separated(
             itemCount: widget.excelHeaders.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 8),
+            separatorBuilder: (_, _) => const SizedBox(height: 8),
             itemBuilder: (context, index) {
               final header = widget.excelHeaders[index];
               final mappedField = _mapping[header];
@@ -205,8 +196,7 @@ class _ImportExcelMappingWidgetState extends State<ImportExcelMappingWidget> {
                 excelColumn: header,
                 selectedField: mappedField,
                 fieldOptions: _fieldOptions,
-                isAutoMatched: mappedField != 'Abaikan' &&
-                    mappedField != null,
+                isAutoMatched: mappedField != 'Abaikan' && mappedField != null,
                 isUnmatched: mappedField == 'Abaikan',
                 onChanged: (value) {
                   setState(() {
@@ -223,11 +213,7 @@ class _ImportExcelMappingWidgetState extends State<ImportExcelMappingWidget> {
   }
 
   Widget _buildStepIndicator() {
-    final steps = [
-      ('1', 'Upload'),
-      ('2', 'Mapping'),
-      ('3', 'Konfirmasi'),
-    ];
+    final steps = [('1', 'Upload'), ('2', 'Mapping'), ('3', 'Konfirmasi')];
 
     return Row(
       children: steps.asMap().entries.map((entry) {
@@ -243,9 +229,7 @@ class _ImportExcelMappingWidgetState extends State<ImportExcelMappingWidget> {
               if (index > 0)
                 Container(
                   height: 2,
-                  color: isCompleted
-                      ? AppColors.primary
-                      : AppColors.border,
+                  color: isCompleted ? AppColors.primary : AppColors.border,
                 ),
               Container(
                 padding: const EdgeInsets.symmetric(
@@ -256,15 +240,15 @@ class _ImportExcelMappingWidgetState extends State<ImportExcelMappingWidget> {
                   color: isActive
                       ? AppColors.primary
                       : isCompleted
-                          ? AppColors.primary.withValues(alpha: 0.1)
-                          : AppColors.surface,
+                      ? AppColors.primary.withValues(alpha: 0.1)
+                      : AppColors.surface,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
                     color: isActive
                         ? AppColors.primary
                         : isCompleted
-                            ? AppColors.primary
-                            : AppColors.border,
+                        ? AppColors.primary
+                        : AppColors.border,
                   ),
                 ),
                 child: Row(
@@ -278,8 +262,8 @@ class _ImportExcelMappingWidgetState extends State<ImportExcelMappingWidget> {
                         color: isActive
                             ? Colors.white
                             : isCompleted
-                                ? AppColors.primary
-                                : AppColors.textSecondary,
+                            ? AppColors.primary
+                            : AppColors.textSecondary,
                       ),
                     ),
                     const SizedBox(width: 4),
@@ -291,8 +275,8 @@ class _ImportExcelMappingWidgetState extends State<ImportExcelMappingWidget> {
                         color: isActive
                             ? Colors.white
                             : isCompleted
-                                ? AppColors.primary
-                                : AppColors.textSecondary,
+                            ? AppColors.primary
+                            : AppColors.textSecondary,
                       ),
                     ),
                   ],
@@ -301,9 +285,7 @@ class _ImportExcelMappingWidgetState extends State<ImportExcelMappingWidget> {
               if (index < steps.length - 1)
                 Container(
                   height: 2,
-                  color: isCompleted
-                      ? AppColors.primary
-                      : AppColors.border,
+                  color: isCompleted ? AppColors.primary : AppColors.border,
                 ),
             ],
           ),
@@ -314,9 +296,9 @@ class _ImportExcelMappingWidgetState extends State<ImportExcelMappingWidget> {
 
   Widget _buildBottomButtons() {
     final unmappedFields = _mapping.entries
-        .where((e) =>
-            e.value == 'Abaikan' &&
-            widget.excelHeaders.contains(e.key))
+        .where(
+          (e) => e.value == 'Abaikan' && widget.excelHeaders.contains(e.key),
+        )
         .length;
     final isValid = unmappedFields == 0;
 

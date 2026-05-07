@@ -194,10 +194,13 @@ class _ApprovalPengujiScreenState extends State<ApprovalPengujiScreen> {
     ];
 
     return Container(
-      color: Colors.white,
+      decoration: const BoxDecoration(
+        color: AppColors.surface,
+        border: Border(bottom: BorderSide(color: AppColors.borderLight)),
+      ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+        padding: const EdgeInsets.symmetric(horizontal: AppTheme.spacing16, vertical: AppTheme.spacing12),
         child: Row(
           children: filters.asMap().entries.map((entry) {
             final index = entry.key;
@@ -392,10 +395,16 @@ class _ApprovalRequestCardState extends State<ApprovalRequestCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 12),
+    return Container(
+      margin: const EdgeInsets.only(bottom: AppTheme.spacing12),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: AppTheme.borderRadiusMedium,
+        boxShadow: AppTheme.shadowSmall,
+        border: Border.all(color: AppColors.borderLight.withValues(alpha: 0.5)),
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppTheme.spacing16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -519,6 +528,8 @@ class _ApprovalRequestCardState extends State<ApprovalRequestCard> {
                 const SizedBox(height: 2),
                 Text(
                   widget.request.oldPenguji,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: AppTheme.bodySmall.copyWith(
                     decoration: TextDecoration.lineThrough,
                     color: AppColors.error,
@@ -563,6 +574,8 @@ class _ApprovalRequestCardState extends State<ApprovalRequestCard> {
                 const SizedBox(height: 2),
                 Text(
                   widget.request.newPenguji,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: AppTheme.bodySmall.copyWith(
                     color: AppColors.success,
                     fontWeight: FontWeight.w600,
@@ -667,6 +680,7 @@ class _ApprovalRequestCardState extends State<ApprovalRequestCard> {
     return Row(
       children: [
         Expanded(
+          flex: 1,
           child: OutlinedButton.icon(
             onPressed: widget.onTolak,
             style: OutlinedButton.styleFrom(
@@ -678,9 +692,9 @@ class _ApprovalRequestCardState extends State<ApprovalRequestCard> {
             label: const Text('Tolak'),
           ),
         ),
-        const SizedBox(width: 12),
+        const SizedBox(width: AppTheme.spacing12),
         Expanded(
-          flex: 2,
+          flex: 1,
           child: ElevatedButton.icon(
             onPressed: widget.onSetuju,
             style: ElevatedButton.styleFrom(

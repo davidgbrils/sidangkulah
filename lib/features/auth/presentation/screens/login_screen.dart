@@ -7,20 +7,23 @@ import 'package:sidangkufix/core/theme/app_theme.dart';
 import 'package:sidangkufix/core/widgets/sidangku_button.dart';
 import 'package:sidangkufix/core/widgets/sidangku_text_field.dart';
 import 'package:sidangkufix/features/auth/domain/user_model.dart';
+import 'package:sidangkufix/core/utils/firebase_seeder.dart';
 
-class LoginScreen extends StatefulWidget {
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sidangkufix/features/auth/presentation/providers/auth_provider.dart';
+
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  bool _isLoading = false;
   final bool _obscurePassword = true;
 
   @override
@@ -50,41 +53,33 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> _handleLogin() async {
     if (!_formKey.currentState!.validate()) return;
 
-    setState(() => _isLoading = true);
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
 
-    try {
-      final email = _emailController.text.trim();
-      final password = _passwordController.text;
+    await ref.read(authProvider.notifier).login(email, password);
 
-      final user = SeedUsers.authenticate(email, password);
-
-      if (user == null) {
-        if (!mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'Email atau password salah',
-              style: AppTheme.bodyMedium.copyWith(color: Colors.white),
-            ),
-            backgroundColor: AppColors.error,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(borderRadius: AppTheme.borderRadiusSmall),
-            margin: const EdgeInsets.all(16),
-          ),
-        );
-        setState(() => _isLoading = false);
-        return;
-      }
-
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('auth_token', 'seed_token_${user.id}');
-      await prefs.setString('user_role', user.roleString);
-      await prefs.setString('user_id', user.id);
-      await prefs.setString('user_nama', user.nama);
-
+    final authState = ref.read(authProvider);
+    if (authState.errorMessage != null) {
       if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            authState.errorMessage!,
+            style: AppTheme.bodyMedium.copyWith(color: Colors.white),
+          ),
+          backgroundColor: AppColors.error,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: AppTheme.borderRadiusSmall),
+          margin: const EdgeInsets.all(16),
+        ),
+      );
+      return;
+    }
 
-      switch (user.roleString) {
+    if (authState.user != null) {
+      if (!mounted) return;
+      
+      switch (authState.user!.roleString) {
         case 'mahasiswa':
           context.go('/mahasiswa');
           break;
@@ -100,22 +95,6 @@ class _LoginScreenState extends State<LoginScreen> {
         default:
           context.go('/login');
       }
-    } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Login gagal. Periksa email dan password Anda.',
-            style: AppTheme.bodyMedium.copyWith(color: Colors.white),
-          ),
-          backgroundColor: AppColors.error,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: AppTheme.borderRadiusSmall),
-          margin: const EdgeInsets.all(16),
-        ),
-      );
-    } finally {
-      if (mounted) setState(() => _isLoading = false);
     }
   }
   @override
@@ -278,8 +257,8 @@ class _LoginScreenState extends State<LoginScreen> {
               SidangkuButton(
                 label: 'Masuk',
                 type: SidangkuButtonType.primary,
-                isLoading: _isLoading,
-                onTap: _isLoading ? null : _handleLogin,
+                isLoading: ref.watch(authProvider).isLoading,
+                onTap: ref.watch(authProvider).isLoading ? null : _handleLogin,
                 height: 52,
               ),
               const SizedBox(height: 24),
@@ -364,6 +343,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ],
+          ),
+          const SizedBox(height: 12),
+          // TOMBOL SEED DATA (Hanya untuk Dev)
+          TextButton.icon(
+            onPressed: () async {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Memulai seeding data...')),
+              );
+              await FirebaseSeeder().seedInitialData();
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Seeding selesai! Cek console.')),
+                );
+              }
+            },
+            icon: const Icon(Icons.storage_rounded, size: 16),
+            label: const Text('Seed Initial Data'),
+            style: TextButton.styleFrom(
+              foregroundColor: AppColors.primary.withValues(alpha: 0.5),
+              textStyle: const TextStyle(fontSize: 10),
+            ),
           ),
           const SizedBox(height: 4),
           Text(
