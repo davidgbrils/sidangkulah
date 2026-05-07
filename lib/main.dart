@@ -11,22 +11,9 @@ import 'core/theme/app_theme.dart';
 import 'core/constants/app_strings.dart';
 import 'router/app_router.dart';
 
-void main() async {
-  runZonedGuarded(
-    () async {
-      WidgetsFlutterBinding.ensureInitialized();
-
-      // Inisialisasi format tanggal Indonesia
-      await initializeDateFormatting('id_ID', null);
-
-      // Inisialisasi Firebase secara sinkron agar tidak error saat diakses UI
-      try {
-        await Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
-        ).timeout(const Duration(seconds: 5));
-      } catch (e) {
-        debugPrint('Firebase initialization failed or timed out: $e');
-      }
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  unawaited(_initializeFirebaseInBackground());
 
       // Lock orientasi ke portrait
       await SystemChrome.setPreferredOrientations([
