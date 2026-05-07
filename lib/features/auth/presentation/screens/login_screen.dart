@@ -311,7 +311,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 52,
               ),
               const SizedBox(height: 24),
-              _buildSeedAccountsInfo(),
             ],
           ),
         ),
@@ -375,101 +374,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildSeedAccountsInfo() {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: AppColors.infoLight.withValues(alpha: 0.3),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.info.withValues(alpha: 0.3)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(Icons.info_outline, size: 16, color: AppColors.info),
-              const SizedBox(width: 8),
-              Text(
-                'Akun Demo (Seed Data)',
-                style: AppTheme.bodySmall.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.info,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          _buildSeedAccountTile(
-            'Operator/Admin',
-            'admin@itpln.ac.id',
-            'admin123',
-            Icons.admin_panel_settings_rounded,
-          ),
-          _buildSeedAccountTile(
-            'Kaprodi',
-            'kaprodi@itpln.ac.id',
-            'kaprodi123',
-            Icons.supervisor_account_rounded,
-          ),
-          _buildSeedAccountTile(
-            'Dosen',
-            'heru@itpln.ac.id',
-            'dosen123',
-            Icons.badge_rounded,
-          ),
-          _buildSeedAccountTile(
-            'Mahasiswa',
-            '202011001@student.itpln.ac.id',
-            'mahasiswa123',
-            Icons.school_rounded,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSeedAccountTile(String role, String email, String password, IconData icon) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 6),
-      child: InkWell(
-        onTap: () {
-          _emailController.text = email;
-          _passwordController.text = password;
-        },
-        child: Row(
-          children: [
-            Icon(icon, size: 14, color: AppColors.textSecondary),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Text(
-                role,
-                style: AppTheme.caption.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-            Text(
-              email,
-              style: AppTheme.caption.copyWith(
-                color: AppColors.textSecondary,
-                fontSize: 10,
-              ),
-            ),
-            const SizedBox(width: 4),
-            Text(
-              '/ $password',
-              style: AppTheme.caption.copyWith(
-                color: AppColors.info,
-                fontSize: 10,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

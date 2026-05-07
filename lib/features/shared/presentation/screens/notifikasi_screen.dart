@@ -222,6 +222,7 @@ class _NotifikasiScreenState extends State<NotifikasiScreen> {
     );
   }
 
+  @override
   void setState(VoidCallback fn) {}
 }
 

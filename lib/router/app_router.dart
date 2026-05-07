@@ -15,6 +15,9 @@ import 'package:sidangkufix/features/dosen/presentation/screens/formulir_absen_s
 import 'package:sidangkufix/features/dosen/presentation/screens/formulir_revisi_screen.dart';
 import 'package:sidangkufix/features/dosen/presentation/screens/ganti_penguji_screen.dart';
 import 'package:sidangkufix/features/operator/presentation/screens/operator_home_screen.dart';
+import 'package:sidangkufix/features/operator/presentation/screens/kelola_mahasiswa_screen.dart';
+import 'package:sidangkufix/features/operator/presentation/screens/approval_penguji_screen.dart';
+import 'package:sidangkufix/features/operator/presentation/screens/dokumen_honor_screen.dart';
 import 'package:sidangkufix/features/kaprodi/presentation/screens/kaprodi_home_screen.dart';
 import 'package:sidangkufix/features/kaprodi/presentation/screens/kaprodi_jadwal_screen.dart';
 import 'package:sidangkufix/features/kaprodi/presentation/screens/kaprodi_rekap_nilai_screen.dart';
@@ -318,8 +321,7 @@ class AppRouter {
       GoRoute(
         path: _kelolaDataMahasiswaPath,
         name: kelolaDataMahasiswa,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Kelola Data Mahasiswa'),
+        builder: (context, state) => const KelolaMahasiswaScreen(),
       ),
       GoRoute(
         path: _dataDosenPath,
@@ -342,14 +344,12 @@ class AppRouter {
       GoRoute(
         path: _approvalGantiPengujiPath,
         name: approvalGantiPenguji,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Approval Ganti Penguji'),
+        builder: (context, state) => const ApprovalPengujiScreen(),
       ),
       GoRoute(
         path: _dokumenRekapHonorPath,
         name: dokumenRekapHonor,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Dokumen Rekap Honor'),
+        builder: (context, state) => const DokumenHonorScreen(),
       ),
       GoRoute(
         path: _operatorGenerateSkPath,

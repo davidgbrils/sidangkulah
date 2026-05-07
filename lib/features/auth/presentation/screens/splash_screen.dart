@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sidangkufix/core/constants/app_colors.dart';
@@ -12,7 +13,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
-  static const Duration _minSplashDuration = Duration(milliseconds: 900);
+  static const Duration _minSplashDuration = Duration(milliseconds: 2000);
   late AnimationController _fadeController;
   late AnimationController _slideController;
   late AnimationController _dotsController;
@@ -27,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
     _fadeController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 1000),
     );
     _fadeAnimation = CurvedAnimation(
       parent: _fadeController,
@@ -36,10 +37,10 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
     _slideController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 1000),
     );
     _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.5),
+      begin: const Offset(0, 0.1),
       end: Offset.zero,
     ).animate(CurvedAnimation(
       parent: _slideController,
@@ -52,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     )..repeat();
 
     _fadeController.forward();
-    Future.delayed(const Duration(milliseconds: 400), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       if (mounted) _slideController.forward();
     });
 
@@ -68,22 +69,43 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   }
 
   Future<void> _startNavigationFlow() async {
-    final routeFuture = _resolveInitialRoute();
-    await Future.delayed(_minSplashDuration);
-    final targetRoute = await routeFuture;
+    try {
+      final results = await Future.wait([
+        _resolveInitialRoute(),
+        Future.delayed(_minSplashDuration),
+      ]);
+      
+      final String targetRoute = results[0] as String;
 
-    if (!mounted || _isNavigating) return;
-    _isNavigating = true;
-    context.go(targetRoute);
+      if (!mounted || _isNavigating) return;
+      
+      // Gunakan post frame callback untuk memastikan frame rendering selesai
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted && !_isNavigating) {
+          _isNavigating = true;
+          context.go(targetRoute);
+        }
+      });
+    } catch (e) {
+      debugPrint('Error in splash navigation: $e');
+      if (mounted && !_isNavigating) {
+        _isNavigating = true;
+        context.go('/login');
+      }
+    }
   }
 
   Future<String> _resolveInitialRoute() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? token = prefs.getString('auth_token');
-    final String? role = prefs.getString('user_role')?.toLowerCase().trim();
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final String? token = prefs.getString('auth_token');
+      final String? role = prefs.getString('user_role')?.toLowerCase().trim();
 
-    if (token != null && token.isNotEmpty && role != null) {
-      return _routeByRole(role);
+      if (token != null && token.isNotEmpty && role != null) {
+        return _routeByRole(role);
+      }
+    } catch (e) {
+      debugPrint('Error resolving route in splash: $e');
     }
     return '/login';
   }
@@ -105,137 +127,120 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          color: AppColors.primary,
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              top: -100,
-              right: -100,
-              child: Container(
-                width: 300,
-                height: 300,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withValues(alpha: 0.1),
-                ),
+    // Gunakan AnnotatedRegion untuk memastikan status bar putih di bg biru
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark, // Untuk iOS
+      ),
+      child: Scaffold(
+        body: Container(
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            color: AppColors.primary,
+          ),
+          child: Stack(
+            children: [
+              Positioned(
+                top: -100,
+                right: -100,
+                child: _buildCircleOrnament(),
               ),
-            ),
-            Positioned(
-              bottom: -100,
-              left: -100,
-              child: Container(
-                width: 300,
-                height: 300,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withValues(alpha: 0.1),
-                ),
+              Positioned(
+                bottom: -100,
+                left: -100,
+                child: _buildCircleOrnament(),
               ),
-            ),
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FadeTransition(
-                    opacity: _fadeAnimation,
-                    child: Container(
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.05),
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.white.withValues(alpha: 0.1),
-                          width: 1,
+              SafeArea(
+                child: Column(
+                  children: [
+                    const Spacer(flex: 3),
+                    FadeTransition(
+                      opacity: _fadeAnimation,
+                      child: Container(
+                        padding: const EdgeInsets.all(24),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.05),
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.1),
+                            width: 1,
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.school_rounded,
+                          size: 64,
+                          color: Colors.white,
                         ),
                       ),
-                      child: const Icon(
-                        Icons.school_rounded,
-                        size: 64,
-                        color: Colors.white,
+                    ),
+                    const SizedBox(height: 24),
+                    SlideTransition(
+                      position: _slideAnimation,
+                      child: FadeTransition(
+                        opacity: _fadeAnimation,
+                        child: Column(
+                          children: [
+                            const Text(
+                              'SidangKu',
+                              style: TextStyle(
+                                fontSize: 36,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.white,
+                                letterSpacing: 1.5,
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              'Sistem Manajemen Sidang Skripsi',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white.withValues(alpha: 0.7),
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 24),
-                  SlideTransition(
-                    position: _slideAnimation,
-                    child: FadeTransition(
-                      opacity: _slideAnimation.drive(
-                        Tween<double>(begin: 0.0, end: 1.0),
-                      ),
+                    const Spacer(flex: 4),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 40),
                       child: Column(
                         children: [
-                          const Text(
-                            'SidangKu',
-                            style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              letterSpacing: 1.2,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
+                          _LoadingDots(controller: _dotsController),
+                          const SizedBox(height: 32),
                           Text(
-                            'Sistem Manajemen Sidang Skripsi',
+                            'ITPLN DIGITAL ECOSYSTEM',
                             style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.onPrimaryContainer,
-                              letterSpacing: 0.5,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white.withValues(alpha: 0.4),
+                              letterSpacing: 2.5,
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-              bottom: 60,
-              left: 0,
-              right: 0,
-              child: Column(
-                children: [
-                  _LoadingDots(controller: _dotsController),
-                  const SizedBox(height: 32),
-                  Text(
-                    'ITPLN DIGITAL ECOSYSTEM',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white.withValues(alpha: 0.5),
-                      letterSpacing: 2.0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: 40,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.white.withValues(alpha: 0.0),
-                      Colors.white.withValues(alpha: 0.1),
-                    ],
-                  ),
+                  ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildCircleOrnament() {
+    return Container(
+      width: 300,
+      height: 300,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.white.withValues(alpha: 0.03),
       ),
     );
   }
@@ -255,7 +260,7 @@ class _LoadingDots extends StatelessWidget {
           animation: controller,
           builder: (context, child) {
             final double begin = index * 0.2;
-            final double end = begin + 0.6;
+            final double end = (begin + 0.6).clamp(0.0, 1.0);
             double value = 0.0;
 
             if (controller.value >= begin && controller.value <= end) {
@@ -265,10 +270,10 @@ class _LoadingDots extends StatelessWidget {
 
             return Container(
               margin: const EdgeInsets.symmetric(horizontal: 4),
-              width: 8,
-              height: 8,
+              width: 6,
+              height: 6,
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.3 + (value * 0.7)),
+                color: Colors.white.withValues(alpha: 0.2 + (value * 0.8)),
                 shape: BoxShape.circle,
               ),
             );

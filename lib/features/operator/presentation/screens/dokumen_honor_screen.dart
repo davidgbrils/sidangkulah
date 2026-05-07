@@ -51,6 +51,9 @@ class DokumenHonorScreen extends StatefulWidget {
 class _DokumenHonorScreenState extends State<DokumenHonorScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  String _selectedBulan = 'Juni';
+  String _selectedTahun = '2024';
+
   final _currencyFormat = NumberFormat.currency(
     locale: 'id_ID',
     symbol: 'Rp ',
@@ -114,6 +117,7 @@ class _DokumenHonorScreenState extends State<DokumenHonorScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.scaffoldBackground,
       appBar: AppBar(
         title: const Text('Dokumen & Rekap Honor'),
         bottom: TabBar(
@@ -135,14 +139,16 @@ class _DokumenHonorScreenState extends State<DokumenHonorScreen>
   }
 
   Widget _buildSKTab() {
-    final generated = _skCards.where((s) => s.status != DokumenStatus.belumGenerate).length;
-    final belum = _skCards.where((s) => s.status == DokumenStatus.belumGenerate).length;
+    final generated =
+        _skCards.where((s) => s.status != DokumenStatus.belumGenerate).length;
+    final belum =
+        _skCards.where((s) => s.status == DokumenStatus.belumGenerate).length;
 
     return Column(
       children: [
         _buildFilterRow(),
         Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
           child: Row(
             children: [
               Text(
@@ -153,25 +159,46 @@ class _DokumenHonorScreenState extends State<DokumenHonorScreen>
               ),
               const SizedBox(width: 8),
               Text(
-                '($generated sudah generate, $belum belum)',
+                '($generated sudah, $belum belum)',
                 style: AppTheme.bodySmall.copyWith(
                   color: AppColors.textSecondary,
                 ),
               ),
+              const Spacer(),
+              _buildGenerateAllButton(),
             ],
           ),
         ),
         Expanded(
-          child: ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            itemCount: _skCards.length,
-            itemBuilder: (context, index) {
-              final sk = _skCards[index];
-              return _SKCardWidget(sk: sk);
-            },
-          ),
+          child: _skCards.isEmpty
+              ? _buildEmptyState('Belum ada data SK', Icons.description_outlined)
+              : ListView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: _skCards.length,
+                  itemBuilder: (context, index) {
+                    return _SKCardWidget(sk: _skCards[index]);
+                  },
+                ),
         ),
       ],
+    );
+  }
+
+  Widget _buildGenerateAllButton() {
+    final hasBelum =
+        _skCards.any((s) => s.status == DokumenStatus.belumGenerate);
+    if (!hasBelum) return const SizedBox.shrink();
+    return TextButton.icon(
+      onPressed: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Membuat semua SK...')),
+        );
+      },
+      icon: const Icon(Icons.auto_awesome_rounded, size: 16),
+      label: const Text('Generate Semua'),
+      style: TextButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      ),
     );
   }
 
@@ -180,53 +207,78 @@ class _DokumenHonorScreenState extends State<DokumenHonorScreen>
       0,
       (sum, d) => sum + d.totalHonor,
     );
+    final belumBayar = _honorDosenList
+        .where((d) => d.status == 'Belum Dibayar')
+        .fold<int>(0, (sum, d) => sum + d.totalHonor);
 
     return Column(
       children: [
+        // Summary card
         Container(
           margin: const EdgeInsets.all(16),
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             gradient: AppColors.primaryGradient,
             borderRadius: BorderRadius.circular(16),
+            boxShadow: AppTheme.shadowMedium,
           ),
           child: Row(
             children: [
-              const Icon(
-                Icons.account_balance_wallet,
-                color: Colors.white,
-                size: 32,
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(
+                  Icons.account_balance_wallet_rounded,
+                  color: Colors.white,
+                  size: 28,
+                ),
               ),
               const SizedBox(width: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Total Honor',
-                    style: AppTheme.bodySmall.copyWith(
-                      color: Colors.white.withValues(alpha: 0.8),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Total Honor Periode $_selectedBulan $_selectedTahun',
+                      style: AppTheme.bodySmall.copyWith(
+                        color: Colors.white.withValues(alpha: 0.8),
+                      ),
                     ),
-                  ),
-                  Text(
-                    _currencyFormat.format(totalHonor),
-                    style: AppTheme.headingMedium.copyWith(
-                      color: Colors.white,
+                    const SizedBox(height: 2),
+                    Text(
+                      _currencyFormat.format(totalHonor),
+                      style: AppTheme.headingMedium.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 4),
+                    Text(
+                      'Belum dibayar: ${_currencyFormat.format(belumBayar)}',
+                      style: AppTheme.caption.copyWith(
+                        color: Colors.white.withValues(alpha: 0.7),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
         ),
         Expanded(
-          child: ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            itemCount: _honorDosenList.length,
-            itemBuilder: (context, index) {
-              final honor = _honorDosenList[index];
-              return _HonorDosenCard(honor: honor);
-            },
-          ),
+          child: _honorDosenList.isEmpty
+              ? _buildEmptyState(
+                  'Belum ada data honor', Icons.payments_outlined)
+              : ListView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: _honorDosenList.length,
+                  itemBuilder: (context, index) {
+                    return _HonorDosenCard(honor: _honorDosenList[index]);
+                  },
+                ),
         ),
         _buildBottomActions(),
       ],
@@ -234,12 +286,16 @@ class _DokumenHonorScreenState extends State<DokumenHonorScreen>
   }
 
   Widget _buildFilterRow() {
+    const bulanList = ['Juni', 'Mei', 'April', 'Maret'];
+    const tahunList = ['2024', '2023', '2022'];
+
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
           Expanded(
             child: DropdownButtonFormField<String>(
+              value: _selectedBulan,
               decoration: InputDecoration(
                 labelText: 'Bulan',
                 border: OutlineInputBorder(
@@ -247,19 +303,21 @@ class _DokumenHonorScreenState extends State<DokumenHonorScreen>
                 ),
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 12,
-                  vertical: 8,
+                  vertical: 10,
                 ),
               ),
-              initialValue: 'Juni',
-              items: const ['Juni', 'Mei', 'April']
+              items: bulanList
                   .map((b) => DropdownMenuItem(value: b, child: Text(b)))
                   .toList(),
-              onChanged: (_) {},
+              onChanged: (val) {
+                if (val != null) setState(() => _selectedBulan = val);
+              },
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: DropdownButtonFormField<String>(
+              value: _selectedTahun,
               decoration: InputDecoration(
                 labelText: 'Tahun',
                 border: OutlineInputBorder(
@@ -267,15 +325,32 @@ class _DokumenHonorScreenState extends State<DokumenHonorScreen>
                 ),
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 12,
-                  vertical: 8,
+                  vertical: 10,
                 ),
               ),
-              initialValue: '2024',
-              items: const ['2024', '2023', '2022']
+              items: tahunList
                   .map((t) => DropdownMenuItem(value: t, child: Text(t)))
                   .toList(),
-              onChanged: (_) {},
+              onChanged: (val) {
+                if (val != null) setState(() => _selectedTahun = val);
+              },
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEmptyState(String message, IconData icon) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, size: 56, color: AppColors.textTertiary),
+          const SizedBox(height: 12),
+          Text(
+            message,
+            style: AppTheme.bodyMedium.copyWith(color: AppColors.textSecondary),
           ),
         ],
       ),
@@ -284,21 +359,35 @@ class _DokumenHonorScreenState extends State<DokumenHonorScreen>
 
   Widget _buildBottomActions() {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          top: BorderSide(color: AppColors.borderLight),
+        ),
+      ),
       child: Row(
         children: [
           Expanded(
             child: OutlinedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.table_chart),
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Mengekspor Excel...')),
+                );
+              },
+              icon: const Icon(Icons.table_chart_rounded, size: 18),
               label: const Text('Ekspor Excel'),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: OutlinedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.picture_as_pdf),
+            child: ElevatedButton.icon(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Mencetak PDF...')),
+                );
+              },
+              icon: const Icon(Icons.picture_as_pdf_rounded, size: 18),
               label: const Text('Cetak PDF'),
             ),
           ),
@@ -339,39 +428,65 @@ class _SKCardWidget extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
-      child: ListTile(
-        title: Text(
-          sk.mahasiswaNama,
-          style: AppTheme.bodyMedium.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        subtitle: Text(sk.tanggalSidang),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Row(
           children: [
-            StatusChip(
-              label: statusLabel,
-              type: statusType,
+            Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: AppColors.surfaceContainerLow,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Icon(
+                Icons.description_rounded,
+                size: 20,
+                color: AppColors.primary,
+              ),
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    sk.mahasiswaNama,
+                    style: AppTheme.bodyMedium.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    sk.tanggalSidang,
+                    style: AppTheme.caption.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  StatusChip(label: statusLabel, type: statusType),
+                ],
+              ),
+            ),
             if (sk.status == DokumenStatus.belumGenerate)
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 12,
-                    vertical: 4,
+                    vertical: 8,
                   ),
+                  minimumSize: Size.zero,
                 ),
-                child: Text(
-                  'Generate SK',
-                  style: AppTheme.caption,
-                ),
+                child: const Text('Generate SK', style: TextStyle(fontSize: 12)),
               )
             else
               IconButton(
-                icon: const Icon(Icons.download),
+                icon: const Icon(
+                  Icons.download_rounded,
+                  color: AppColors.primary,
+                ),
+                tooltip: 'Unduh SK',
                 onPressed: () {},
               ),
           ],
@@ -393,36 +508,90 @@ class _HonorDosenCard extends StatelessWidget {
       symbol: 'Rp ',
       decimalDigits: 0,
     );
+    final isBelumBayar = honor.status == 'Belum Dibayar';
 
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
-      child: ListTile(
-        leading: AvatarInitials(name: honor.nama),
-        title: Text(
-          honor.nama,
-          style: AppTheme.bodyMedium.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        subtitle: Text(
-          '${honor.jumlahSidangPenguji} sidang sebagai penguji, ${honor.jumlahSidangPembimbing} sebagai pembimbing',
-        ),
-        trailing: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
+      child: Padding(
+        padding: const EdgeInsets.all(14),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              currencyFormat.format(honor.totalHonor),
-              style: AppTheme.bodyMedium.copyWith(
-                fontWeight: FontWeight.w700,
-                color: AppColors.primary,
+            AvatarInitials(name: honor.nama),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    honor.nama,
+                    style: AppTheme.bodyMedium
+                        .copyWith(fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    'NIDN: ${honor.nidn}',
+                    style:
+                        AppTheme.caption.copyWith(color: AppColors.textTertiary),
+                  ),
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      _infoChip(
+                          '${honor.jumlahSidangPenguji}x Penguji',
+                          Icons.person_search_rounded),
+                      const SizedBox(width: 6),
+                      _infoChip(
+                          '${honor.jumlahSidangPembimbing}x Pembimbing',
+                          Icons.supervisor_account_rounded),
+                    ],
+                  ),
+                ],
               ),
             ),
-            StatusChip.fromString(
-              honor.status == 'Sudah Dibayar' ? 'approved' : 'pending',
+            const SizedBox(width: 8),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  currencyFormat.format(honor.totalHonor),
+                  style: AppTheme.bodyMedium.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.primary,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                StatusChip(
+                  label: honor.status,
+                  type: isBelumBayar
+                      ? StatusChipType.pending
+                      : StatusChipType.approved,
+                ),
+              ],
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _infoChip(String label, IconData icon) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      decoration: BoxDecoration(
+        color: AppColors.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 12, color: AppColors.textSecondary),
+          const SizedBox(width: 4),
+          Text(
+            label,
+            style: AppTheme.caption.copyWith(fontSize: 11),
+          ),
+        ],
       ),
     );
   }

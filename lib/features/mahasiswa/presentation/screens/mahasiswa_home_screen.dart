@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sidangkufix/core/constants/app_colors.dart';
 import 'package:sidangkufix/core/theme/app_theme.dart';
-import 'package:sidangkufix/core/widgets/sidangku_button.dart';
 
 class MahasiswaHomeNotifier extends ChangeNotifier {
   String _nama = '';

@@ -58,7 +58,7 @@ class MappingRowWidget extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: DropdownButtonFormField<String>(
-              value: selectedField,
+              initialValue: selectedField,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 12,
@@ -111,7 +111,7 @@ class ImportExcelMappingWidget extends StatefulWidget {
 }
 
 class _ImportExcelMappingWidgetState extends State<ImportExcelMappingWidget> {
-  Map<String, String> _mapping = {};
+  final Map<String, String> _mapping = {};
   final _fieldOptions = [
     'Nama Mahasiswa',
     'NIM',

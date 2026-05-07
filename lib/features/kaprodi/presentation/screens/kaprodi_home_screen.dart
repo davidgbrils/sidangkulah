@@ -43,7 +43,7 @@ class GradeDist {
 class KaprodiHomeNotifier extends ChangeNotifier {
   KaprodiStatsModel? _stats;
   String _nama = '';
-  String _semester = 'Ganjil 2024/2025';
+  final String _semester = 'Ganjil 2024/2025';
   List<GradeDist> _gradeDist = [];
   List<SidangHariIni> _sidangHariIni = [];
   bool _isLoading = true;

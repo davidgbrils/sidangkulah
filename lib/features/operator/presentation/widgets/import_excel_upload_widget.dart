@@ -23,7 +23,7 @@ class ImportExcelUploadWidget extends StatefulWidget {
 class _ImportExcelUploadWidgetState extends State<ImportExcelUploadWidget> {
   ImportStep _currentStep = ImportStep.upload;
   PlatformFile? _selectedFile;
-  bool _isLoading = false;
+  final bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
