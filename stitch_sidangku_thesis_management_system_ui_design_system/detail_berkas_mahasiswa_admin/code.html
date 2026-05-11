@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Detail Berkas Sidang</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#a64c00",
+                        "on-surface": "#191c21",
+                        "inverse-on-surface": "#eff0f9",
+                        "surface-bright": "#f9f9ff",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e7e8f0",
+                        "on-tertiary-fixed": "#321200",
+                        "secondary-container": "#51b2fe",
+                        "on-primary-fixed-variant": "#00468c",
+                        "on-surface-variant": "#424752",
+                        "on-secondary-fixed-variant": "#004a75",
+                        "surface": "#f9f9ff",
+                        "primary-fixed": "#d6e3ff",
+                        "on-primary-fixed": "#001b3d",
+                        "primary-container": "#1565c0",
+                        "secondary-fixed": "#cee5ff",
+                        "on-secondary-container": "#00436a",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#2e3037",
+                        "on-primary": "#ffffff",
+                        "background": "#f9f9ff",
+                        "tertiary-fixed-dim": "#ffb68c",
+                        "secondary-fixed-dim": "#96ccff",
+                        "surface-container-highest": "#e1e2ea",
+                        "surface-dim": "#d8dae2",
+                        "surface-container-low": "#f2f3fb",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#001d32",
+                        "tertiary": "#813900",
+                        "on-tertiary-container": "#ffdece",
+                        "tertiary-fixed": "#ffdbc9",
+                        "on-error": "#ffffff",
+                        "on-background": "#191c21",
+                        "secondary": "#00639a",
+                        "outline-variant": "#c2c6d4",
+                        "on-tertiary-fixed-variant": "#753400",
+                        "surface-container": "#ecedf6",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary": "#004d99",
+                        "outline": "#727783",
+                        "on-primary-container": "#dae5ff",
+                        "surface-variant": "#e1e2ea",
+                        "surface-tint": "#005db7",
+                        "inverse-primary": "#a9c7ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "bottom-nav-height": "80px",
+                        "container-padding": "16px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Plus Jakarta Sans"],
+                        "h1": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "h2": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "h1": ["22px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "body": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface flex flex-col min-h-screen font-body relative pb-[160px]">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest border-b border-outline-variant flex items-center justify-between px-gutter h-16 w-full z-50 fixed top-0 transition-colors duration-200">
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-surface-variant/20 p-2 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex flex-col">
+<h1 class="font-h2 text-h2 text-primary">Ahmad Fauzi</h1>
+<span class="font-label-sm text-label-sm text-on-surface-variant">NIM: 20210101001</span>
+</div>
+</div>
+<button class="text-on-surface-variant hover:bg-surface-variant/20 p-2 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="flex-1 mt-20 px-gutter max-w-screen-md mx-auto w-full">
+<!-- Student Info Card -->
+<section class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] mb-6 flex items-center gap-4 relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-primary overflow-hidden">
+<img alt="Student Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a young Southeast Asian male university student with short dark hair, wearing a neat light blue collared shirt. The background is a soft, out-of-focus bright white modern campus environment. The lighting is bright and natural, creating a clean, academic, and approachable mood suitable for an educational software profile picture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9Xfoneh10Saad04YB8AEouID9NsIbDyKOx3w-GPjACYVHh2UIYUhqI8TNMgG3oYvFQtGlV_VJt3nJYdGngCxuL-ZXjp02nadhdIjWjRffNB_lZU6lRP9s5q86eQjE7XzfEM27cbbgdk3OdG5Nuz6IKRvnZBu1TbLiIOJm1zNYfpH2Lcc3Q7spL9vUIeVSSVIV91EWyIwvU3BymwbrcEfe6dJIKnBUQcKHxiJTfsxd4uvU7RM6KoxAUZq7aZtQFUmzw9NULw_RZoWK"/>
+</div>
+<div class="flex-1">
+<h2 class="font-h2 text-h2 text-on-surface">Teknik Informatika</h2>
+<p class="font-body text-body text-on-surface-variant">Fakultas Telematika Energi</p>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-sm text-label-sm text-outline">Status Sidang</span>
+<span class="px-2 py-1 mt-1 bg-primary-container/20 text-primary rounded-lg font-label-sm text-label-sm font-bold">Menunggu Validasi</span>
+</div>
+</section>
+<!-- Daftar Berkas Section -->
+<section>
+<h3 class="font-h1 text-h1 text-on-surface mb-4">Daftar Berkas</h3>
+<div class="flex flex-col gap-4">
+<!-- File Row 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] flex flex-col gap-4">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-surface-container rounded-lg text-secondary">
+<span class="material-symbols-outlined icon-filled">description</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body text-body font-semibold text-on-surface">Draft Skripsi Final.pdf</h4>
+<p class="font-label-sm text-label-sm text-outline mt-1">Diunggah: 12 Okt 2023, 10:30 WIB</p>
+</div>
+</div>
+<div class="flex justify-end gap-3 pt-2 border-t border-surface-variant">
+<button class="px-4 py-2 rounded-lg border border-error text-error font-label-sm text-label-sm hover:bg-error-container/50 transition-colors">Tolak</button>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm hover:bg-primary/90 transition-colors shadow-[0_2px_8px_rgba(0,0,0,0.06)]">Approve</button>
+</div>
+</div>
+<!-- File Row 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] flex flex-col gap-4">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-surface-container rounded-lg text-secondary">
+<span class="material-symbols-outlined icon-filled">description</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body text-body font-semibold text-on-surface">Transkrip Nilai Terakhir.pdf</h4>
+<p class="font-label-sm text-label-sm text-outline mt-1">Diunggah: 12 Okt 2023, 10:31 WIB</p>
+</div>
+</div>
+<div class="flex justify-end gap-3 pt-2 border-t border-surface-variant">
+<button class="px-4 py-2 rounded-lg border border-error text-error font-label-sm text-label-sm hover:bg-error-container/50 transition-colors">Tolak</button>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm hover:bg-primary/90 transition-colors shadow-[0_2px_8px_rgba(0,0,0,0.06)]">Approve</button>
+</div>
+</div>
+<!-- File Row 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] flex flex-col gap-4">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-surface-container rounded-lg text-secondary">
+<span class="material-symbols-outlined icon-filled">school</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body text-body font-semibold text-on-surface">Sertifikat TOEFL.pdf</h4>
+<p class="font-label-sm text-label-sm text-outline mt-1">Diunggah: 12 Okt 2023, 10:35 WIB</p>
+</div>
+</div>
+<div class="flex justify-end gap-3 pt-2 border-t border-surface-variant">
+<button class="px-4 py-2 rounded-lg border border-error text-error font-label-sm text-label-sm hover:bg-error-container/50 transition-colors">Tolak</button>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm hover:bg-primary/90 transition-colors shadow-[0_2px_8px_rgba(0,0,0,0.06)]">Approve</button>
+</div>
+</div>
+<!-- File Row 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] flex flex-col gap-4">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-surface-container rounded-lg text-secondary">
+<span class="material-symbols-outlined icon-filled">assignment_turned_in</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body text-body font-semibold text-on-surface">Lembar Persetujuan Pembimbing.pdf</h4>
+<p class="font-label-sm text-label-sm text-outline mt-1">Diunggah: 13 Okt 2023, 09:15 WIB</p>
+</div>
+</div>
+<div class="flex justify-end gap-3 pt-2 border-t border-surface-variant">
+<button class="px-4 py-2 rounded-lg border border-error text-error font-label-sm text-label-sm hover:bg-error-container/50 transition-colors">Tolak</button>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm hover:bg-primary/90 transition-colors shadow-[0_2px_8px_rgba(0,0,0,0.06)]">Approve</button>
+</div>
+</div>
+<!-- File Row 5 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] flex flex-col gap-4">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-surface-container rounded-lg text-secondary">
+<span class="material-symbols-outlined icon-filled">receipt_long</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body text-body font-semibold text-on-surface">Bukti Pembayaran Sidang.pdf</h4>
+<p class="font-label-sm text-label-sm text-outline mt-1">Diunggah: 13 Okt 2023, 14:20 WIB</p>
+</div>
+</div>
+<div class="flex justify-end gap-3 pt-2 border-t border-surface-variant">
+<button class="px-4 py-2 rounded-lg border border-error text-error font-label-sm text-label-sm hover:bg-error-container/50 transition-colors">Tolak</button>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm hover:bg-primary/90 transition-colors shadow-[0_2px_8px_rgba(0,0,0,0.06)]">Approve</button>
+</div>
+</div>
+<!-- File Row 6 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] flex flex-col gap-4">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-surface-container rounded-lg text-secondary">
+<span class="material-symbols-outlined icon-filled">plagiarism</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body text-body font-semibold text-on-surface">Hasil Cek Plagiarisme.pdf</h4>
+<p class="font-label-sm text-label-sm text-outline mt-1">Diunggah: 14 Okt 2023, 08:00 WIB</p>
+</div>
+</div>
+<div class="flex justify-end gap-3 pt-2 border-t border-surface-variant">
+<button class="px-4 py-2 rounded-lg border border-error text-error font-label-sm text-label-sm hover:bg-error-container/50 transition-colors">Tolak</button>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm hover:bg-primary/90 transition-colors shadow-[0_2px_8px_rgba(0,0,0,0.06)]">Approve</button>
+</div>
+</div>
+<!-- File Row 7 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] flex flex-col gap-4">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-surface-container rounded-lg text-secondary">
+<span class="material-symbols-outlined icon-filled">menu_book</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body text-body font-semibold text-on-surface">Form Bukti Bimbingan.pdf</h4>
+<p class="font-label-sm text-label-sm text-outline mt-1">Diunggah: 14 Okt 2023, 08:15 WIB</p>
+</div>
+</div>
+<div class="flex justify-end gap-3 pt-2 border-t border-surface-variant">
+<button class="px-4 py-2 rounded-lg border border-error text-error font-label-sm text-label-sm hover:bg-error-container/50 transition-colors">Tolak</button>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm hover:bg-primary/90 transition-colors shadow-[0_2px_8px_rgba(0,0,0,0.06)]">Approve</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Action Bar (Sticky above Nav) -->
+<div class="fixed bottom-[80px] w-full bg-surface-container-lowest border-t border-outline-variant p-4 flex gap-4 z-40 max-w-screen-xl mx-auto shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
+<button class="flex-1 py-3 rounded-xl border-2 border-outline-variant text-on-surface-variant font-h2 text-h2 hover:bg-surface-variant/20 transition-colors text-center">Batalkan Semua</button>
+<button class="flex-1 py-3 rounded-xl bg-primary text-on-primary font-h2 text-h2 hover:bg-primary/90 transition-colors shadow-[0_2px_8px_rgba(0,0,0,0.06)] text-center">Approve Semua</button>
+</div>
+<!-- BottomNavBar from JSON -->
+<nav class="fixed bottom-0 w-full h-[80px] z-50 bg-surface-container-lowest border-t border-outline-variant shadow-[0_-2px_8px_rgba(0,0,0,0.06)] flex justify-around items-center px-2 max-w-screen-xl mx-auto">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high/50 w-16 h-16 rounded-xl transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-sm text-label-sm">Beranda</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high/50 w-16 h-16 rounded-xl transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mb-1">calendar_today</span>
+<span class="font-label-sm text-label-sm">Jadwal</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-semibold hover:bg-surface-container-high/50 w-16 h-16 rounded-xl scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined icon-filled mb-1">gavel</span>
+<span class="font-label-sm text-label-sm">Sidang</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high/50 w-16 h-16 rounded-xl transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mb-1">menu_book</span>
+<span class="font-label-sm text-label-sm">Bimbingan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high/50 w-16 h-16 rounded-xl transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-sm text-label-sm">Profil</span>
+</a>
+</nav>
+<!-- Hidden Bottom Sheet (Catatan Penolakan) -->
+<!-- Note: Styled as hidden by default, visible state would remove 'hidden' class -->
+<div class="hidden fixed inset-0 bg-on-surface/40 z-[70] flex-col justify-end backdrop-blur-sm">
+<div class="bg-surface-container-lowest rounded-t-2xl p-6 w-full max-w-screen-md mx-auto shadow-[0_-8px_24px_rgba(0,0,0,0.12)]">
+<div class="w-12 h-1.5 bg-outline-variant rounded-full mx-auto mb-6"></div>
+<h3 class="font-h1 text-h1 text-on-surface mb-2">Catatan Penolakan</h3>
+<p class="font-body text-body text-on-surface-variant mb-4">Berikan alasan rinci mengapa dokumen ini ditolak agar mahasiswa dapat memperbaikinya.</p>
+<textarea class="w-full border border-outline rounded-xl p-4 font-body text-body text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none resize-none mb-6 bg-surface-bright" placeholder="Tulis catatan penolakan di sini..." rows="5"></textarea>
+<div class="flex justify-end gap-3">
+<button class="px-6 py-3 rounded-xl text-on-surface-variant font-h2 text-h2 hover:bg-surface-variant/20 transition-colors">Batal</button>
+<button class="px-6 py-3 rounded-xl bg-error text-on-error font-h2 text-h2 hover:bg-error/90 transition-colors shadow-[0_2px_8px_rgba(0,0,0,0.06)] flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">send</span>
+                    Kirim Penolakan
+                </button>
+</div>
+</div>
+</div>
+</body></html>

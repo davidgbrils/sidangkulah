@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Beranda Dosen</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "tertiary-container": "#a64c00",
+                "on-surface": "#191c21",
+                "inverse-on-surface": "#eff0f9",
+                "surface-bright": "#f9f9ff",
+                "error-container": "#ffdad6",
+                "surface-container-lowest": "#ffffff",
+                "surface-container-high": "#e7e8f0",
+                "on-tertiary-fixed": "#321200",
+                "secondary-container": "#51b2fe",
+                "on-primary-fixed-variant": "#00468c",
+                "on-surface-variant": "#424752",
+                "on-secondary-fixed-variant": "#004a75",
+                "surface": "#f9f9ff",
+                "primary-fixed": "#d6e3ff",
+                "on-primary-fixed": "#001b3d",
+                "primary-container": "#1565c0",
+                "secondary-fixed": "#cee5ff",
+                "on-secondary-container": "#00436a",
+                "error": "#ba1a1a",
+                "inverse-surface": "#2e3037",
+                "on-primary": "#ffffff",
+                "background": "#f9f9ff",
+                "tertiary-fixed-dim": "#ffb68c",
+                "secondary-fixed-dim": "#96ccff",
+                "surface-container-highest": "#e1e2ea",
+                "surface-dim": "#d8dae2",
+                "surface-container-low": "#f2f3fb",
+                "on-tertiary": "#ffffff",
+                "on-secondary-fixed": "#001d32",
+                "tertiary": "#813900",
+                "on-tertiary-container": "#ffdece",
+                "tertiary-fixed": "#ffdbc9",
+                "on-error": "#ffffff",
+                "on-background": "#191c21",
+                "secondary": "#00639a",
+                "outline-variant": "#c2c6d4",
+                "on-tertiary-fixed-variant": "#753400",
+                "surface-container": "#ecedf6",
+                "primary-fixed-dim": "#a9c7ff",
+                "on-secondary": "#ffffff",
+                "on-error-container": "#93000a",
+                "primary": "#004d99",
+                "outline": "#727783",
+                "on-primary-container": "#dae5ff",
+                "surface-variant": "#e1e2ea",
+                "surface-tint": "#005db7",
+                "inverse-primary": "#a9c7ff"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "gutter": "16px",
+                "bottom-nav-height": "80px",
+                "container-padding": "16px",
+                "base": "8px"
+        },
+        "fontFamily": {
+                "h2": [
+                        "Plus Jakarta Sans"
+                ],
+                "h1": [
+                        "Plus Jakarta Sans"
+                ],
+                "body": [
+                        "Plus Jakarta Sans"
+                ],
+                "label-sm": [
+                        "Plus Jakarta Sans"
+                ]
+        },
+        "fontSize": {
+                "h2": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "h1": [
+                        "22px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.5px",
+                                "fontWeight": "500"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body pb-bottom-nav-height md:pb-0 md:pl-80">
+<!-- Desktop Navigation Drawer (Hidden on Mobile) -->
+<aside class="hidden md:flex flex-col h-full w-80 rounded-r-xl bg-surface dark:bg-inverse-surface shadow-xl fixed inset-y-0 left-0 z-[60] py-4">
+<!-- Header -->
+<div class="px-6 mb-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-h1 text-h1">
+                    SA
+                </div>
+<div>
+<h2 class="font-h2 text-h2 text-on-surface">Sivitas Akademika</h2>
+<p class="font-body text-body text-on-surface-variant">Institut Teknologi PLN</p>
+<span class="font-label-sm text-label-sm text-outline">v1.0.0</span>
+</div>
+</div>
+</div>
+<!-- Nav Items -->
+<nav class="flex-1 overflow-y-auto">
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-outline-variant mx-3 my-1 px-4 py-3 hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-full transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-body text-body font-medium">Mahasiswa</span>
+</a>
+<a class="flex items-center gap-3 bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full mx-3 my-1 px-4 py-3 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">supervisor_account</span>
+<span class="font-body text-body font-medium">Dosen</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-outline-variant mx-3 my-1 px-4 py-3 hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-full transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">settings_accessibility</span>
+<span class="font-body text-body font-medium">Operator</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-outline-variant mx-3 my-1 px-4 py-3 hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-full transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="font-body text-body font-medium">Kaprodi</span>
+</a>
+</nav>
+</aside>
+<!-- Top App Bar -->
+<header class="bg-surface-container-lowest dark:bg-inverse-surface docked full-width top-0 border-b border-outline-variant flat no shadows transition-colors duration-200 flex items-center justify-between px-gutter h-16 w-full z-50 sticky md:hidden">
+<button class="text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant/20 dark:hover:bg-on-surface/10 p-2 rounded-full flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-h1 text-h1 font-bold text-primary dark:text-primary-fixed-dim">Beranda</h1>
+<button class="text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant/20 dark:hover:bg-on-surface/10 p-2 rounded-full flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="flex-1 w-full max-w-screen-xl mx-auto p-container-padding flex flex-col gap-6">
+<!-- Welcome Banner -->
+<section class="relative rounded-xl overflow-hidden bg-gradient-to-r from-primary to-primary-container text-on-primary p-6 shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
+<!-- Decorative Background Element -->
+<div class="absolute -right-4 -top-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+<div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<span class="inline-block px-3 py-1 bg-[#E0F2F1] text-[#00796B] rounded-full font-label-sm text-label-sm mb-2 font-medium tracking-wide">DOSEN PENGUJI</span>
+<h2 class="font-h1 text-h1 mb-1">Halo, Dr. Budi Setiawan</h2>
+<p class="font-body text-body opacity-90">Selamat datang kembali di sistem akademik.</p>
+</div>
+</div>
+</section>
+<!-- Stats Scroll -->
+<section>
+<h3 class="font-h2 text-h2 text-on-surface mb-3 flex items-center gap-2">
+<span class="w-1 h-4 bg-primary rounded-full"></span>
+                Ringkasan Kinerja
+            </h3>
+<div class="flex overflow-x-auto hide-scrollbar gap-4 pb-2 -mx-container-padding px-container-padding md:mx-0 md:px-0">
+<!-- Stat Card 1 -->
+<div class="min-w-[140px] flex-shrink-0 bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-container"></div>
+<span class="material-symbols-outlined text-secondary-container mb-2 text-2xl">groups</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Total Mahasiswa</p>
+<p class="font-h1 text-h1 text-on-surface mt-1">42</p>
+</div>
+<!-- Stat Card 2 -->
+<div class="min-w-[140px] flex-shrink-0 bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<span class="material-symbols-outlined text-primary mb-2 text-2xl">check_circle</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Sudah Dinilai</p>
+<p class="font-h1 text-h1 text-on-surface mt-1">28</p>
+</div>
+<!-- Stat Card 3 -->
+<div class="min-w-[140px] flex-shrink-0 bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<span class="material-symbols-outlined text-error mb-2 text-2xl">pending_actions</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Belum Dinilai</p>
+<p class="font-h1 text-h1 text-on-surface mt-1">14</p>
+</div>
+<!-- Stat Card 4 -->
+<div class="min-w-[140px] flex-shrink-0 bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<span class="material-symbols-outlined text-tertiary mb-2 text-2xl">event</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Hari Ini</p>
+<p class="font-h1 text-h1 text-on-surface mt-1">3</p>
+</div>
+</div>
+</section>
+<!-- Quick Access (Bento Grid Style) -->
+<section>
+<h3 class="font-h2 text-h2 text-on-surface mb-3 flex items-center gap-2">
+<span class="w-1 h-4 bg-primary rounded-full"></span>
+                Akses Cepat
+            </h3>
+<div class="grid grid-cols-2 gap-4">
+<button class="bg-surface-container-lowest rounded-xl p-4 flex flex-col items-start gap-3 shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-outline-variant/20 hover:border-primary/50 transition-colors group text-left">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">list_alt</span>
+</div>
+<span class="font-h2 text-h2 text-on-surface text-sm">Daftar Mahasiswa</span>
+</button>
+<button class="bg-surface-container-lowest rounded-xl p-4 flex flex-col items-start gap-3 shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-outline-variant/20 hover:border-primary/50 transition-colors group text-left">
+<div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">edit_note</span>
+</div>
+<span class="font-h2 text-h2 text-on-surface text-sm">Input Nilai</span>
+</button>
+<button class="bg-surface-container-lowest rounded-xl p-4 flex flex-col items-start gap-3 shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-outline-variant/20 hover:border-primary/50 transition-colors group text-left">
+<div class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<span class="font-h2 text-h2 text-on-surface text-sm">Jadwal</span>
+</button>
+<button class="bg-surface-container-lowest rounded-xl p-4 flex flex-col items-start gap-3 shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-outline-variant/20 hover:border-primary/50 transition-colors group text-left">
+<div class="w-10 h-10 rounded-lg bg-outline/10 flex items-center justify-center text-on-surface-variant group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">description</span>
+</div>
+<span class="font-h2 text-h2 text-on-surface text-sm">Formulir</span>
+</button>
+</div>
+</section>
+<!-- Jadwal Terdekat -->
+<section class="mb-4">
+<div class="flex justify-between items-end mb-3">
+<h3 class="font-h2 text-h2 text-on-surface flex items-center gap-2">
+<span class="w-1 h-4 bg-primary rounded-full"></span>
+                    Jadwal Terdekat
+                </h3>
+<a class="font-label-sm text-label-sm text-primary hover:underline" href="#">Lihat Semua</a>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Schedule Item 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-outline-variant/20 flex gap-4 items-center">
+<div class="flex flex-col items-center justify-center w-14 h-14 bg-surface-container-low rounded-lg shrink-0">
+<span class="font-h2 text-h2 text-on-surface">12</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Okt</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-h2 text-h2 text-on-surface truncate">Sidang Skripsi - Andi Wijaya</h4>
+<p class="font-body text-body text-on-surface-variant text-sm truncate">Ruang Rapat A • 10:00 - 12:00</p>
+</div>
+<div class="shrink-0">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm">
+                            Penguji 1
+                        </span>
+</div>
+</div>
+<!-- Schedule Item 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-outline-variant/20 flex gap-4 items-center opacity-80">
+<div class="flex flex-col items-center justify-center w-14 h-14 bg-surface-container-low rounded-lg shrink-0">
+<span class="font-h2 text-h2 text-on-surface">14</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Okt</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-h2 text-h2 text-on-surface truncate">Seminar Proposal - Siti Aminah</h4>
+<p class="font-body text-body text-on-surface-variant text-sm truncate">Online (Zoom) • 13:00 - 15:00</p>
+</div>
+<div class="shrink-0">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-secondary/10 text-secondary font-label-sm text-label-sm">
+                            Pembimbing
+                        </span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Mobile Only) -->
+<nav class="bg-surface-container-lowest dark:bg-inverse-surface fixed bottom-0 w-full h-[80px] z-50 border-t border-outline-variant shadow-[0_-2px_8px_rgba(0,0,0,0.06)] flex justify-around items-center px-2 max-w-screen-xl mx-auto md:hidden">
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-semibold hover:bg-surface-container-high/50 dark:hover:bg-surface-container/20 w-full h-full rounded-xl transition-colors duration-150" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm">Beranda</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high/50 dark:hover:bg-surface-container/20 w-full h-full rounded-xl transition-colors duration-150" href="#">
+<span class="material-symbols-outlined mb-1">school</span>
+<span class="font-label-sm text-label-sm">Mahasiswa</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high/50 dark:hover:bg-surface-container/20 w-full h-full rounded-xl transition-colors duration-150" href="#">
+<span class="material-symbols-outlined mb-1">calendar_today</span>
+<span class="font-label-sm text-label-sm">Jadwal</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high/50 dark:hover:bg-surface-container/20 w-full h-full rounded-xl transition-colors duration-150" href="#">
+<span class="material-symbols-outlined mb-1">description</span>
+<span class="font-label-sm text-label-sm">Formulir</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high/50 dark:hover:bg-surface-container/20 w-full h-full rounded-xl transition-colors duration-150" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-sm text-label-sm">Profil</span>
+</a>
+</nav>
+</body></html>

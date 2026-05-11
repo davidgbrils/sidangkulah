@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Persetujuan Ganti Penguji - Operator</title>
+<!-- Google Fonts: Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-fixed": "#ffdbc9",
+                        "outline": "#727783",
+                        "surface-dim": "#d8dae2",
+                        "on-secondary-fixed-variant": "#004a75",
+                        "on-primary-container": "#dae5ff",
+                        "surface-container-low": "#f2f3fb",
+                        "on-tertiary-container": "#ffdece",
+                        "on-surface": "#191c21",
+                        "secondary": "#00639a",
+                        "inverse-on-surface": "#eff0f9",
+                        "tertiary-fixed-dim": "#ffb68c",
+                        "on-tertiary-fixed-variant": "#753400",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f9f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#d6e3ff",
+                        "primary": "#004d99",
+                        "background": "#f9f9ff",
+                        "on-tertiary-fixed": "#321200",
+                        "on-secondary-fixed": "#001d32",
+                        "inverse-primary": "#a9c7ff",
+                        "on-background": "#191c21",
+                        "surface-container": "#ecedf6",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e1e2ea",
+                        "tertiary-container": "#a64c00",
+                        "surface-container-high": "#e7e8f0",
+                        "primary-container": "#1565c0",
+                        "on-secondary-container": "#00436a",
+                        "surface-tint": "#005db7",
+                        "on-primary-fixed": "#001b3d",
+                        "surface-container-highest": "#e1e2ea",
+                        "outline-variant": "#c2c6d4",
+                        "tertiary": "#813900",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#00468c",
+                        "inverse-surface": "#2e3037",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#51b2fe",
+                        "secondary-fixed-dim": "#96ccff",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#cee5ff",
+                        "surface": "#f9f9ff",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#424752"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "base": "8px",
+                        "bottom-nav-height": "80px",
+                        "gutter": "16px",
+                        "container-padding": "16px"
+                    },
+                    fontFamily: {
+                        "h2": ["Plus Jakarta Sans"],
+                        "h1": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"]
+                    },
+                    fontSize: {
+                        "h2": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "h1": ["22px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "body": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased pb-[100px] pt-16">
+<!-- TopAppBar Shared Component -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest border-b border-outline-variant flex items-center justify-between px-gutter h-16 transition-colors duration-200">
+<button class="text-primary hover:bg-surface-variant/20 p-2 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-h1 text-h1 font-bold text-primary">SidangKu</h1>
+<button class="text-primary hover:bg-surface-variant/20 p-2 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="max-w-screen-md mx-auto px-gutter py-6 flex flex-col gap-6">
+<!-- Page Header -->
+<section class="flex flex-col gap-2">
+<h2 class="font-h1 text-h1 text-on-background">Approval Ganti Penguji</h2>
+<p class="font-body text-body text-on-surface-variant">Kelola pengajuan pergantian dosen penguji dari Kaprodi atau Mahasiswa.</p>
+</section>
+<!-- Filter Chips -->
+<section class="flex gap-3 overflow-x-auto pb-2 -mx-gutter px-gutter hide-scrollbar">
+<button class="flex-shrink-0 px-4 py-2 rounded-full font-label-sm text-label-sm border border-outline-variant bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high transition-colors">Semua</button>
+<button class="flex-shrink-0 px-4 py-2 rounded-full font-label-sm text-label-sm bg-secondary-container text-on-secondary-container font-semibold transition-colors">Menunggu (3)</button>
+<button class="flex-shrink-0 px-4 py-2 rounded-full font-label-sm text-label-sm border border-outline-variant bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high transition-colors">Disetujui</button>
+<button class="flex-shrink-0 px-4 py-2 rounded-full font-label-sm text-label-sm border border-outline-variant bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high transition-colors">Ditolak</button>
+</section>
+<!-- Approval Request Cards List -->
+<section class="flex flex-col gap-5">
+<!-- Card 1 (Urgent) -->
+<article class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.06)] overflow-hidden relative border border-outline-variant/30 flex flex-col">
+<!-- Role/Urgent Accent Bar -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="p-5 flex flex-col gap-4">
+<!-- Header -->
+<div class="flex justify-between items-start pl-2">
+<div class="flex items-center gap-2">
+<span class="bg-error text-on-error px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Urgent</span>
+<span class="font-label-sm text-label-sm text-outline">Diajukan: Hari ini, 09:00</span>
+</div>
+<button class="text-outline hover:text-on-surface"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</div>
+<!-- Student & Schedule Info (Bento-lite) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pl-2">
+<div class="flex gap-3 items-center">
+<div class="w-10 h-10 rounded-full bg-surface-variant bg-cover bg-center" data-alt="A clean, professional headshot of an Indonesian male university student with short neat black hair, wearing a white collared shirt against a light gray background. The lighting is bright and evenly distributed, creating a modern academic administrative aesthetic. The image conveys reliability and focus, suitable for a formal university dashboard profile picture." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDCLUYfZRl8-JWhbU8LuK2nmpquknuxojVoLqHALkxnAZM9PcnMszLND_9nAX5MJofBy5EOaCxpgvjCoyClRWN5nMsVGJlfeaX5lKm02m_LwCfvqgD5a5FrSC_Z5c75d6n-l2KqtgIdMTGGh08-5xMbekxmdyS7bdOhGpdKDu00aoUIvV0WRzyQwqPBROSbIXl6-RcXDNA2I-AUirs6H5qw9Vbepoe1_kJZ1Lf-t7GlZxjrGS4lh7OJJ9T1e1J5X5jTfQ1aMXUS8hcA');"></div>
+<div class="flex flex-col">
+<span class="font-h2 text-h2 text-on-surface">Budi Santoso</span>
+<span class="font-body text-body text-on-surface-variant text-xs">201910203 • Teknik Informatika</span>
+</div>
+</div>
+<div class="flex flex-col justify-center bg-surface-container-low p-3 rounded-lg">
+<div class="flex items-center gap-2 text-on-surface-variant mb-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span class="font-label-sm text-label-sm">Besok, 14 Okt 2023 • 10:00 WIB</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">meeting_room</span>
+<span class="font-label-sm text-label-sm">Ruang Sidang 2, Gd. Rektorat</span>
+</div>
+</div>
+</div>
+<!-- Examiner Change Transaction -->
+<div class="mt-2 pl-2">
+<h4 class="font-label-sm text-label-sm text-outline mb-2 uppercase tracking-wide">Perubahan Penguji 1</h4>
+<div class="flex items-center gap-2 flex-wrap">
+<div class="flex items-center gap-2 bg-error-container/30 border border-error-container text-on-surface px-3 py-2 rounded-lg">
+<span class="material-symbols-outlined text-error text-[18px]">person_remove</span>
+<span class="font-body text-body text-sm line-through decoration-error">Dr. Hendra W.</span>
+</div>
+<span class="material-symbols-outlined text-outline">arrow_forward</span>
+<div class="flex items-center gap-2 bg-primary-container/20 border border-primary-container text-on-surface px-3 py-2 rounded-lg">
+<span class="material-symbols-outlined text-primary text-[18px]">person_add</span>
+<span class="font-h2 text-h2 text-sm text-primary">Dr. Siti Aminah</span>
+</div>
+</div>
+<p class="font-body text-body text-sm text-on-surface-variant mt-3 italic bg-surface-bright p-2 rounded border border-surface-variant">
+                            "Dr. Hendra mendadak dinas luar kota minggu ini. Mohon diganti ke Dr. Siti yang memiliki bidang keahlian serupa."
+                        </p>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="bg-surface-bright border-t border-surface-variant p-4 flex justify-end gap-3">
+<button class="px-6 py-2 rounded-lg font-h2 text-h2 text-sm text-error border border-outline-variant hover:bg-error-container/20 transition-colors">Tolak</button>
+<button class="px-6 py-2 rounded-lg font-h2 text-h2 text-sm bg-primary text-on-primary hover:bg-primary/90 shadow-sm transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">check</span> Setujui
+                    </button>
+</div>
+</article>
+<!-- Card 2 (Standard) -->
+<article class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.06)] overflow-hidden relative border border-outline-variant/30 flex flex-col">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-outline-variant"></div>
+<div class="p-5 flex flex-col gap-4">
+<!-- Header -->
+<div class="flex justify-between items-start pl-2">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-outline">Diajukan: Kemarin, 14:30</span>
+</div>
+</div>
+<!-- Student & Schedule Info -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pl-2">
+<div class="flex gap-3 items-center">
+<div class="w-10 h-10 rounded-full bg-surface-variant bg-cover bg-center" data-alt="A bright, clear headshot of an Indonesian female university student wearing a professional hijab and a neat blazer. The background is a soft, out-of-focus light gray wall, providing excellent contrast. The lighting is studio-quality and even, perfectly suited for a formal university portal or academic administrative interface." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB7e7eSB-cBl-wO4gNNO31jcVvulIr3qXUcDP_rKFPcGfqnSOHrdzb0Bt1QVfroPeYRpi6FQDYKgIDzrR4N8B3rvm5rqNGi2xMPrv2qFwOQN3-QskKu9byv13no79UENyq-GY-YKE-NfapYj9MPJnIjJiD1JXDmvZzYgGK1SXuLjH6M7kYCmbS5CMEiAX1x-6-Exm21P6hhaENjLvRWAtYdZ5MSFKTTddlAh9AvT_P11pIe_y3mhwteEgaB-FIlGvO-loLzhb9S7nvA');"></div>
+<div class="flex flex-col">
+<span class="font-h2 text-h2 text-on-surface">Rina Melati</span>
+<span class="font-body text-body text-on-surface-variant text-xs">201910542 • Sistem Informasi</span>
+</div>
+</div>
+<div class="flex flex-col justify-center bg-surface-container-low p-3 rounded-lg">
+<div class="flex items-center gap-2 text-on-surface-variant mb-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span class="font-label-sm text-label-sm">18 Okt 2023 • 13:00 WIB</span>
+</div>
+</div>
+</div>
+<!-- Examiner Change Transaction -->
+<div class="mt-2 pl-2">
+<h4 class="font-label-sm text-label-sm text-outline mb-2 uppercase tracking-wide">Perubahan Penguji 2</h4>
+<div class="flex items-center gap-2 flex-wrap">
+<div class="flex items-center gap-2 bg-error-container/30 border border-error-container text-on-surface px-3 py-2 rounded-lg">
+<span class="material-symbols-outlined text-error text-[18px]">person_remove</span>
+<span class="font-body text-body text-sm line-through decoration-error">Prof. Surya</span>
+</div>
+<span class="material-symbols-outlined text-outline">arrow_forward</span>
+<div class="flex items-center gap-2 bg-primary-container/20 border border-primary-container text-on-surface px-3 py-2 rounded-lg">
+<span class="material-symbols-outlined text-primary text-[18px]">person_add</span>
+<span class="font-h2 text-h2 text-sm text-primary">Ir. Wahyu, M.Kom</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="bg-surface-bright border-t border-surface-variant p-4 flex justify-end gap-3">
+<button class="px-6 py-2 rounded-lg font-h2 text-h2 text-sm text-error border border-outline-variant hover:bg-error-container/20 transition-colors">Tolak</button>
+<button class="px-6 py-2 rounded-lg font-h2 text-h2 text-sm bg-primary text-on-primary hover:bg-primary/90 shadow-sm transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">check</span> Setujui
+                    </button>
+</div>
+</article>
+</section>
+</main>
+<!-- BottomNavBar Shared Component -->
+<!-- Note: Following the rule to match JSON exactly. The closest intent for "Approval Queue" dashboard is "Beranda" for an operator. -->
+<nav class="fixed bottom-0 w-full h-[80px] z-50 bg-surface-container-lowest border-t border-outline-variant shadow-[0_-2px_8px_rgba(0,0,0,0.06)] md:hidden">
+<ul class="flex justify-around items-center px-2 w-full max-w-screen-xl mx-auto h-full">
+<!-- Beranda (Active mapped for Dashboard/Approvals) -->
+<li class="flex-1">
+<a class="flex flex-col items-center justify-center text-primary font-semibold scale-95 transition-transform duration-150 h-full w-full gap-1" href="#">
+<div class="px-4 py-1 rounded-full bg-primary-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined filled text-primary" data-icon="home">home</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary">Beranda</span>
+</a>
+</li>
+<!-- Jadwal (Inactive) -->
+<li class="flex-1">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high/50 transition-colors h-full w-full gap-1 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-sm text-label-sm">Jadwal</span>
+</a>
+</li>
+<!-- Sidang (Inactive) -->
+<li class="flex-1">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high/50 transition-colors h-full w-full gap-1 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+<span class="font-label-sm text-label-sm">Sidang</span>
+</a>
+</li>
+<!-- Bimbingan (Inactive) -->
+<li class="flex-1">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high/50 transition-colors h-full w-full gap-1 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-label-sm text-label-sm">Bimbingan</span>
+</a>
+</li>
+<!-- Profil (Inactive) -->
+<li class="flex-1">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high/50 transition-colors h-full w-full gap-1 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profil</span>
+</a>
+</li>
+</ul>
+</nav>
+</body></html>

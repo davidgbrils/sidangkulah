@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Jadwal Sidang Final - Kaprodi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#ffdbc9",
+                    "outline": "#727783",
+                    "surface-dim": "#d8dae2",
+                    "on-secondary-fixed-variant": "#004a75",
+                    "on-primary-container": "#dae5ff",
+                    "surface-container-low": "#f2f3fb",
+                    "on-tertiary-container": "#ffdece",
+                    "on-surface": "#191c21",
+                    "secondary": "#00639a",
+                    "inverse-on-surface": "#eff0f9",
+                    "tertiary-fixed-dim": "#ffb68c",
+                    "on-tertiary-fixed-variant": "#753400",
+                    "primary-fixed-dim": "#a9c7ff",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#f9f9ff",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#d6e3ff",
+                    "primary": "#004d99",
+                    "background": "#f9f9ff",
+                    "on-tertiary-fixed": "#321200",
+                    "on-secondary-fixed": "#001d32",
+                    "inverse-primary": "#a9c7ff",
+                    "on-background": "#191c21",
+                    "surface-container": "#ecedf6",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e1e2ea",
+                    "tertiary-container": "#a64c00",
+                    "surface-container-high": "#e7e8f0",
+                    "primary-container": "#1565c0",
+                    "on-secondary-container": "#00436a",
+                    "surface-tint": "#005db7",
+                    "on-primary-fixed": "#001b3d",
+                    "surface-container-highest": "#e1e2ea",
+                    "outline-variant": "#c2c6d4",
+                    "tertiary": "#813900",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed-variant": "#00468c",
+                    "inverse-surface": "#2e3037",
+                    "on-tertiary": "#ffffff",
+                    "secondary-container": "#51b2fe",
+                    "secondary-fixed-dim": "#96ccff",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed": "#cee5ff",
+                    "surface": "#f9f9ff",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#424752"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "bottom-nav-height": "80px",
+                    "gutter": "16px",
+                    "container-padding": "16px"
+            },
+            "fontFamily": {
+                    "h2": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "h1": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "body": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "label-sm": [
+                            "Plus Jakarta Sans"
+                    ]
+            },
+            "fontSize": {
+                    "h2": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "h1": [
+                            "22px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.5px",
+                                    "fontWeight": "500"
+                            }
+                    ]
+            }
+        },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface antialiased pb-bottom-nav-height md:pb-0 min-h-screen flex flex-col md:flex-row">
+<!-- Navigation Drawer (Desktop) -->
+<aside class="hidden md:flex flex-col bg-surface-container-lowest border-r border-outline-variant w-80 min-h-screen z-[60] shadow-[0_2px_8px_rgba(0,0,0,0.06)] fixed inset-y-0 left-0">
+<div class="p-gutter border-b border-outline-variant flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant flex items-center justify-center shrink-0">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a middle-aged academic woman wearing a blazer. She is smiling softly against a light grey background. The lighting is soft and natural, emphasizing a professional and approachable mood suitable for an academic administrative portal. The color palette is neutral with soft tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQJdZYyUCwcpKiOYUX8O-s2Yl7ABDY540yoNv6XXWrOpxlFpVq38UN6T9ULRvXukmZ0KT0UEk0DRCsVAmxVtAWom8Ewmn0gLY33UDKDElHTF0BVBNCwWaYadMGyzw-Lsuz2L_9xOPk-N2PyC-TE8fTaGi-sfwxXKh-fxJFcvG7aLMpzE4r6mMMEiAKJlMShpdEoVlXG-jfxyrTTz3MghDykJwW28t1t6lQZ1dqNzH6qNxEhSZJ0BAyXAVEAQVOtvaXfLA04D6pZCJ5"/>
+</div>
+<div>
+<h2 class="font-h2 text-h2 text-primary m-0">Sivitas Akademika</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant m-0">Institut Teknologi PLN</p>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-4 flex flex-col gap-1 px-3">
+<a class="font-body text-body text-on-surface-variant mx-3 my-1 px-4 py-3 hover:bg-surface-container-high rounded-full flex items-center gap-3 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">school</span>
+                Mahasiswa
+            </a>
+<a class="font-body text-body text-on-surface-variant mx-3 my-1 px-4 py-3 hover:bg-surface-container-high rounded-full flex items-center gap-3 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">supervisor_account</span>
+                Dosen
+            </a>
+<a class="font-body text-body text-on-surface-variant mx-3 my-1 px-4 py-3 hover:bg-surface-container-high rounded-full flex items-center gap-3 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings_accessibility</span>
+                Operator
+            </a>
+<a class="font-body text-body bg-secondary-container text-on-secondary-container rounded-full mx-3 my-1 px-4 py-3 flex items-center gap-3 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                Kaprodi
+            </a>
+</nav>
+<div class="p-gutter text-center border-t border-outline-variant">
+<span class="font-label-sm text-label-sm text-on-surface-variant">v1.0.0</span>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-80">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest text-primary font-h1 text-h1 docked full-width top-0 border-b border-outline-variant transition-colors duration-200 flex items-center justify-between px-gutter h-16 w-full z-50 sticky">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 rounded-full hover:bg-surface-variant/20 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-h1 text-h1 font-bold text-primary m-0">SidangKu</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-surface-variant/20 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-variant/20 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden ml-2 hidden md:block">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a middle-aged academic woman wearing a blazer. She is smiling softly against a light grey background. The lighting is soft and natural, emphasizing a professional and approachable mood suitable for an academic administrative portal. The color palette is neutral with soft tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBSypT_9JdJSGF72QUe7F5IXTJNQvTtsPk6boGICTuOXkUbPA0K-feUS8XXTExmBSVef2i8pB42ESjBkeKa0mMX-YU-vlfZh5yyk0yztIhJg8-TPWl-zFtALtUOoB6vNm5XxffuBkoP1QvpLk4FPyVbMO3-X4L75N441ezUpVEuK2eXGNR0IXA9a2X1_uAJa5c99ywmYmyK814DQytQbEeTtM8t_zArkN4ZE-Qv7eMJC83ZfiVMKmDjuEIyx1iW_KXFU01CC4uN9IJ"/>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 overflow-x-hidden overflow-y-auto bg-surface px-4 md:px-8 py-6">
+<div class="max-w-5xl mx-auto space-y-6">
+<!-- Header & Controls -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="font-h1 text-h1 text-on-surface mb-1">Jadwal Sidang Final</h2>
+<p class="font-body text-body text-on-surface-variant">Manajemen jadwal sidang mahasiswa program studi.</p>
+</div>
+<div class="flex items-center bg-surface-container-low rounded-lg p-1 border border-outline-variant shadow-sm w-fit">
+<button class="px-4 py-2 rounded-md bg-surface-container-lowest shadow-sm font-label-sm text-label-sm text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">view_agenda</span>
+                            List
+                        </button>
+<button class="px-4 py-2 rounded-md font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+                            Kalender
+                        </button>
+</div>
+</div>
+<!-- Sticky Date Header 1 -->
+<div class="sticky top-[64px] z-40 bg-surface/90 backdrop-blur-md py-2 border-b border-outline-variant/50 -mx-4 px-4 md:mx-0 md:px-0">
+<h3 class="font-h2 text-h2 text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">event</span>
+                        Senin, 15 Mei 2024
+                    </h3>
+</div>
+<!-- Bento Grid Layout for Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-outline-variant overflow-hidden relative flex flex-col h-full group hover:shadow-md transition-shadow duration-300">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="p-5 flex flex-col h-full">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-surface-container px-3 py-1.5 rounded-full flex items-center gap-2 border border-outline-variant/50">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">schedule</span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">08:00 - 10:00</span>
+</div>
+<div class="bg-tertiary/10 text-tertiary px-2.5 py-1 rounded-md font-label-sm text-label-sm flex items-center gap-1 border border-tertiary/20">
+<span class="material-symbols-outlined text-[14px]">meeting_room</span>
+                                    R. Sidang A
+                                </div>
+</div>
+<div class="mb-5 flex-1">
+<h4 class="font-h2 text-h2 text-on-surface mb-1">Ahmad Rizky</h4>
+<p class="font-body text-body text-on-surface-variant mb-2">2010114001 • Teknik Informatika</p>
+<p class="font-body text-body text-on-surface line-clamp-2 italic text-sm">"Analisis Performansi Algoritma Machine Learning pada Prediksi Beban Listrik"</p>
+</div>
+<div class="border-t border-outline-variant/50 pt-4 flex items-center justify-between mt-auto">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-variant overflow-hidden relative" title="Ketua Penguji">
+<img alt="Dosen" class="w-full h-full object-cover" data-alt="A professional headshot of a male academic. He wears glasses and a light blue shirt. The background is a blurred office environment. High key lighting, modern academic portal aesthetic, neutral tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5Jlkd8Tgl123rDKwpeNRbnoi-q3qk0WwYp2_7Iu1ggXqC9_rqAe5LWM26eNexrEvynBOO9HCgXrN-9-xFe-X16GvushSnrmtdqhnfQvwhGFAIPStFfZV0xo1wjBLmMP3HkzbW1-DraQts-e9PKtZFtdpDqqlt0gmfMz-AGidopdS6G2vTDo4eURJrcFaY7e9s3x0j5j6TQ4ztVtJZQ4SdUkznGU52g3PjGyZC_qMRTMQXKgoPqDwMaIQntsDZwGUDakPE16tCV13C"/>
+<div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-primary rounded-full border border-white"></div>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-variant overflow-hidden" title="Penguji 1">
+<img alt="Dosen" class="w-full h-full object-cover" data-alt="A professional headshot of a female academic with short dark hair. She wears a professional blouse. Light, minimal background. High quality, corporate academic style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGJJf8EYAP5kJ0EVYubx-fI28cFFspkGGsH73TK0zRVg3i4EeJ552tuNJE0LVVogsX5Ske7MOXFDtqpD_GLOuZmbPMkiLBOYzE_ALf5Ywa63KD7IaCGFXoix1Xp42QDAOz6oE6i0g8kWree4Hq8SFD5va_bXpvJMKrEhF73frylYcDIVPQq9UUO7NKUkYfm6d5MU-9_IumqgVLMWXuEFa3er5XrIU_S4NMbmxS1hJcnr4AvB3D8qO2xt6Rvf_LbddNO8rKXX-hYzEV"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-variant overflow-hidden flex items-center justify-center text-[10px] font-bold text-on-surface-variant" title="Penguji 2">
+                                         +1
+                                     </div>
+</div>
+<span class="bg-surface-dim/20 text-on-surface-variant px-3 py-1 rounded-full font-label-sm text-label-sm border border-outline-variant/30 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                    Menunggu
+                                </span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-outline-variant overflow-hidden relative flex flex-col h-full group hover:shadow-md transition-shadow duration-300">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="p-5 flex flex-col h-full">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-surface-container px-3 py-1.5 rounded-full flex items-center gap-2 border border-outline-variant/50">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">schedule</span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">10:30 - 12:30</span>
+</div>
+<div class="bg-tertiary/10 text-tertiary px-2.5 py-1 rounded-md font-label-sm text-label-sm flex items-center gap-1 border border-tertiary/20">
+<span class="material-symbols-outlined text-[14px]">meeting_room</span>
+                                    R. Sidang B
+                                </div>
+</div>
+<div class="mb-5 flex-1">
+<h4 class="font-h2 text-h2 text-on-surface mb-1">Budi Santoso</h4>
+<p class="font-body text-body text-on-surface-variant mb-2">2010114022 • Sistem Informasi</p>
+<p class="font-body text-body text-on-surface line-clamp-2 italic text-sm">"Pengembangan Sistem Informasi Geografis Pemetaan Tiang Listrik Berbasis Web"</p>
+</div>
+<div class="border-t border-outline-variant/50 pt-4 flex items-center justify-between mt-auto">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-variant overflow-hidden relative" title="Ketua Penguji">
+<img alt="Dosen" class="w-full h-full object-cover" data-alt="A professional portrait of a male academic with short hair and a subtle beard. He is wearing a dark suit. The setting is clean and modern. Soft, even lighting, professional mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz70rtFlK-IbqlHmz2DSwQBWPWTT8da4mGPXqdskigZbFKDpkchDujE2ZixA0ufiacP1p1YqRCmFfjJsUsshFti5xb1OCCNKJhM_z0XCDVxQPAVtvEW13RM-oEq1XYeMwYdwsvXe9OozQ88WVYtVoiZrZTjJP3pRvp8HeFxCpEYKpxibAcunPqiqkn7NBJZomkSePBloAncweqnayhxnSdook8_yn1Oj7jkagt66i2cwPNpLoTNx6HEHUXJr6xYadgW2ixpqut-WyB"/>
+<div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-primary rounded-full border border-white"></div>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-variant overflow-hidden" title="Penguji 1">
+<img alt="Dosen" class="w-full h-full object-cover" data-alt="A professional headshot of a female academic smiling warmly. Casual yet professional attire. Light grey background. Modern academic portal aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSca70qorm19XzvDdnNOCrCA8cQGYBNsQBEAGQY4cyTPozIjVHdZgN7Zn9qjOdTEwmnFobzDGLBd4Cf0ChoPN0j7lmIlteH97jqcN-kwRnzbrnd750CT7u59RxqSthh4AUtzuXyNJCQswjMRS_Umvl_tD8xy404BfnI--fJzPBHkTFgw8SLTF4A4_mxsdAexFYunov2xfr5ETDZoQPdHE_LQK5ZiWHLtgGDi64gUq8kBPNJFAl9_vMv0bsQHMdSNGKm67kDeAb9YnD"/>
+</div>
+</div>
+<span class="bg-primary-container/20 text-on-primary-container px-3 py-1 rounded-full font-label-sm text-label-sm border border-primary-container/30 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                    Sedang Berlangsung
+                                </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Date Header 2 -->
+<div class="sticky top-[64px] z-40 bg-surface/90 backdrop-blur-md py-2 border-b border-outline-variant/50 -mx-4 px-4 md:mx-0 md:px-0 mt-8">
+<h3 class="font-h2 text-h2 text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">event</span>
+                        Selasa, 16 Mei 2024
+                    </h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-outline-variant overflow-hidden relative flex flex-col h-full group hover:shadow-md transition-shadow duration-300 opacity-70">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-outline-variant"></div>
+<div class="p-5 flex flex-col h-full">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-surface-container px-3 py-1.5 rounded-full flex items-center gap-2 border border-outline-variant/50">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">schedule</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">09:00 - 11:00</span>
+</div>
+<div class="bg-outline/10 text-outline px-2.5 py-1 rounded-md font-label-sm text-label-sm flex items-center gap-1 border border-outline/20">
+<span class="material-symbols-outlined text-[14px]">meeting_room</span>
+                                    R. Sidang A
+                                </div>
+</div>
+<div class="mb-5 flex-1">
+<h4 class="font-h2 text-h2 text-on-surface-variant mb-1">Citra Dewi</h4>
+<p class="font-body text-body text-on-surface-variant mb-2">2010114055 • Teknik Informatika</p>
+<p class="font-body text-body text-on-surface-variant line-clamp-2 italic text-sm">"Implementasi Keamanan Jaringan Menggunakan Metode IDS pada Infrastruktur Kampus"</p>
+</div>
+<div class="border-t border-outline-variant/50 pt-4 flex items-center justify-between mt-auto">
+<div class="flex -space-x-2 opacity-70">
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-variant overflow-hidden" title="Ketua Penguji">
+<img alt="Dosen" class="w-full h-full object-cover" data-alt="Professional portrait of a male academic looking straight at the camera. He wears a formal shirt. Plain background. Serious and professional mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBt8WxPE0hcx9Tv4rcMKzXKBePnsTFF2sEEPzSePoB5xq30OuWWWM4b6t96x3gxiikcu3Z5cUwLcTolSae-lKAtJB5SQVAu1Vb6fMksV3Kxul2zKWJR_MJHAY8VUH_hTj-eanhzvFHui4ZopNFBZRQSKWogFHSnFXRs61BmqswEpw9NvrxgWabPpCFSme9E76ymAySy_YdpPTZQAtwXj-B-0XRzwoC9Qvyecu_U4BFiIMFkfGpiy9dazDEy-aRL3W_ImUi5uPkFQ1aE"/>
+</div>
+</div>
+<span class="bg-surface-dim/50 text-on-surface-variant px-3 py-1 rounded-full font-label-sm text-label-sm border border-outline-variant/50 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                    Selesai
+                                </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden bg-surface-container-lowest text-primary font-label-sm text-label-sm fixed bottom-0 w-full h-[80px] z-50 border-t border-outline-variant shadow-[0_-2px_8px_rgba(0,0,0,0.06)] flex justify-around items-center px-2 w-full max-w-screen-xl mx-auto">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high/50 transition-colors duration-150 p-2 rounded-lg flex-1" href="#">
+<span class="material-symbols-outlined mb-1 text-[24px]">home</span>
+<span class="text-[10px] font-medium">Beranda</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high/50 transition-colors duration-150 p-2 rounded-lg flex-1" href="#">
+<span class="material-symbols-outlined mb-1 text-[24px]">calendar_today</span>
+<span class="text-[10px] font-medium">Jadwal</span>
+</a>
+<a class="flex flex-col items-center justify-center text-tertiary font-semibold hover:bg-surface-container-high/50 scale-95 transition-transform duration-150 p-2 rounded-lg flex-1" href="#">
+<span class="material-symbols-outlined mb-1 text-[24px]" style="font-variation-settings: 'FILL' 1;">gavel</span>
+<span class="text-[10px] font-bold">Sidang</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high/50 transition-colors duration-150 p-2 rounded-lg flex-1" href="#">
+<span class="material-symbols-outlined mb-1 text-[24px]">menu_book</span>
+<span class="text-[10px] font-medium">Bimbingan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high/50 transition-colors duration-150 p-2 rounded-lg flex-1" href="#">
+<span class="material-symbols-outlined mb-1 text-[24px]">person</span>
+<span class="text-[10px] font-medium">Profil</span>
+</a>
+</nav>
+</body></html>

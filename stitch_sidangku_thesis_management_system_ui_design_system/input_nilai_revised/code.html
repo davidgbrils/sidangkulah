@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Input Nilai - SidangKu</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ffdbc9",
+                        "outline": "#727783",
+                        "surface-dim": "#d8dae2",
+                        "on-secondary-fixed-variant": "#004a75",
+                        "on-primary-container": "#dae5ff",
+                        "surface-container-low": "#f2f3fb",
+                        "on-tertiary-container": "#ffdece",
+                        "on-surface": "#191c21",
+                        "secondary": "#00639a",
+                        "inverse-on-surface": "#eff0f9",
+                        "tertiary-fixed-dim": "#ffb68c",
+                        "on-tertiary-fixed-variant": "#753400",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f9f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#d6e3ff",
+                        "primary": "#004d99",
+                        "background": "#f9f9ff",
+                        "on-tertiary-fixed": "#321200",
+                        "on-secondary-fixed": "#001d32",
+                        "inverse-primary": "#a9c7ff",
+                        "on-background": "#191c21",
+                        "surface-container": "#ecedf6",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e1e2ea",
+                        "tertiary-container": "#a64c00",
+                        "surface-container-high": "#e7e8f0",
+                        "primary-container": "#1565c0",
+                        "on-secondary-container": "#00436a",
+                        "surface-tint": "#005db7",
+                        "on-primary-fixed": "#001b3d",
+                        "surface-container-highest": "#e1e2ea",
+                        "outline-variant": "#c2c6d4",
+                        "tertiary": "#813900",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#00468c",
+                        "inverse-surface": "#2e3037",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#51b2fe",
+                        "secondary-fixed-dim": "#96ccff",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#cee5ff",
+                        "surface": "#f9f9ff",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#424752"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "bottom-nav-height": "80px",
+                        "gutter": "16px",
+                        "container-padding": "16px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Plus Jakarta Sans"],
+                        "h1": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "h2": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "h1": ["22px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "body": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Custom range slider styling for cross-browser M3 look */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #004d99; /* primary */
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #e1e2ea; /* surface-variant */
+            border-radius: 2px;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]:focus::-webkit-slider-thumb {
+            box-shadow: 0 0 0 4px rgba(214, 227, 255, 0.5); /* primary-fixed */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body antialiased selection:bg-primary-fixed selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest border-b border-outline-variant flex items-center justify-between px-gutter h-16 w-full z-50 sticky top-0 transition-colors duration-200">
+<div class="flex items-center gap-4">
+<button aria-label="Back" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant/20 transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-h1 text-h1 font-bold text-primary">SidangKu</h1>
+</div>
+<button aria-label="Profile" class="w-10 h-10 rounded-full flex items-center justify-center text-primary hover:bg-surface-variant/20 transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<!-- Navigation Shell Suppressed due to Task-Focused Intent (Input Form with Back Button) -->
+<main class="px-container-padding py-base pb-8 max-w-3xl mx-auto w-full flex flex-col gap-6 mt-4"><div class="bg-primary-container/10 border border-primary-container text-on-primary-container p-4 rounded-xl flex items-start gap-3 mb-2"><span class="material-symbols-outlined text-primary" data-icon="info">info</span><p class="font-body text-body">Nilai akhir dan grade akan dihitung oleh sistem setelah semua penguji mengisi nilai.</p></div>
+<div class="flex flex-col gap-1">
+<h2 class="font-h1 text-h1 text-on-surface">Input Nilai Sidang</h2>
+<p class="font-body text-body text-on-surface-variant">Pastikan nilai dan catatan telah diisi dengan benar sebelum submit.</p>
+</div>
+<!-- Compact Student Info Card -->
+<section class="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant flex items-center gap-4 relative overflow-hidden shadow-sm">
+<!-- Role Accent (Student) -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
+<div class="w-14 h-14 rounded-full bg-surface-variant flex-shrink-0 bg-cover bg-center border border-outline-variant/30" data-alt="A professional headshot of a young Southeast Asian male university student. He is wearing a neat white collared shirt, typical for an academic thesis defense setting. The background is a soft, blurred light grey, emphasizing the subject. The lighting is bright and even, creating a clean, modern, and optimistic light-mode aesthetic suitable for an academic application profile picture." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAeEFZ5ER0Fs3p-XX7oiHmWIXXYXpYVniPf1TlhWUPriqI7RXtNNImflKhZbLTLgshWf_aA94kPKM31h7D60Blc6d6KW97cZTDbseCuk-dZbvH_kpu4uVbn7HotNSv6B8YQvrA8dAtFv5B46TZNK9EFajefm2waP8e8fdnIj5sqVl5NEMcqhA3e5p88WqcLNS1E1qNpIdEKypJFl_EaJlEFlR5_nbeK1S7iJ0DA0ySJCuHlyDUEV0U9nIhGAr5X4D1Ckt2QORIigzCq');">
+</div>
+<div class="flex flex-col flex-1">
+<h3 class="font-h2 text-h2 text-on-surface">Budi Santoso</h3>
+<p class="font-body text-body text-on-surface-variant">NIM: 202100192 • Teknik Informatika</p>
+<p class="font-label-sm text-label-sm text-outline mt-1 line-clamp-1">Analisis Sentimen Menggunakan Metode Deep Learning pada Ulasan Aplikasi E-Commerce</p>
+</div>
+</section>
+<!-- Komponen Penilaian Card -->
+<section class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant shadow-sm flex flex-col gap-6">
+<h3 class="font-h2 text-h2 text-on-surface border-b border-surface-variant pb-3">Komponen Penilaian</h3>
+<!-- Item 1 -->
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<span class="font-h2 text-h2 text-on-surface">Materi &amp; Substansi</span>
+<span class="font-label-sm text-label-sm text-outline">Bobot: 30%</span>
+</div>
+<input class="w-16 h-10 rounded-lg border border-outline-variant text-center font-body text-body text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all bg-surface" max="100" min="0" type="number" value="85"/>
+</div>
+<input class="w-full" max="100" min="0" type="range" value="85"/>
+</div>
+<!-- Item 2 -->
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<span class="font-h2 text-h2 text-on-surface">Sistematika Penulisan</span>
+<span class="font-label-sm text-label-sm text-outline">Bobot: 30%</span>
+</div>
+<input class="w-16 h-10 rounded-lg border border-outline-variant text-center font-body text-body text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all bg-surface" max="100" min="0" type="number" value="88"/>
+</div>
+<input class="w-full" max="100" min="0" type="range" value="88"/>
+</div>
+<!-- Item 3 -->
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<span class="font-h2 text-h2 text-on-surface">Presentasi &amp; Tanya Jawab</span>
+<span class="font-label-sm text-label-sm text-outline">Bobot: 40%</span>
+</div>
+<input class="w-16 h-10 rounded-lg border border-outline-variant text-center font-body text-body text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all bg-surface" max="100" min="0" type="number" value="82"/>
+</div>
+<input class="w-full" max="100" min="0" type="range" value="82"/>
+</div>
+</section>
+<!-- Live Result Grid -->
+<!-- Catatan -->
+<section class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant shadow-sm flex flex-col gap-3 justify-center">
+<h3 class="font-h2 text-h2 text-on-surface">Rekomendasi Kelulusan</h3>
+<div class="flex gap-2 w-full">
+<button class="flex-1 py-2 rounded-lg border border-outline-variant text-on-surface-variant font-body text-body hover:bg-surface-variant/50 transition-colors focus:ring-2 focus:ring-primary outline-none">Lulus</button>
+<button class="flex-1 py-2 rounded-lg border border-primary bg-primary-fixed text-on-primary-fixed-variant font-h2 text-body transition-colors focus:ring-2 focus:ring-primary outline-none flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="check_circle">check_circle</span>
+                        Revisi
+                    </button>
+<button class="flex-1 py-2 rounded-lg border border-outline-variant text-on-surface-variant font-body text-body hover:bg-surface-variant/50 transition-colors focus:ring-2 focus:ring-primary outline-none">Tidak</button>
+</div>
+</section><section class="flex flex-col gap-2 mt-2">
+<label class="font-h2 text-h2 text-on-surface" for="catatan">Catatan Penguji</label>
+<textarea class="w-full rounded-xl border border-outline-variant p-4 font-body text-body text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all bg-surface-container-lowest shadow-sm resize-y" id="catatan" placeholder="Masukkan catatan, masukan, atau poin revisi untuk mahasiswa..." rows="4"></textarea>
+</section>
+<!-- Actions -->
+<div class="flex gap-4 mt-6 pt-4 border-t border-surface-variant">
+<button class="flex-1 py-3.5 rounded-xl border border-outline text-on-surface font-h2 text-body hover:bg-surface-variant transition-colors flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="save">save</span>
+                Simpan Draft
+            </button>
+<button class="flex-1 py-3.5 rounded-xl bg-primary text-on-primary font-h2 text-body hover:bg-primary/90 transition-colors shadow-sm flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="send">send</span>
+                Submit Nilai
+            </button>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Jadwal Sidang Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ffdbc9",
+                        "outline": "#727783",
+                        "surface-dim": "#d8dae2",
+                        "on-secondary-fixed-variant": "#004a75",
+                        "on-primary-container": "#dae5ff",
+                        "surface-container-low": "#f2f3fb",
+                        "on-tertiary-container": "#ffdece",
+                        "on-surface": "#191c21",
+                        "secondary": "#00639a",
+                        "inverse-on-surface": "#eff0f9",
+                        "tertiary-fixed-dim": "#ffb68c",
+                        "on-tertiary-fixed-variant": "#753400",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f9f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#d6e3ff",
+                        "primary": "#004d99",
+                        "background": "#f9f9ff",
+                        "on-tertiary-fixed": "#321200",
+                        "on-secondary-fixed": "#001d32",
+                        "inverse-primary": "#a9c7ff",
+                        "on-background": "#191c21",
+                        "surface-container": "#ecedf6",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e1e2ea",
+                        "tertiary-container": "#a64c00",
+                        "surface-container-high": "#e7e8f0",
+                        "primary-container": "#1565c0",
+                        "on-secondary-container": "#00436a",
+                        "surface-tint": "#005db7",
+                        "on-primary-fixed": "#001b3d",
+                        "surface-container-highest": "#e1e2ea",
+                        "outline-variant": "#c2c6d4",
+                        "tertiary": "#813900",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#00468c",
+                        "inverse-surface": "#2e3037",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#51b2fe",
+                        "secondary-fixed-dim": "#96ccff",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#cee5ff",
+                        "surface": "#f9f9ff",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#424752"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "bottom-nav-height": "80px",
+                        "gutter": "16px",
+                        "container-padding": "16px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Plus Jakarta Sans"],
+                        "h1": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "h2": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "h1": ["22px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "body": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background pb-bottom-nav-height md:pb-0 h-screen overflow-y-auto antialiased">
+<!-- Top App Bar -->
+<header class="bg-surface-container-lowest border-b border-outline-variant flex items-center justify-between px-gutter h-16 w-full z-50 sticky top-0 transition-colors duration-200">
+<button class="text-on-surface-variant hover:bg-surface-variant/20 p-2 rounded-full flex items-center justify-center transition-colors duration-200">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-h1 text-h1 font-bold text-primary">Detail Jadwal</h1>
+<button class="text-on-surface-variant hover:bg-surface-variant/20 p-2 rounded-full flex items-center justify-center transition-colors duration-200">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</header>
+<main class="max-w-screen-md mx-auto p-container-padding space-y-6">
+<!-- Hero Date Card -->
+<section class="bg-gradient-to-br from-primary to-primary-container rounded-xl p-6 text-on-primary shadow-[0_2px_8px_rgba(0,0,0,0.06)] relative overflow-hidden">
+<div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+<div class="flex justify-between items-start mb-6 relative z-10">
+<div>
+<h2 class="font-h1 text-h1 text-on-primary">Senin, 20 Jan 2025</h2>
+<p class="font-body text-body text-primary-fixed opacity-90 mt-1">Sidang Skripsi</p>
+</div>
+<div class="bg-white/20 px-3 py-1 rounded-full border border-white/30 backdrop-blur-sm">
+<span class="font-label-sm text-label-sm text-on-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">schedule</span> Terjadwal
+                    </span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 relative z-10">
+<div class="bg-white/10 p-4 rounded-lg backdrop-blur-md border border-white/10 flex items-center gap-3">
+<span class="material-symbols-outlined text-on-primary fill">alarm</span>
+<div>
+<p class="font-label-sm text-label-sm text-primary-fixed opacity-80">Waktu</p>
+<p class="font-h2 text-h2 text-on-primary">08:00 WIB</p>
+</div>
+</div>
+<div class="bg-white/10 p-4 rounded-lg backdrop-blur-md border border-white/10 flex items-center gap-3">
+<span class="material-symbols-outlined text-on-primary fill">meeting_room</span>
+<div>
+<p class="font-label-sm text-label-sm text-primary-fixed opacity-80">Ruangan</p>
+<p class="font-h2 text-h2 text-on-primary">Lab A201</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Mahasiswa Info Card -->
+<section class="bg-surface-container-lowest rounded-xl p-5 shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-surface-variant relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary rounded-l-xl"></div>
+<h3 class="font-h2 text-h2 text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">school</span> Mahasiswa
+            </h3>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden shrink-0">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a young male student in a bright, modern setting. He is wearing a neat polo shirt. The lighting is soft and high-key, creating a clean corporate look. The background is slightly blurred with subtle hints of a university library or campus building in light mode aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMpIvdCbbDlnilgtkUPO2d6hqO54vZP7q3uSlO1P5TLdqVTChrICBqp7V7HPPtPqaGlkCUyg2nyFd5fqIVNZbge_JK7thl_A7z6e2iio_v9bg6HrKcrk7q7eFPwpSStezNheufGAFymzyVwEj1lZbnomtRv3nhzxNk1R_pb5F9ZryFEdVsBgGOMm35COo_tGp3pkGD2GxEwnll6OuzCcdQ72IaXjFS19CrWlyWBx3ZB5bAYwkXe6A5wAvBqJec_-e4yvTZ6FM1_WMy"/>
+</div>
+<div>
+<p class="font-h2 text-h2 text-on-surface">Budi Santoso</p>
+<p class="font-body text-body text-on-surface-variant">2010114001 • Teknik Informatika</p>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Judul Skripsi</p>
+<p class="font-body text-body text-on-surface italic">"Implementasi Machine Learning untuk Prediksi Kinerja Mahasiswa Berbasis Data Akademik"</p>
+</div>
+</section>
+<!-- Tim Penguji Card -->
+<section class="bg-surface-container-lowest rounded-xl p-5 shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-surface-variant relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-l-xl"></div>
+<h3 class="font-h2 text-h2 text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">groups</span> Tim Penguji
+            </h3>
+<div class="space-y-4">
+<!-- Ketua Penguji -->
+<div class="flex items-start gap-4 p-3 hover:bg-surface-container-low rounded-lg transition-colors duration-200 border border-transparent hover:border-surface-variant">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-lg shrink-0">
+                        DR
+                    </div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="font-h2 text-h2 text-on-surface">Dr. Reza Adhitya, S.Kom., M.T.</p>
+<span class="bg-primary-container text-on-primary-container text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Ketua</span>
+</div>
+<p class="font-body text-body text-on-surface-variant text-sm mt-0.5">Penguji 1</p>
+</div>
+</div>
+<!-- Penguji 2 -->
+<div class="flex items-start gap-4 p-3 hover:bg-surface-container-low rounded-lg transition-colors duration-200 border border-transparent hover:border-surface-variant">
+<div class="w-10 h-10 rounded-full bg-surface-variant text-on-surface flex items-center justify-center font-bold text-lg shrink-0">
+                        AS
+                    </div>
+<div class="flex-1">
+<p class="font-h2 text-h2 text-on-surface">Ani Sulistyowati, M.Kom.</p>
+<p class="font-body text-body text-on-surface-variant text-sm mt-0.5">Penguji 2</p>
+</div>
+</div>
+<!-- Pembimbing 1 -->
+<div class="flex items-start gap-4 p-3 hover:bg-surface-container-low rounded-lg transition-colors duration-200 border border-transparent hover:border-surface-variant">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold text-lg shrink-0">
+                        HW
+                    </div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="font-h2 text-h2 text-on-surface">Prof. Hadi Wijaya, Ph.D.</p>
+<span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Pembimbing</span>
+</div>
+<p class="font-body text-body text-on-surface-variant text-sm mt-0.5">Sekretaris / Penguji 3</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Riwayat Timeline -->
+<section class="bg-surface-container-lowest rounded-xl p-5 shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-surface-variant">
+<h3 class="font-h2 text-h2 text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">history</span> Riwayat Status
+            </h3>
+<div class="relative pl-6 border-l-2 border-surface-variant space-y-6 pb-2">
+<!-- Timeline Item 1 -->
+<div class="relative">
+<div class="absolute -left-[31px] w-4 h-4 rounded-full bg-primary ring-4 ring-white"></div>
+<p class="font-label-sm text-label-sm text-primary mb-1">Hari ini, 10:30</p>
+<p class="font-h2 text-h2 text-on-surface">Jadwal Disetujui Kaprodi</p>
+<p class="font-body text-body text-on-surface-variant text-sm mt-1">Jadwal sidang telah diverifikasi dan disetujui oleh Kepala Program Studi.</p>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative">
+<div class="absolute -left-[31px] w-4 h-4 rounded-full bg-outline-variant ring-4 ring-white"></div>
+<p class="font-label-sm text-label-sm text-outline mb-1">15 Jan 2025, 14:00</p>
+<p class="font-h2 text-h2 text-on-surface">Draft Jadwal Dibuat</p>
+<p class="font-body text-body text-on-surface-variant text-sm mt-1">Operator akademik telah membuat draft jadwal sidang dan mengundang tim penguji.</p>
+</div>
+<!-- Timeline Item 3 -->
+<div class="relative">
+<div class="absolute -left-[31px] w-4 h-4 rounded-full bg-outline-variant ring-4 ring-white"></div>
+<p class="font-label-sm text-label-sm text-outline mb-1">14 Jan 2025, 09:15</p>
+<p class="font-h2 text-h2 text-on-surface">Pengajuan Sidang Diterima</p>
+<p class="font-body text-body text-on-surface-variant text-sm mt-1">Berkas persyaratan sidang lengkap dan diterima oleh administrasi.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Mobile) -->
+<nav class="md:hidden bg-surface-container-lowest border-t border-outline-variant shadow-[0_-2px_8px_rgba(0,0,0,0.06)] fixed bottom-0 w-full h-[80px] z-50 flex justify-around items-center px-2">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high/50 p-2 rounded-xl transition-all duration-150 w-16" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-sm text-label-sm">Beranda</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-semibold hover:bg-surface-container-high/50 p-2 rounded-xl transition-all duration-150 w-16 scale-95" href="#">
+<span class="material-symbols-outlined mb-1 fill">calendar_today</span>
+<span class="font-label-sm text-label-sm">Jadwal</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high/50 p-2 rounded-xl transition-all duration-150 w-16" href="#">
+<span class="material-symbols-outlined mb-1">gavel</span>
+<span class="font-label-sm text-label-sm">Sidang</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high/50 p-2 rounded-xl transition-all duration-150 w-16" href="#">
+<span class="material-symbols-outlined mb-1">menu_book</span>
+<span class="font-label-sm text-label-sm">Bimbingan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high/50 p-2 rounded-xl transition-all duration-150 w-16" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-sm text-label-sm">Profil</span>
+</a>
+</nav>
+</body></html>

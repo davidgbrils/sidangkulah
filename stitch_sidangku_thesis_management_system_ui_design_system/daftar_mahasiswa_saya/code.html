@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Daftar Mahasiswa Saya</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#ffdbc9",
+                      "outline": "#727783",
+                      "surface-dim": "#d8dae2",
+                      "on-secondary-fixed-variant": "#004a75",
+                      "on-primary-container": "#dae5ff",
+                      "surface-container-low": "#f2f3fb",
+                      "on-tertiary-container": "#ffdece",
+                      "on-surface": "#191c21",
+                      "secondary": "#00639a",
+                      "inverse-on-surface": "#eff0f9",
+                      "tertiary-fixed-dim": "#ffb68c",
+                      "on-tertiary-fixed-variant": "#753400",
+                      "primary-fixed-dim": "#a9c7ff",
+                      "on-error": "#ffffff",
+                      "surface-bright": "#f9f9ff",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed": "#d6e3ff",
+                      "primary": "#004d99",
+                      "background": "#f9f9ff",
+                      "on-tertiary-fixed": "#321200",
+                      "on-secondary-fixed": "#001d32",
+                      "inverse-primary": "#a9c7ff",
+                      "on-background": "#191c21",
+                      "surface-container": "#ecedf6",
+                      "error": "#ba1a1a",
+                      "surface-variant": "#e1e2ea",
+                      "tertiary-container": "#a64c00",
+                      "surface-container-high": "#e7e8f0",
+                      "primary-container": "#1565c0",
+                      "on-secondary-container": "#00436a",
+                      "surface-tint": "#005db7",
+                      "on-primary-fixed": "#001b3d",
+                      "surface-container-highest": "#e1e2ea",
+                      "outline-variant": "#c2c6d4",
+                      "tertiary": "#813900",
+                      "error-container": "#ffdad6",
+                      "on-error-container": "#93000a",
+                      "on-primary-fixed-variant": "#00468c",
+                      "inverse-surface": "#2e3037",
+                      "on-tertiary": "#ffffff",
+                      "secondary-container": "#51b2fe",
+                      "secondary-fixed-dim": "#96ccff",
+                      "on-primary": "#ffffff",
+                      "secondary-fixed": "#cee5ff",
+                      "surface": "#f9f9ff",
+                      "on-secondary": "#ffffff",
+                      "on-surface-variant": "#424752"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "8px",
+                      "bottom-nav-height": "80px",
+                      "gutter": "16px",
+                      "container-padding": "16px"
+              },
+              "fontFamily": {
+                      "h2": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "h1": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label-sm": [
+                              "Plus Jakarta Sans"
+                      ]
+              },
+              "fontSize": {
+                      "h2": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h1": [
+                              "22px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.5px",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body {
+            background-color: #f9f9ff;
+            color: #191c21;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body text-body bg-background text-on-background min-h-screen flex flex-col antialiased">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest dark:bg-inverse-surface flex items-center justify-between px-gutter h-16 w-full z-50 sticky top-0 full-width border-b border-outline-variant transition-colors duration-200">
+<div class="flex items-center gap-4">
+<button class="text-primary dark:text-primary-fixed-dim hover:bg-surface-variant/20 dark:hover:bg-on-surface/10 rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_back</span>
+</button>
+<h1 class="font-h1 text-h1 font-bold text-primary dark:text-primary-fixed-dim">SidangKu</h1>
+</div>
+<button class="text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant/20 dark:hover:bg-on-surface/10 rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+</button>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 pb-bottom-nav-height">
+<div class="max-w-screen-md mx-auto px-container-padding py-6 space-y-6">
+<!-- Page Header -->
+<div>
+<h2 class="font-h1 text-h1 text-on-surface">Daftar Mahasiswa Saya</h2>
+<p class="font-body text-body text-on-surface-variant mt-1">Kelola mahasiswa bimbingan dan uji Anda.</p>
+</div>
+<!-- Search Bar -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg pl-10 pr-4 py-3 font-body text-body focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-shadow shadow-[0_2px_8px_rgba(0,0,0,0.06)]" placeholder="Cari nama atau NIM..." type="text"/>
+</div>
+<!-- TabBar -->
+<div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide border-b border-surface-variant">
+<button class="whitespace-nowrap px-4 py-2 border-b-2 border-primary text-primary font-h2 text-h2 transition-colors">Semua</button>
+<button class="whitespace-nowrap px-4 py-2 border-b-2 border-transparent text-on-surface-variant hover:text-primary hover:bg-surface-variant/20 transition-colors font-h2 text-h2">Pembimbing</button>
+<button class="whitespace-nowrap px-4 py-2 border-b-2 border-transparent text-on-surface-variant hover:text-primary hover:bg-surface-variant/20 transition-colors font-h2 text-h2">Penguji</button>
+</div>
+<!-- Bento Grid / Cards List -->
+<div class="space-y-4">
+<!-- Student Card 1 -->
+<div class="bg-surface-container-lowest rounded-[16px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] relative overflow-hidden border border-outline-variant/30 flex flex-col gap-4">
+<div class="absolute left-0 top-0 bottom-0 w-[4px] bg-secondary-container"></div>
+<div class="flex items-start gap-4">
+<img alt="Student Avatar" class="w-14 h-14 rounded-full object-cover border border-surface-variant" data-alt="A professional headshot of a young male university student in a well-lit academic setting. The student is smiling gently, wearing a casual but neat collared shirt. The lighting is soft and natural, emphasizing a bright, modern, and approachable aesthetic consistent with a light-mode academic dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCycoZpQX5MiXNS6-3rCLDl_mr5DCd6wDCG9HVe_Xv--Gz9hbdtfevWk-eLL9bCwVnvbGpabhgUYKOoN88X5rfFL76sTYeby6Br_Nzaotq7kDtuqgcUJsVGiMQOaG4xjbnWjfDPU2XSf5lhNEMVFp4-paowuuZONeWgvqILC9aWpak2ISHWZ104NYwXqnJnqOuftBPB_mZ2jJb_Fn3SDv1ihWgCvt5V20JjlZ_xvHzt-511zIYCuFRirdXiOpYD3j0mNoAMTEQFe3gj"/>
+<div class="flex-1">
+<h3 class="font-h2 text-h2 text-on-surface">Ahmad Budi Santoso</h3>
+<p class="font-body text-body text-outline">NIM: 202011045</p>
+<p class="font-body text-body text-on-surface mt-2 font-medium line-clamp-2">Analisis Keamanan Jaringan Menggunakan Metode Penetration Testing pada Sistem Informasi Akademik.</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-secondary-container/20 text-on-secondary-container font-label-sm text-label-sm border border-secondary-container/30">
+<span class="material-symbols-outlined text-[14px] mr-1" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+                            Pembimbing Utama
+                        </span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-surface-container-high text-on-surface font-label-sm text-label-sm border border-outline-variant/50">
+<span class="material-symbols-outlined text-[14px] mr-1" style="font-variation-settings: 'FILL' 0;">calendar_today</span>
+                            15 Okt 2023
+                        </span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-error-container/40 text-on-error-container font-label-sm text-label-sm border border-error-container">
+<span class="material-symbols-outlined text-[14px] mr-1" style="font-variation-settings: 'FILL' 1;">pending_actions</span>
+                            Belum Dinilai
+                        </span>
+</div>
+</div>
+<!-- Student Card 2 -->
+<div class="bg-surface-container-lowest rounded-[16px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] relative overflow-hidden border border-outline-variant/30 flex flex-col gap-4">
+<div class="absolute left-0 top-0 bottom-0 w-[4px] bg-tertiary-container"></div>
+<div class="flex items-start gap-4">
+<img alt="Student Avatar" class="w-14 h-14 rounded-full object-cover border border-surface-variant" data-alt="A professional headshot of a young female university student in a bright, modern campus environment. She has a confident, warm expression and is dressed smartly. The color palette is light and airy, perfectly matching a clean, corporate academic application interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3TJAEzHAqRNkHONOCays5hdg3_8J9qX6POE0KNd4f1QX4xPwNctlPKqhb_yDOGNXNtx71M_ZiFklMIkfZ1NgwbHnf7HkFseyABUbVrJJNSygBlkTjrembJG-jkAj5VN8LsSKxMG4FZG8NItSLorA1jsywG47UlpcU6totAvy2nN-X55GZ8vBZualsSefAx0C_txyJ8Yd1YftkH-mpkMgw348VR53lvqF_wYWzR8iM7JYCWDrndiA9-yxf7pzy_x1nsQP3bv7AbeZC"/>
+<div class="flex-1">
+<h3 class="font-h2 text-h2 text-on-surface">Siti Nurhaliza</h3>
+<p class="font-body text-body text-outline">NIM: 202011088</p>
+<p class="font-body text-body text-on-surface mt-2 font-medium line-clamp-2">Penerapan Machine Learning untuk Prediksi Kebutuhan Daya Listrik Berbasis Data Cuaca.</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-tertiary-container/20 text-on-tertiary-container font-label-sm text-label-sm border border-tertiary-container/30">
+<span class="material-symbols-outlined text-[14px] mr-1" style="font-variation-settings: 'FILL' 1;">gavel</span>
+                            Penguji 1
+                        </span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-surface-container-high text-on-surface font-label-sm text-label-sm border border-outline-variant/50">
+<span class="material-symbols-outlined text-[14px] mr-1" style="font-variation-settings: 'FILL' 0;">calendar_today</span>
+                            16 Okt 2023
+                        </span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-error-container/40 text-on-error-container font-label-sm text-label-sm border border-error-container">
+<span class="material-symbols-outlined text-[14px] mr-1" style="font-variation-settings: 'FILL' 1;">pending_actions</span>
+                            Belum Dinilai
+                        </span>
+</div>
+</div>
+<!-- Student Card 3 -->
+<div class="bg-surface-container-lowest rounded-[16px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] relative overflow-hidden border border-outline-variant/30 flex flex-col gap-4">
+<div class="absolute left-0 top-0 bottom-0 w-[4px] bg-outline-variant"></div>
+<div class="flex items-start gap-4">
+<div class="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center border border-surface-variant">
+<span class="material-symbols-outlined text-outline" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<div class="flex-1">
+<h3 class="font-h2 text-h2 text-on-surface">Reza Pratama</h3>
+<p class="font-body text-body text-outline">NIM: 202011012</p>
+<p class="font-body text-body text-on-surface mt-2 font-medium line-clamp-2">Rancang Bangun Aplikasi Manajemen Skripsi Berbasis Web Menggunakan Framework Laravel.</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-secondary-container/20 text-on-secondary-container font-label-sm text-label-sm border border-secondary-container/30">
+<span class="material-symbols-outlined text-[14px] mr-1" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+                            Pembimbing Pendamping
+                        </span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-surface-container-high text-on-surface font-label-sm text-label-sm border border-outline-variant/50">
+<span class="material-symbols-outlined text-[14px] mr-1" style="font-variation-settings: 'FILL' 0;">calendar_today</span>
+                            12 Okt 2023
+                        </span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-primary/10 text-primary font-label-sm text-label-sm border border-primary/20">
+<span class="material-symbols-outlined text-[14px] mr-1" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            Sudah Dinilai
+                        </span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Summary Bar -->
+<div class="fixed bottom-bottom-nav-height left-0 right-0 bg-surface-container-high border-t border-outline-variant py-2 px-4 shadow-[0_-2px_4px_rgba(0,0,0,0.04)] z-40">
+<div class="max-w-screen-xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="font-label-sm text-label-sm">2 mahasiswa belum dinilai</span>
+</div>
+<button class="font-label-sm text-label-sm text-primary font-bold hover:underline">Lihat</button>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="bg-surface-container-lowest dark:bg-inverse-surface fixed bottom-0 w-full h-[80px] z-50 border-t border-outline-variant shadow-[0_-2px_8px_rgba(0,0,0,0.06)] md:hidden">
+<div class="flex justify-around items-center px-2 w-full max-w-screen-xl mx-auto h-full">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high/50 dark:hover:bg-surface-container/20 w-full h-full rounded-xl transition-all duration-150" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">home</span>
+<span class="font-label-sm text-label-sm">Beranda</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high/50 dark:hover:bg-surface-container/20 w-full h-full rounded-xl transition-all duration-150" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">calendar_today</span>
+<span class="font-label-sm text-label-sm">Jadwal</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high/50 dark:hover:bg-surface-container/20 w-full h-full rounded-xl transition-all duration-150" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">gavel</span>
+<span class="font-label-sm text-label-sm">Sidang</span>
+</a>
+<!-- Bimbingan maps to Mahasiswa conceptually for lecturers -->
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-semibold scale-95 transition-transform duration-150 w-full h-full rounded-xl" href="#">
+<div class="px-4 py-1 bg-secondary-container/20 rounded-full mb-1">
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+</div>
+<span class="font-label-sm text-label-sm">Bimbingan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high/50 dark:hover:bg-surface-container/20 w-full h-full rounded-xl transition-all duration-150" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">person</span>
+<span class="font-label-sm text-label-sm">Profil</span>
+</a>
+</div>
+</nav>
+</body></html>

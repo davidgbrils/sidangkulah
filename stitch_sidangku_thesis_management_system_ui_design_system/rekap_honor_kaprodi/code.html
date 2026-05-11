@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rekap Honor - SidangKu</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ffdbc9",
+                        "outline": "#727783",
+                        "surface-dim": "#d8dae2",
+                        "on-secondary-fixed-variant": "#004a75",
+                        "on-primary-container": "#dae5ff",
+                        "surface-container-low": "#f2f3fb",
+                        "on-tertiary-container": "#ffdece",
+                        "on-surface": "#191c21",
+                        "secondary": "#00639a",
+                        "inverse-on-surface": "#eff0f9",
+                        "tertiary-fixed-dim": "#ffb68c",
+                        "on-tertiary-fixed-variant": "#753400",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f9f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#d6e3ff",
+                        "primary": "#004d99",
+                        "background": "#f9f9ff",
+                        "on-tertiary-fixed": "#321200",
+                        "on-secondary-fixed": "#001d32",
+                        "inverse-primary": "#a9c7ff",
+                        "on-background": "#191c21",
+                        "surface-container": "#ecedf6",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e1e2ea",
+                        "tertiary-container": "#a64c00",
+                        "surface-container-high": "#e7e8f0",
+                        "primary-container": "#1565c0",
+                        "on-secondary-container": "#00436a",
+                        "surface-tint": "#005db7",
+                        "on-primary-fixed": "#001b3d",
+                        "surface-container-highest": "#e1e2ea",
+                        "outline-variant": "#c2c6d4",
+                        "tertiary": "#813900",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#00468c",
+                        "inverse-surface": "#2e3037",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#51b2fe",
+                        "secondary-fixed-dim": "#96ccff",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#cee5ff",
+                        "surface": "#f9f9ff",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#424752"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "bottom-nav-height": "80px",
+                        "gutter": "16px",
+                        "container-padding": "16px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Plus Jakarta Sans"],
+                        "h1": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "h2": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "h1": ["22px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "body": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body min-h-screen flex flex-col antialiased">
+<!-- TopAppBar (From JSON) -->
+<header class="bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant docked full-width top-0 z-50 fixed w-full">
+<div class="flex items-center justify-between px-gutter h-16 w-full z-50">
+<button class="text-primary dark:text-primary-fixed-dim hover:bg-surface-variant/20 dark:hover:bg-on-surface/10 rounded-full p-2 transition-colors duration-200 flex items-center justify-center">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="font-h1 text-h1 font-bold text-primary dark:text-primary-fixed-dim text-center flex-1">
+                SidangKu
+            </div>
+<button class="text-primary dark:text-primary-fixed-dim hover:bg-surface-variant/20 dark:hover:bg-on-surface/10 rounded-full p-2 transition-colors duration-200 flex items-center justify-center">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 pt-[80px] pb-[100px] px-container-padding max-w-screen-md mx-auto w-full flex flex-col gap-4">
+<!-- Page Title & Period Filter -->
+<div class="flex items-center justify-between">
+<h1 class="font-h1 text-h1 text-on-surface">Rekap Honor</h1>
+<button class="flex items-center gap-2 bg-surface-container-low border border-outline-variant rounded-full px-4 py-2 hover:bg-surface-container-high transition-colors">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Ganjil 2023/2024</span>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">arrow_drop_down</span>
+</button>
+</div>
+<!-- Warning Banner -->
+<div class="bg-tertiary-fixed rounded-xl p-4 flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="font-body text-body font-medium text-on-tertiary-fixed-variant">Belum difinalisasi</span>
+</div>
+<button class="bg-tertiary text-on-tertiary font-label-sm text-label-sm px-4 py-2 rounded-lg shadow-sm hover:opacity-90 transition-opacity">
+                Finalisasi
+            </button>
+</div>
+<!-- Summary Card -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-outline-variant/30 flex flex-col items-center justify-center text-center mt-2 relative overflow-hidden">
+<!-- Decorative accent -->
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary"></div>
+<p class="font-body text-body text-outline mb-1">Total Keseluruhan</p>
+<h2 class="font-h1 text-[32px] leading-tight font-bold text-primary">Rp 47.250.000</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-2 bg-surface-container-low px-3 py-1 rounded-full">124 Kegiatan Sidang</p>
+</div>
+<!-- Section Header -->
+<div class="mt-4 mb-2 flex items-center justify-between border-b border-outline-variant/50 pb-2">
+<h3 class="font-h2 text-h2 text-on-surface">Rincian per Dosen</h3>
+<span class="font-label-sm text-label-sm text-outline">15 Dosen</span>
+</div>
+<!-- Expanded Dosen Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-outline-variant/30 overflow-hidden flex flex-col">
+<!-- Header (Trigger) -->
+<div class="p-4 flex items-center justify-between bg-surface-container-low/50 cursor-pointer border-l-4 border-primary">
+<div>
+<h4 class="font-h2 text-h2 text-on-surface">Dr. Budi Santoso, M.T.</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">NIP: 198001012005011001</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-h2 text-h2 text-primary">Rp 4.500.000</span>
+<span class="material-symbols-outlined text-outline">expand_less</span>
+</div>
+</div>
+<!-- Details List -->
+<div class="p-0 border-t border-outline-variant/30 bg-surface-bright">
+<!-- Item 1 -->
+<div class="p-4 border-b border-outline-variant/20 last:border-0 flex justify-between items-center hover:bg-surface-container-lowest transition-colors">
+<div>
+<p class="font-body text-body font-medium text-on-surface">Ketua Sidang Skripsi</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Andi Susanto (202011001)</p>
+</div>
+<span class="font-body text-body text-on-surface-variant">Rp 250.000</span>
+</div>
+<!-- Item 2 -->
+<div class="p-4 border-b border-outline-variant/20 last:border-0 flex justify-between items-center hover:bg-surface-container-lowest transition-colors">
+<div>
+<p class="font-body text-body font-medium text-on-surface">Penguji 1 Skripsi</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Rina Kusuma (202011045)</p>
+</div>
+<span class="font-body text-body text-on-surface-variant">Rp 200.000</span>
+</div>
+</div>
+</div>
+<!-- Collapsed Dosen Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-outline-variant/30 overflow-hidden flex flex-col">
+<div class="p-4 flex items-center justify-between cursor-pointer hover:bg-surface-container-low/50 transition-colors border-l-4 border-transparent">
+<div>
+<h4 class="font-h2 text-h2 text-on-surface">Prof. Dr. Siti Aminah</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">NIP: 197502152000032002</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-h2 text-h2 text-on-surface-variant">Rp 3.800.000</span>
+<span class="material-symbols-outlined text-outline">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Collapsed Dosen Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-outline-variant/30 overflow-hidden flex flex-col">
+<div class="p-4 flex items-center justify-between cursor-pointer hover:bg-surface-container-low/50 transition-colors border-l-4 border-transparent">
+<div>
+<h4 class="font-h2 text-h2 text-on-surface">Ir. Joko Widodo, M.Eng.</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">NIP: 198205202010121004</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-h2 text-h2 text-on-surface-variant">Rp 2.100.000</span>
+<span class="material-symbols-outlined text-outline">expand_more</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Fixed Bottom Action Bar (Contextual replacement for Navigation since it's a specific task) -->
+<div class="fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t border-outline-variant p-4 shadow-[0_-4px_16px_rgba(0,0,0,0.05)] z-40">
+<div class="max-w-screen-md mx-auto">
+<button class="w-full h-[48px] bg-primary text-on-primary rounded-xl font-h2 text-h2 flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-md">
+<span class="material-symbols-outlined text-[20px]">print</span>
+                Cetak Rekap Honor
+            </button>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chat Mahasiswa</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#a64c00",
+                        "on-surface": "#191c21",
+                        "inverse-on-surface": "#eff0f9",
+                        "surface-bright": "#f9f9ff",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e7e8f0",
+                        "on-tertiary-fixed": "#321200",
+                        "secondary-container": "#51b2fe",
+                        "on-primary-fixed-variant": "#00468c",
+                        "on-surface-variant": "#424752",
+                        "on-secondary-fixed-variant": "#004a75",
+                        "surface": "#f9f9ff",
+                        "primary-fixed": "#d6e3ff",
+                        "on-primary-fixed": "#001b3d",
+                        "primary-container": "#1565c0",
+                        "secondary-fixed": "#cee5ff",
+                        "on-secondary-container": "#00436a",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#2e3037",
+                        "on-primary": "#ffffff",
+                        "background": "#f9f9ff",
+                        "tertiary-fixed-dim": "#ffb68c",
+                        "secondary-fixed-dim": "#96ccff",
+                        "surface-container-highest": "#e1e2ea",
+                        "surface-dim": "#d8dae2",
+                        "surface-container-low": "#f2f3fb",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#001d32",
+                        "tertiary": "#813900",
+                        "on-tertiary-container": "#ffdece",
+                        "tertiary-fixed": "#ffdbc9",
+                        "on-error": "#ffffff",
+                        "on-background": "#191c21",
+                        "secondary": "#00639a",
+                        "outline-variant": "#c2c6d4",
+                        "on-tertiary-fixed-variant": "#753400",
+                        "surface-container": "#ecedf6",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary": "#004d99",
+                        "outline": "#727783",
+                        "on-primary-container": "#dae5ff",
+                        "surface-variant": "#e1e2ea",
+                        "surface-tint": "#005db7",
+                        "inverse-primary": "#a9c7ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "bottom-nav-height": "80px",
+                        "container-padding": "16px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Plus Jakarta Sans"],
+                        "h1": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "h2": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "h1": ["22px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "body": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col antialiased">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant flex items-center justify-between px-gutter h-16 w-full z-50 sticky top-0 transition-colors duration-200">
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-surface-variant/20 rounded-full p-2 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="Student Profile" class="w-10 h-10 rounded-full object-cover" data-alt="A highly detailed close-up portrait of a young male student in a bright, modern academic setting. The lighting is soft and natural, creating a clean and professional appearance suitable for a university profile avatar. The background is slightly blurred to focus entirely on his friendly expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZ6kr2M4f9rjAoPPQ1LfxihP2DOf6zf--g_JuLCbNfOI-Qd0JmpzXRjvGFQp0dkpIXMsNcqgBHIRPwLCvy5_spaywF3PHzF0aaqY2klmjfrQD6QKC-ABQStg_u2pXpF9kbX_dwf12gJWl3gPy57ZUOdeEQ2nEOHtAnRaLCTQrDgCPax7FogZINsExpTAd_iWodi_WljUnrtwmik3J-cbfrVN_0LAHOeo-DiPVklOHvj4kVXHe-irNxwiiXbfNSgcMcDfFE74D0vUbV"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-surface-container-lowest rounded-full"></div>
+</div>
+<div class="flex flex-col">
+<span class="font-h2 text-h2 text-on-surface">Budi Santoso</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2019001 - Teknik Informatika</span>
+</div>
+</div>
+</div>
+<button class="text-on-surface-variant hover:bg-surface-variant/20 rounded-full p-2 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</header>
+<!-- Main Chat Canvas -->
+<main class="flex-1 flex flex-col p-container-padding gap-6 overflow-y-auto bg-surface pb-32">
+<!-- Date Divider -->
+<div class="flex justify-center my-2">
+<span class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm px-3 py-1 rounded-full">Hari ini</span>
+</div>
+<!-- Student Message (Left) -->
+<div class="flex w-full justify-start">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl rounded-tl-none p-4 max-w-[85%] md:max-w-[70%] shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
+<p class="font-body text-body text-on-surface">Selamat pagi Pak, mohon maaf mengganggu. Saya ingin menanyakan terkait revisi Bab 1, apakah sudah bisa saya kumpulkan ke sistem?</p>
+<div class="flex justify-end mt-1">
+<span class="font-label-sm text-label-sm text-outline">09:41</span>
+</div>
+</div>
+</div>
+<!-- Admin Message (Right) -->
+<div class="flex w-full justify-end">
+<div class="bg-primary-container text-on-primary rounded-2xl rounded-tr-none p-4 max-w-[85%] md:max-w-[70%] shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
+<p class="font-body text-body">Pagi Budi. Silakan diunggah ke sistem. Tolong perhatikan juga format halamannya ya.</p>
+<div class="flex justify-end items-center gap-1 mt-1">
+<span class="font-label-sm text-label-sm text-primary-fixed-dim">09:45</span>
+<span class="material-symbols-outlined text-primary-fixed-dim" data-icon="done_all" style="font-size: 14px;">done_all</span>
+</div>
+</div>
+</div>
+<!-- Special Berkas Request Bubble (Right - Admin) -->
+<div class="flex w-full justify-end">
+<div class="bg-primary-container text-on-primary rounded-2xl rounded-tr-none p-4 max-w-[85%] md:max-w-[70%] shadow-[0_2px_8px_rgba(0,0,0,0.06)] flex flex-col gap-3">
+<p class="font-body text-body">Untuk lembar persetujuan yang sudah ditandatangani, tolong diupload di form terpisah ya.</p>
+<!-- Document Card inside Chat -->
+<div class="bg-surface-container-lowest/10 rounded-xl p-3 flex items-center gap-3 border border-on-primary/20">
+<div class="bg-surface-container-lowest rounded-lg p-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="description" data-weight="fill" style="font-variation-settings: 'FILL' 1;">description</span>
+</div>
+<div class="flex-1 flex flex-col">
+<span class="font-h2 text-h2 text-on-primary">Lembar Persetujuan</span>
+<span class="font-label-sm text-label-sm text-on-primary/80">Upload di menu Berkas</span>
+</div>
+<button class="bg-surface-container-lowest text-primary rounded-full p-2 flex items-center justify-center hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<div class="flex justify-end items-center gap-1 mt-1">
+<span class="font-label-sm text-label-sm text-primary-fixed-dim">09:48</span>
+<span class="material-symbols-outlined text-primary-fixed-dim" data-icon="done_all" style="font-size: 14px;">done_all</span>
+</div>
+</div>
+</div>
+<!-- Student Message (Left) -->
+<div class="flex w-full justify-start">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl rounded-tl-none p-4 max-w-[85%] md:max-w-[70%] shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
+<p class="font-body text-body text-on-surface">Baik Pak, akan segera saya upload. Terima kasih banyak.</p>
+<div class="flex justify-end mt-1">
+<span class="font-label-sm text-label-sm text-outline">09:50</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Input Area -->
+<div class="fixed bottom-bottom-nav-height w-full bg-surface-container-lowest border-t border-outline-variant p-3 z-40 md:bottom-0">
+<div class="max-w-screen-xl mx-auto flex items-end gap-3 bg-surface rounded-2xl border border-outline-variant p-2 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined" data-icon="attach_file">attach_file</span>
+</button>
+<textarea class="flex-1 bg-transparent border-none focus:ring-0 resize-none font-body text-body text-on-surface p-2 max-h-32" placeholder="Tulis pesan..." rows="1"></textarea>
+<button class="p-3 bg-primary text-on-primary rounded-full flex items-center justify-center shrink-0 hover:bg-primary/90 transition-colors shadow-sm">
+<span class="material-symbols-outlined" data-icon="send" data-weight="fill" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+<!-- BottomNavBar (Mobile Shell - Suppressed on Web layout, forced visible for demonstration as per instructions) -->
+<nav class="bg-surface-container-lowest dark:bg-inverse-surface fixed bottom-0 w-full h-[80px] z-50 border-t border-outline-variant shadow-[0_-2px_8px_rgba(0,0,0,0.06)] md:hidden">
+<div class="flex justify-around items-center px-2 w-full max-w-screen-xl mx-auto h-full">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high/50 dark:hover:bg-surface-container/20 w-full h-full rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Beranda</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high/50 dark:hover:bg-surface-container/20 w-full h-full rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-sm text-label-sm">Jadwal</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high/50 dark:hover:bg-surface-container/20 w-full h-full rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="gavel">gavel</span>
+<span class="font-label-sm text-label-sm">Sidang</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high/50 dark:hover:bg-surface-container/20 w-full h-full rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="menu_book">menu_book</span>
+<span class="font-label-sm text-label-sm">Bimbingan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high/50 dark:hover:bg-surface-container/20 w-full h-full rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profil</span>
+</a>
+</div>
+</nav>
+</body></html>
