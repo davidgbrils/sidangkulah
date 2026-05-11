@@ -1,17 +1,17 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sidangkufix/core/constants/app_colors.dart';
 import 'package:sidangkufix/core/constants/app_strings.dart';
 import 'package:sidangkufix/core/theme/app_theme.dart';
 import 'package:sidangkufix/core/widgets/sidangku_button.dart';
 import 'package:sidangkufix/core/widgets/sidangku_text_field.dart';
-import 'package:sidangkufix/features/auth/domain/user_model.dart';
 import 'package:sidangkufix/core/utils/firebase_seeder.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:sidangkufix/features/auth/presentation/providers/auth_provider.dart';
+import 'package:sidangkufix/core/utils/validators.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -25,7 +25,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  final bool _obscurePassword = true;
+  bool _obscurePassword = true;
 
   @override
   void dispose() {
@@ -35,10 +35,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   String? _validateEmail(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return AppStrings.fieldWajibDiisi;
-    }
-    return null;
+    return Validators.email(value);
   }
 
   String? _validatePassword(String? value) {
@@ -349,29 +346,31 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ],
           ),
           const SizedBox(height: 12),
-          // TOMBOL SEED DATA (Hanya untuk Dev)
-          TextButton.icon(
-            onPressed: () async {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Memulai seeding data...')),
-              );
-              await FirebaseSeeder().seedInitialData();
-              if (context.mounted) {
+          // TOMBOL SEED DATA (Hanya untuk Dev — tersembunyi di production)
+          if (kDebugMode)
+            TextButton.icon(
+              onPressed: () async {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Seeding selesai! Cek console.')),
+                  const SnackBar(content: Text('Memulai seeding data...')),
                 );
-              }
-            },
-            icon: const Icon(Icons.storage_rounded, size: 16),
-            label: const Text('Seed Initial Data'),
-            style: TextButton.styleFrom(
-              foregroundColor: AppColors.primary.withValues(alpha: 0.5),
-              textStyle: const TextStyle(fontSize: 10),
+                await FirebaseSeeder().seedInitialData();
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Seeding selesai! Cek console.')),
+                  );
+                }
+              },
+              icon: const Icon(Icons.storage_rounded, size: 16),
+              label: const Text('Seed Initial Data'),
+              style: TextButton.styleFrom(
+                foregroundColor: AppColors.primary.withValues(alpha: 0.5),
+                textStyle: const TextStyle(fontSize: 10),
+              ),
             ),
-          ),
-          const SizedBox(height: 4),
+          if (kDebugMode)
+            const SizedBox(height: 4),
           Text(
-            '© 2024 Institut Teknologi PLN. All rights reserved.',
+            '© 2026 Institut Teknologi PLN. All rights reserved.',
             style: AppTheme.caption.copyWith(
               fontSize: 11,
               color: AppColors.textTertiary,

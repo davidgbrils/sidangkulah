@@ -20,15 +20,17 @@ class BottomNavBar extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
   final List<BottomNavItem> items;
+  final Color? activeColor;
 
   const BottomNavBar({
     super.key,
     required this.currentIndex,
     required this.onTap,
     required this.items,
+    this.activeColor,
   });
 
-  /// Preset navigasi Mahasiswa
+  /// Preset navigasi Mahasiswa (5 tab)
   static List<BottomNavItem> mahasiswaItems = const [
     BottomNavItem(
       icon: Icons.home_outlined,
@@ -43,7 +45,12 @@ class BottomNavBar extends StatelessWidget {
     BottomNavItem(
       icon: Icons.description_outlined,
       activeIcon: Icons.description_rounded,
-      label: 'Dokumen',
+      label: 'Berkas',
+    ),
+    BottomNavItem(
+      icon: Icons.grade_outlined,
+      activeIcon: Icons.grade_rounded,
+      label: 'Nilai',
     ),
     BottomNavItem(
       icon: Icons.person_outline_rounded,
@@ -52,7 +59,7 @@ class BottomNavBar extends StatelessWidget {
     ),
   ];
 
-  /// Preset navigasi Dosen
+  /// Preset navigasi Dosen (5 tab)
   static List<BottomNavItem> dosenItems = const [
     BottomNavItem(
       icon: Icons.home_outlined,
@@ -70,23 +77,23 @@ class BottomNavBar extends StatelessWidget {
       label: 'Jadwal',
     ),
     BottomNavItem(
+      icon: Icons.description_outlined,
+      activeIcon: Icons.description_rounded,
+      label: 'Formulir',
+    ),
+    BottomNavItem(
       icon: Icons.person_outline_rounded,
       activeIcon: Icons.person_rounded,
       label: 'Profil',
     ),
   ];
 
-  /// Preset navigasi Operator
+  /// Preset navigasi Operator (5 tab)
   static List<BottomNavItem> operatorItems = const [
     BottomNavItem(
       icon: Icons.dashboard_outlined,
       activeIcon: Icons.dashboard_rounded,
-      label: 'Dashboard',
-    ),
-    BottomNavItem(
-      icon: Icons.people_outline_rounded,
-      activeIcon: Icons.people_rounded,
-      label: 'Data',
+      label: 'Beranda',
     ),
     BottomNavItem(
       icon: Icons.calendar_today_outlined,
@@ -94,18 +101,9 @@ class BottomNavBar extends StatelessWidget {
       label: 'Jadwal',
     ),
     BottomNavItem(
-      icon: Icons.person_outline_rounded,
-      activeIcon: Icons.person_rounded,
-      label: 'Profil',
-    ),
-  ];
-
-  /// Preset navigasi Kaprodi
-  static List<BottomNavItem> kaprodiItems = const [
-    BottomNavItem(
-      icon: Icons.dashboard_outlined,
-      activeIcon: Icons.dashboard_rounded,
-      label: 'Dashboard',
+      icon: Icons.people_outline_rounded,
+      activeIcon: Icons.people_rounded,
+      label: 'Mahasiswa',
     ),
     BottomNavItem(
       icon: Icons.fact_check_outlined,
@@ -113,8 +111,32 @@ class BottomNavBar extends StatelessWidget {
       label: 'Approval',
     ),
     BottomNavItem(
-      icon: Icons.bar_chart_outlined,
-      activeIcon: Icons.bar_chart_rounded,
+      icon: Icons.folder_shared_outlined,
+      activeIcon: Icons.folder_shared_rounded,
+      label: 'Dokumen',
+    ),
+  ];
+
+  /// Preset navigasi Kaprodi (5 tab)
+  static List<BottomNavItem> kaprodiItems = const [
+    BottomNavItem(
+      icon: Icons.dashboard_outlined,
+      activeIcon: Icons.dashboard_rounded,
+      label: 'Dashboard',
+    ),
+    BottomNavItem(
+      icon: Icons.calendar_month_outlined,
+      activeIcon: Icons.calendar_month_rounded,
+      label: 'Jadwal',
+    ),
+    BottomNavItem(
+      icon: Icons.approval_outlined,
+      activeIcon: Icons.approval_rounded,
+      label: 'Approval',
+    ),
+    BottomNavItem(
+      icon: Icons.table_chart_outlined,
+      activeIcon: Icons.table_chart_rounded,
       label: 'Rekap',
     ),
     BottomNavItem(
@@ -126,6 +148,8 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = activeColor ?? AppColors.primary;
+
     return Container(
       decoration: BoxDecoration(
         color: AppColors.surface,
@@ -141,7 +165,7 @@ class BottomNavBar extends StatelessWidget {
         top: false,
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: AppTheme.spacing8,
+            horizontal: AppTheme.spacing4,
             vertical: AppTheme.spacing8,
           ),
           child: Row(
@@ -155,6 +179,7 @@ class BottomNavBar extends StatelessWidget {
                 icon: isSelected ? item.activeIcon : item.icon,
                 label: item.label,
                 isSelected: isSelected,
+                activeColor: color,
                 onTap: () => onTap(index),
               );
             }).toList(),
@@ -169,12 +194,14 @@ class _NavBarItem extends StatelessWidget {
   final IconData icon;
   final String label;
   final bool isSelected;
+  final Color activeColor;
   final VoidCallback onTap;
 
   const _NavBarItem({
     required this.icon,
     required this.label,
     required this.isSelected,
+    required this.activeColor,
     required this.onTap,
   });
 
@@ -190,7 +217,7 @@ class _NavBarItem extends StatelessWidget {
           vertical: AppTheme.spacing8,
         ),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary.withValues(alpha: 0.1) : Colors.transparent,
+          color: isSelected ? activeColor.withValues(alpha: 0.1) : Colors.transparent,
           borderRadius: AppTheme.borderRadiusMedium,
         ),
         child: Column(
@@ -199,7 +226,7 @@ class _NavBarItem extends StatelessWidget {
             Icon(
               icon,
               size: 24,
-              color: isSelected ? AppColors.primary : AppColors.textTertiary,
+              color: isSelected ? activeColor : AppColors.textTertiary,
             ),
             const SizedBox(height: AppTheme.spacing4),
             Text(
@@ -207,7 +234,7 @@ class _NavBarItem extends StatelessWidget {
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                color: isSelected ? AppColors.primary : AppColors.textTertiary,
+                color: isSelected ? activeColor : AppColors.textTertiary,
               ),
             ),
           ],

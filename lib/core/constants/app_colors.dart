@@ -38,7 +38,7 @@ class AppColors {
   static const Color info = Color(0xFF3A5F94);
   static const Color infoLight = Color(0xFFE3F2FD);
 
-  // ── Tertiary Colors (Untuk khusus dosenyang perlu teal) ─────────────
+  // ── Tertiary Colors (Untuk khusus dosen yang perlu teal) ──────────────
   static const Color tertiary = Color(0xFF00897B);
   static const Color tertiaryFixed = Color(0xFFFFDEA6);
   static const Color tertiaryContainer = Color(0xFF452F00);

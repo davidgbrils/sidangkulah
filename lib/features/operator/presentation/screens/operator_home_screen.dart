@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:sidangkufix/core/constants/app_colors.dart';
 import 'package:sidangkufix/core/theme/app_theme.dart';
+import 'package:sidangkufix/core/widgets/bottom_nav_bar.dart';
 
 class OperatorStatsModel {
   final int totalMahasiswa;
@@ -557,87 +558,10 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
   }
 
   Widget _buildBottomNav() {
-    final items = [
-      (Icons.dashboard_rounded, Icons.dashboard_outlined, 'Beranda'),
-      (Icons.calendar_today_rounded, Icons.calendar_today_outlined, 'Jadwal'),
-      (Icons.people_alt_rounded, Icons.people_alt_outlined, 'Mahasiswa'),
-      (Icons.fact_check_rounded, Icons.fact_check_outlined, 'Approval'),
-      (Icons.folder_shared_rounded, Icons.folder_shared_outlined, 'Dokumen'),
-    ];
-
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        border: Border(top: BorderSide(color: AppColors.borderLight.withValues(alpha: 0.8))),
-        boxShadow: AppTheme.shadowSmall,
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: AppTheme.spacing8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: items.asMap().entries.map((entry) {
-              final i = entry.key;
-              final item = entry.value;
-              final isActive = i == _currentNavIndex;
-              final hasApprovalBadge = i == 3 && _stats.menungguApproval > 0;
-
-              return GestureDetector(
-                onTap: () => _handleBottomNavTap(i),
-                behavior: HitTestBehavior.opaque,
-                child: Container(
-                  width: 64,
-                  padding: const EdgeInsets.symmetric(vertical: AppTheme.spacing4),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Icon(
-                            isActive ? item.$1 : item.$2,
-                            color: isActive
-                                ? AppColors.primary
-                                : AppColors.textTertiary,
-                            size: 24,
-                          ),
-                          if (hasApprovalBadge)
-                            Positioned(
-                              top: -2,
-                              right: -2,
-                              child: Container(
-                                width: 10,
-                                height: 10,
-                                decoration: BoxDecoration(
-                                    color: AppColors.error,
-                                    shape: BoxShape.circle,
-                                    border: Border.all(color: AppColors.surface, width: 1.5)),
-                              ),
-                            ),
-                        ],
-                      ),
-                      const SizedBox(height: AppTheme.spacing4),
-                      Text(item.$3,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: AppTheme.caption.copyWith(
-                            fontSize: 10,
-                            color: isActive
-                                ? AppColors.primary
-                                : AppColors.textTertiary,
-                            fontWeight: isActive
-                                ? FontWeight.w800
-                                : FontWeight.w500,
-                          )),
-                    ],
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-        ),
-      ),
+    return BottomNavBar(
+      currentIndex: _currentNavIndex,
+      items: BottomNavBar.operatorItems,
+      onTap: _handleBottomNavTap,
     );
   }
 }

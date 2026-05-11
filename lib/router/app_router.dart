@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide UserModel;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sidangkufix/features/auth/presentation/screens/splash_screen.dart';
@@ -62,6 +64,20 @@ class AppRouter {
 
   static final GlobalKey<NavigatorState> _rootNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'root');
+
+  // ── Public Routes (tidak perlu auth) ─────────────────────────────────
+  static const Set<String> _publicPaths = {'/', '/login'};
+
+  // ── Role-based route prefixes ────────────────────────────────────────
+  static const Map<String, String> _roleRoutePrefix = {
+    'mahasiswa': '/mahasiswa',
+    'dosen': '/dosen',
+    'operator': '/operator',
+    'kaprodi': '/kaprodi',
+  };
+
+  // ── Shared routes (accessible by all authenticated users) ─────────────
+  static const Set<String> _sharedPaths = {'/notifikasi'};
 
   // ── Route Names ───────────────────────────────────────────────────────
   static const String splash = 'splash';
@@ -163,11 +179,75 @@ class AppRouter {
   static const String _kaprodiLaporanSidangPath = '/kaprodi/laporan-sidang';
   static const String _kaprodiProfilPath = '/kaprodi/profil';
 
+  // ── Auth & Role Guard ────────────────────────────────────────────────
+  /// Redirect logic: cek apakah user sudah login dan punya akses ke route.
+  /// - Public routes (splash, login): selalu bisa diakses.
+  /// - Protected routes: hanya bisa diakses jika sudah login.
+  /// - Role-based routes: hanya bisa diakses sesuai role user.
+  static Future<String?> _guardRedirect(
+      BuildContext context, GoRouterState state) async {
+    final currentPath = state.uri.toString();
+
+    // 1. Public routes — selalu boleh diakses
+    if (_publicPaths.contains(currentPath)) {
+      return null;
+    }
+
+    // 2. Cek apakah user sudah login via Firebase Auth
+    final firebaseUser = FirebaseAuth.instance.currentUser;
+    if (firebaseUser == null) {
+      // Belum login → redirect ke login
+      return _loginPath;
+    }
+
+    // 3. Shared routes — semua user yang sudah login boleh akses
+    if (_sharedPaths.contains(currentPath)) {
+      return null;
+    }
+
+    // 4. Role-based protection — cek role dari Firestore (cached)
+    // Ambil role dari Firestore user document
+    try {
+      final userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(firebaseUser.uid)
+          .get();
+
+      if (!userDoc.exists) {
+        // User ada di Auth tapi tidak di Firestore → logout & redirect
+        await FirebaseAuth.instance.signOut();
+        return _loginPath;
+      }
+
+      final userRole = userDoc.data()?['role'] as String? ?? '';
+      final allowedPrefix = _roleRoutePrefix[userRole];
+
+      if (allowedPrefix == null) {
+        // Role tidak dikenali
+        return _loginPath;
+      }
+
+      // Cek apakah path yang dituju sesuai dengan role user
+      if (!currentPath.startsWith(allowedPrefix)) {
+        // User mencoba akses route role lain → redirect ke home role-nya
+        return allowedPrefix;
+      }
+    } catch (e) {
+      debugPrint('⚠️ [ROUTER] Error checking role: $e');
+      // Jika gagal cek role (misal offline), tetap izinkan navigasi
+      // untuk menghindari user terjebak di halaman error
+    }
+
+    // Semua pengecekan passed → izinkan navigasi
+    return null;
+  }
+
   // ── Router Configuration ─────────────────────────────────────────────
   static final GoRouter router = GoRouter(
     navigatorKey: _rootNavigatorKey,
     initialLocation: _splashPath,
     debugLogDiagnostics: true,
+    redirect: _guardRedirect,
     routes: [
       // ── Splash & Auth ───────────────────────────────────────────────
       GoRoute(

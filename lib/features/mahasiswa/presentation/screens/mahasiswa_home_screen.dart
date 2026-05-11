@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sidangkufix/core/constants/app_colors.dart';
 import 'package:sidangkufix/core/theme/app_theme.dart';
+import 'package:sidangkufix/core/widgets/bottom_nav_bar.dart';
+import 'package:sidangkufix/core/widgets/status_chip.dart';
 
 class MahasiswaHomeNotifier extends ChangeNotifier {
   String _nama = '';
@@ -59,6 +61,7 @@ class MahasiswaHomeNotifier extends ChangeNotifier {
   }
 
   void setState(VoidCallback fn) {
+    fn();
     notifyListeners();
   }
 }
@@ -226,7 +229,7 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
                         color: Colors.white.withValues(alpha: 0.8),
                       ),
                     ),
-                    _buildStatusChip(notifier.statusSidang ?? 'TERJADWAL'),
+                    StatusChip.fromString(notifier.statusSidang ?? 'TERJADWAL'),
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -322,41 +325,6 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
     );
   }
 
-  Widget _buildStatusChip(String status) {
-    Color bgColor;
-    Color textColor;
-    switch (status) {
-      case 'TERJADWAL':
-        bgColor = AppColors.primary;
-        textColor = Colors.white;
-        break;
-      case 'MENUNGGU':
-        bgColor = AppColors.warning;
-        textColor = Colors.white;
-        break;
-      case 'SELESAI':
-        bgColor = AppColors.success;
-        textColor = Colors.white;
-        break;
-      default:
-        bgColor = AppColors.textTertiary;
-        textColor = Colors.white;
-    }
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Text(
-        status,
-        style: AppTheme.caption.copyWith(
-          color: textColor,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-  }
 
   Widget _buildStatsRow() {
     return Row(
@@ -446,7 +414,7 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
         ),
         const SizedBox(height: 12),
         SizedBox(
-          height: 50,
+          height: 60,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: dosen.length,
@@ -517,12 +485,12 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
       {
         'icon': Icons.upload_file_rounded,
         'label': 'Upload Berkas',
-        'route': '/mahasiswa/berkas',
+        'route': '/mahasiswa/dokumen',
       },
       {
         'icon': Icons.grade_rounded,
         'label': 'Nilai',
-        'route': '/mahasiswa/nilai',
+        'route': '/mahasiswa/hasil-sidang',
       },
       {
         'icon': Icons.notifications_rounded,
@@ -603,103 +571,10 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
   }
 
   Widget _buildBottomNavBar() {
-    final items = [
-      {
-        'icon': Icons.home_rounded,
-        'activeIcon': Icons.home_rounded,
-        'label': 'Home',
-      },
-      {
-        'icon': Icons.calendar_month_outlined,
-        'activeIcon': Icons.calendar_month_rounded,
-        'label': 'Jadwal',
-      },
-      {
-        'icon': Icons.description_outlined,
-        'activeIcon': Icons.description_rounded,
-        'label': 'Berkas',
-      },
-      {
-        'icon': Icons.grade_outlined,
-        'activeIcon': Icons.grade_rounded,
-        'label': 'Nilai',
-      },
-      {
-        'icon': Icons.person_outline,
-        'activeIcon': Icons.person_rounded,
-        'label': 'Profil',
-      },
-    ];
-
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadow,
-            blurRadius: 16,
-            offset: const Offset(0, -4),
-          ),
-        ],
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: items.asMap().entries.map((e) {
-              final i = e.key;
-              final item = e.value;
-              final isSelected = i == _currentNavIndex;
-              return InkWell(
-                onTap: () => _handleBottomNavTap(i),
-                borderRadius: BorderRadius.circular(12),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: isSelected
-                        ? AppColors.primary.withValues(alpha: 0.1)
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        isSelected
-                            ? item['activeIcon'] as IconData
-                            : item['icon'] as IconData,
-                        size: 24,
-                        color: isSelected
-                            ? AppColors.primary
-                            : AppColors.textTertiary,
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        item['label'] as String,
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: isSelected
-                              ? FontWeight.w600
-                              : FontWeight.w400,
-                          color: isSelected
-                              ? AppColors.primary
-                              : AppColors.textTertiary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-        ),
-      ),
+    return BottomNavBar(
+      currentIndex: _currentNavIndex,
+      items: BottomNavBar.mahasiswaItems,
+      onTap: _handleBottomNavTap,
     );
   }
 
@@ -713,10 +588,10 @@ class _MahasiswaHomeScreenState extends State<MahasiswaHomeScreen> {
         context.go('/mahasiswa/jadwal');
         break;
       case 2:
-        context.go('/mahasiswa/berkas');
+        context.go('/mahasiswa/dokumen');
         break;
       case 3:
-        context.go('/mahasiswa/nilai');
+        context.go('/mahasiswa/hasil-sidang');
         break;
       case 4:
         context.go('/mahasiswa/profil');
