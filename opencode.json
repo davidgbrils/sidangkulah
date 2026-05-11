@@ -6,7 +6,7 @@
       "url": "https://stitch.googleapis.com/mcp",
       "enabled": true,
       "headers": {
-        "X-Goog-Api-Key": "AQ.Ab8RN6L_pdA1nK7ehvf5uKJslkAcmCehLFVPz2Y_E8DT3QCymQ"
+        "X-Goog-Api-Key": ""
       }
     }
   }
