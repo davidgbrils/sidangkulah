@@ -5,28 +5,28 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
 
-  // ── Brand Colors (Deep Navy) ─────────────────────────────────────────────
-  static const Color primary = Color(0xFF001E40);
-  static const Color primaryLight = Color(0xFF003366);
-  static const Color primaryDark = Color(0xFF001640);
-  static const Color primaryContainer = Color(0xFF003366);
-  static const Color onPrimaryContainer = Color(0xFF799DD6);
+  // ── Brand Colors ─────────────────────────────────────────────
+  static const Color primary = Color(0xFF1565C0);
+  static const Color primaryLight = Color(0xFF5E92F3);
+  static const Color primaryDark = Color(0xFF003C8F);
+  static const Color primaryContainer = Color(0xFFD4E4FF);
+  static const Color onPrimaryContainer = Color(0xFF001C3A);
 
   // ── Secondary Colors ───────────────────────────────────────────────
   static const Color secondary = Color(0xFF575F65);
   static const Color secondaryContainer = Color(0xFFDBE3EA);
 
   // ── Surface & Background ─────────────────────────────────────────────
-  static const Color background = Color(0xFFF8F9FF);
+  static const Color background = Color(0xFFF0F4F8);
   static const Color surface = Color(0xFFFFFFFF);
-  static const Color surfaceVariant = Color(0xFFD3E4FE);
+  static const Color surfaceVariant = Color(0xFFE1E2E8);
   static const Color surfaceContainer = Color(0xFFE5EEFF);
   static const Color surfaceContainerLow = Color(0xFFEFF4FF);
   static const Color surfaceContainerHigh = Color(0xFFDCE9FF);
   static const Color surfaceContainerHighest = Color(0xFFD3E4FE);
   static const Color surfaceDim = Color(0xFFCBDBF5);
-  static const Color surfaceBright = Color(0xFFF8F9FF);
-  static const Color scaffoldBackground = Color(0xFFF8F9FF);
+  static const Color surfaceBright = Color(0xFFF0F4F8);
+  static const Color scaffoldBackground = Color(0xFFF0F4F8);
 
   // ── Status Colors ─────────────────────────────────────────────────────
   static const Color error = Color(0xFFBA1A1A);

@@ -10,6 +10,7 @@ import 'firebase_options.dart';
 import 'core/theme/app_theme.dart';
 import 'core/constants/app_strings.dart';
 import 'router/app_router.dart';
+import 'core/services/notification_service.dart';
 
 Future<void> main() async {
   runZonedGuarded(
@@ -39,6 +40,9 @@ Future<void> main() async {
           systemNavigationBarIconBrightness: Brightness.dark,
         ),
       );
+
+      // Inisialisasi Notifikasi
+      await NotificationService().initialize();
 
       runApp(const ProviderScope(child: SidangKuApp()));
     },

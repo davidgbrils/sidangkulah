@@ -25,8 +25,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  bool _obscurePassword = true;
-
   @override
   void dispose() {
     _emailController.dispose();
@@ -79,19 +77,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       
       switch (authState.user!.roleString) {
         case 'mahasiswa':
-          context.go('/mahasiswa');
+          context.go('/mahasiswa/home');
           break;
         case 'dosen':
-          context.go('/dosen');
+          context.go('/dosen-penguji/home');
           break;
         case 'operator':
-          context.go('/operator');
+          context.go('/operator/home');
           break;
         case 'kaprodi':
-          context.go('/kaprodi');
+          context.go('/kaprodi/home');
           break;
         default:
-          context.go('/login');
+          context.go('/auth/login');
       }
     }
   }
@@ -224,7 +222,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 hint: '••••••••',
                 controller: _passwordController,
                 prefixIcon: Icons.lock_outline_rounded,
-                obscureText: _obscurePassword,
+                obscureText: true,
                 textInputAction: TextInputAction.done,
                 validator: _validatePassword,
               ),
@@ -261,33 +259,46 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
               const SizedBox(height: 24),
 
-              Row(
-                children: [
-                  Expanded(child: Divider(color: AppColors.border, thickness: 1)),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      'Atau',
-                      style: AppTheme.bodySmall.copyWith(
+              const SizedBox(height: 24),
+
+              Center(
+                child: Column(
+                  children: [
+                    const Divider(color: AppColors.border, thickness: 1),
+                    const SizedBox(height: 24),
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Text(
+                          'Belum punya akun? ',
+                          style: AppTheme.bodyMedium.copyWith(
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () => context.push('/auth/register'),
+                          child: Text(
+                            'Daftar sebagai Mahasiswa',
+                            style: AppTheme.bodyMedium.copyWith(
+                              color: AppColors.primary,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Akun Dosen dibuat oleh Admin',
+                      style: AppTheme.caption.copyWith(
+                        fontStyle: FontStyle.italic,
                         color: AppColors.textTertiary,
                       ),
                     ),
-                  ),
-                  Expanded(child: Divider(color: AppColors.border, thickness: 1)),
-                ],
+                  ],
+                ),
               ),
-              const SizedBox(height: 24),
-
-              SidangkuButton(
-                label: 'Login dengan QR Code',
-                type: SidangkuButtonType.outlined,
-                icon: Icons.qr_code_scanner_rounded,
-                onTap: () {
-                  _showInfo('Fitur login QR Code akan segera tersedia.');
-                },
-                height: 52,
-              ),
-              const SizedBox(height: 24),
             ],
           ),
         ),
@@ -304,7 +315,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Belum memiliki akun? ',
+                'Mengalami kendala login? ',
                 style: AppTheme.bodyMedium.copyWith(
                   color: AppColors.textSecondary,
                 ),
@@ -313,34 +324,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 onTap: () async {
                   final Uri url = Uri.parse('https://wa.me/6285719211998');
                   if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-                    _showInfo('Tidak dapat membuka WhatsApp. Silakan hubungi 6285719211998');
+                    _showInfo('Tidak dapat membuka WhatsApp.');
                   }
                 },
                 child: Text(
-                  'Hubungi Admin Prodi',
+                  'Hubungi Admin FTEN',
                   style: AppTheme.bodyMedium.copyWith(
                     color: AppColors.primaryLight,
                     fontWeight: FontWeight.w700,
                   ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.hub_rounded,
-                size: 18,
-                color: AppColors.primary.withValues(alpha: 0.6),
-              ),
-              const SizedBox(width: 6),
-              Text(
-                'Part of ITPLN Digital Ecosystem',
-                style: AppTheme.bodySmall.copyWith(
-                  color: AppColors.textSecondary,
                 ),
               ),
             ],
@@ -354,11 +346,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   const SnackBar(content: Text('Memulai seeding data...')),
                 );
                 await FirebaseSeeder().seedInitialData();
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Seeding selesai! Cek console.')),
-                  );
-                }
+                if (!mounted) return;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Seeding selesai! Cek console.')),
+                );
               },
               icon: const Icon(Icons.storage_rounded, size: 16),
               label: const Text('Seed Initial Data'),

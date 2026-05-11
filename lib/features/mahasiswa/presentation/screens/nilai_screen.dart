@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sidangkufix/core/constants/app_colors.dart';
 import 'package:sidangkufix/core/theme/app_theme.dart';
 import 'package:sidangkufix/core/widgets/sidangku_button.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:open_file/open_file.dart';
+import 'dart:io';
 
 class NilaiDetailModel {
   final String grade;
@@ -56,7 +59,7 @@ class NilaiMahasiswaNotifier extends ChangeNotifier {
         status: 'LULUS',
         komponen: [
           KomponenNilai(komponen: 'Penguasaan Materi', bobot: 40, nilai: 90, subTotal: 36),
-          KomponenNilai(komponen: 'Sistematika', bobot: 30, nilai: 85, subTotal: 25.5),
+          KomponenNilai(komponen: 'Sesi Tanya Jawab', bobot: 30, nilai: 85, subTotal: 25.5),
           KomponenNilai(komponen: 'Presentasi', bobot: 30, nilai: 86.67, subTotal: 26),
         ],
         catatan: 'Skripsi ini membahas implementasi machine learning untuk deteksi ancaman siber dengan hasil yang sangat baik.',
@@ -76,14 +79,32 @@ class NilaiMahasiswaNotifier extends ChangeNotifier {
       _downloadType = type;
     });
     try {
-      await Future.delayed(const Duration(seconds: 2));
-      ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
-        SnackBar(content: Text('Berhasil mengunduh $type'), backgroundColor: AppColors.success),
-      );
+      final dir = await getTemporaryDirectory();
+      final ext = type.toLowerCase().contains('docx') ? 'docx' : 'pdf';
+      final fileName = 'sidangku_${type.replaceAll(' ', '_').toLowerCase()}_${DateTime.now().millisecondsSinceEpoch}.$ext';
+      final filePath = '${dir.path}/$fileName';
+
+      // Mock download from a real URL (using a placeholder for now)
+      // In a real app, this would be: await dio.download(apiUrl, filePath);
+      // For slicing, we create a placeholder file
+      await File(filePath).writeAsString('SidangKu Document Placeholder for $type');
+
+      if (navigatorKey.currentContext != null) {
+        ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+          SnackBar(
+            content: Text('Berhasil mengunduh $type. Membuka file...'),
+            backgroundColor: AppColors.success,
+          ),
+        );
+      }
+
+      await OpenFile.open(filePath);
     } catch (e) {
-      ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
-        SnackBar(content: Text('Gagal mengunduh'), backgroundColor: AppColors.error),
-      );
+      if (navigatorKey.currentContext != null) {
+        ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+          SnackBar(content: Text('Gagal mengunduh: $e'), backgroundColor: AppColors.error),
+        );
+      }
     } finally {
       setState(() {
         _isDownloading = false;
@@ -180,22 +201,64 @@ class _NilaiScreenState extends State<NilaiScreen> {
     final nilai = notifier.nilai!;
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
       decoration: BoxDecoration(
-        gradient: AppColors.primaryGradient,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [BoxShadow(color: AppColors.primary.withValues(alpha: 0.3), blurRadius: 12, offset: const Offset(0, 6))],
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         children: [
-          Text(nilai.grade, style: TextStyle(fontSize: 72, fontWeight: FontWeight.bold, color: Colors.white)),
-          const SizedBox(height: 4),
-          Text(nilai.nilaiAngka.toStringAsFixed(2), style: AppTheme.headingMedium.copyWith(color: Colors.white)),
-          const SizedBox(height: 8),
+          SizedBox(
+            width: 180,
+            height: 180,
+            child: CustomPaint(
+              painter: CircularGradePainter(
+                percentage: nilai.nilaiAngka / 100,
+                color: AppColors.primary,
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      nilai.grade,
+                      style: TextStyle(
+                        fontSize: 64,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primary,
+                        height: 1.0,
+                      ),
+                    ),
+                    Text(
+                      nilai.nilaiAngka.toStringAsFixed(2),
+                      style: AppTheme.headingSmall.copyWith(color: AppColors.textSecondary),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 24),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(20)),
-            child: Text(nilai.predikat, style: AppTheme.bodySmall.copyWith(color: Colors.white, fontWeight: FontWeight.w600)),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              nilai.predikat,
+              style: AppTheme.bodyMedium.copyWith(
+                color: AppColors.primary,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
         ],
       ),
@@ -205,19 +268,15 @@ class _NilaiScreenState extends State<NilaiScreen> {
   Widget _buildStatusChip() {
     final nilai = notifier.nilai!;
     Color bgColor;
-    Color textColor;
     switch (nilai.status) {
       case 'LULUS':
         bgColor = AppColors.success;
-        textColor = Colors.white;
         break;
       case 'REVISI':
         bgColor = AppColors.warning;
-        textColor = Colors.white;
         break;
       default:
         bgColor = AppColors.error;
-        textColor = Colors.white;
     }
     return Container(
       width: double.infinity,
@@ -265,7 +324,7 @@ class _NilaiScreenState extends State<NilaiScreen> {
             ],
           ),
           const SizedBox(height: 12),
-          Text('Formula: (Penguasaan Materi × 40%) + (Sistematika × 30%) + (Presentasi × 30%)', style: AppTheme.caption.copyWith(color: AppColors.textTertiary, fontStyle: FontStyle.italic)),
+          Text('Formula: (Penguasaan Materi × 40%) + (Sesi Tanya Jawab × 30%) + (Presentasi × 30%)', style: AppTheme.caption.copyWith(color: AppColors.textTertiary, fontStyle: FontStyle.italic)),
         ],
       ),
     );
@@ -312,4 +371,43 @@ class _NilaiScreenState extends State<NilaiScreen> {
       ],
     );
   }
+}
+
+class CircularGradePainter extends CustomPainter {
+  final double percentage;
+  final Color color;
+
+  CircularGradePainter({required this.percentage, required this.color});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint bgPaint = Paint()
+      ..color = color.withValues(alpha: 0.1)
+      ..strokeWidth = 12
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+
+    final Paint progressPaint = Paint()
+      ..color = color
+      ..strokeWidth = 12
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width / 2 - 6;
+
+    canvas.drawCircle(center, radius, bgPaint);
+
+    final sweepAngle = 2 * 3.141592653589793 * percentage;
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      -3.141592653589793 / 2,
+      sweepAngle,
+      false,
+      progressPaint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }

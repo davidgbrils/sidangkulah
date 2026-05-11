@@ -261,7 +261,7 @@ class _InputNilaiScreenState extends State<InputNilaiScreen> {
               ),
               const SizedBox(height: 10),
               _buildNilaiRow(
-                label: 'Sistematika Penulisan',
+                label: 'Sesi Tanya Jawab',
                 bobot: '30%',
                 controller: _nilaiController2,
                 sliderValue: _slider2,

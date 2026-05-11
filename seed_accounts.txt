@@ -1,0 +1,46 @@
+# SIDANGKU SEED ACCOUNTS
+# ----------------------
+
+## OPERATOR (ADMIN)
+- Email: admin@itpln.ac.id
+- Password: admin123
+- Nama: AhmadAdmin
+
+- Email: operator@itpln.ac.id
+- Password: operator123
+- Nama: Siti Operator
+
+## DOSEN
+- Email: heru@itpln.ac.id
+- Password: dosen123
+- Nama: Dr. Ir. Heru Setiawan, M.T.
+
+- Email: siti@itpln.ac.id
+- Password: dosen123
+- Nama: Dr. Siti Aminah, M.Kom.
+
+- Email: ahmaddosen@itpln.ac.id
+- Password: dosen123
+- Nama: Dr. Ahmad Fauzi, M.T.
+
+- Email: irfan@itpln.ac.id
+- Password: dosen123
+- Nama: Irfan Hakim, M.Kom.
+
+## KAPRODI
+- Email: kaprodi@itpln.ac.id
+- Password: kaprodi123
+- Nama: Prof. Dr. Academic Leader
+
+## MAHASISWA
+- Email: 202011001@student.itpln.ac.id
+- Password: mahasiswa123
+- Nama: Budi Santoso (NIM: 202011001)
+
+- Email: 202011002@student.itpln.ac.id
+- Password: mahasiswa123
+- Nama: Anisa Maharani (NIM: 202011002)
+
+- Email: 202011003@student.itpln.ac.id
+- Password: mahasiswa123
+- Nama: Dian Permana (NIM: 202011003)

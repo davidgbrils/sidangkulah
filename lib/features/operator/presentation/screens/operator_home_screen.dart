@@ -308,8 +308,8 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
             itemCount: items.length,
-            separatorBuilder: (_, __) => const SizedBox(width: AppTheme.spacing12),
-            itemBuilder: (_, i) => items[i],
+            separatorBuilder: (context, index) => const SizedBox(width: AppTheme.spacing12),
+            itemBuilder: (context, i) => items[i],
           ),
         ),
       ],
@@ -509,9 +509,9 @@ class _OperatorHomeScreenState extends State<OperatorHomeScreen> {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: _activities.length,
-        separatorBuilder: (_, __) =>
+        separatorBuilder: (context, index) =>
             const Divider(color: AppColors.divider, height: 1, indent: 64),
-        itemBuilder: (_, i) => _buildActivityTile(_activities[i]),
+        itemBuilder: (context, i) => _buildActivityTile(_activities[i]),
       ),
     );
   }

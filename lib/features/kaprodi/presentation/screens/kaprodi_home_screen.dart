@@ -270,7 +270,6 @@ class _KaprodiHomeScreenState extends State<KaprodiHomeScreen> {
 
   Widget _buildGradeDistBar() {
     final gradeDist = notifier.gradeDist;
-    final total = gradeDist.fold<int>(0, (sum, g) => sum + g.count);
 
     return Container(
       padding: const EdgeInsets.all(16),

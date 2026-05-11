@@ -1,30 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart' hide UserModel;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sidangkufix/features/auth/presentation/screens/splash_screen.dart';
-import 'package:sidangkufix/features/auth/presentation/screens/login_screen.dart';
-import 'package:sidangkufix/features/mahasiswa/presentation/screens/mahasiswa_home_screen.dart';
-import 'package:sidangkufix/features/mahasiswa/presentation/screens/daftar_sidang_screen.dart';
-import 'package:sidangkufix/features/mahasiswa/presentation/screens/nilai_screen.dart';
-import 'package:sidangkufix/features/shared/presentation/screens/notifikasi_screen.dart';
-import 'package:sidangkufix/features/dosen/presentation/screens/dosen_home_screen.dart';
-import 'package:sidangkufix/features/dosen/presentation/screens/dosen_mahasiswa_screen.dart';
-import 'package:sidangkufix/features/dosen/presentation/screens/dosen_mahasiswa_detail_screen.dart';
-import 'package:sidangkufix/features/dosen/presentation/screens/input_nilai_screen.dart';
-import 'package:sidangkufix/features/dosen/presentation/screens/ttd_dokumen_screen.dart';
-import 'package:sidangkufix/features/dosen/presentation/screens/formulir_absen_screen.dart';
-import 'package:sidangkufix/features/dosen/presentation/screens/formulir_revisi_screen.dart';
-import 'package:sidangkufix/features/dosen/presentation/screens/ganti_penguji_screen.dart';
-import 'package:sidangkufix/features/operator/presentation/screens/operator_home_screen.dart';
-import 'package:sidangkufix/features/operator/presentation/screens/kelola_mahasiswa_screen.dart';
-import 'package:sidangkufix/features/operator/presentation/screens/approval_penguji_screen.dart';
-import 'package:sidangkufix/features/operator/presentation/screens/dokumen_honor_screen.dart';
-import 'package:sidangkufix/features/kaprodi/presentation/screens/kaprodi_home_screen.dart';
-import 'package:sidangkufix/features/kaprodi/presentation/screens/kaprodi_jadwal_screen.dart';
-import 'package:sidangkufix/features/kaprodi/presentation/screens/kaprodi_rekap_nilai_screen.dart';
 
-/// Placeholder page untuk rute yang belum diimplementasikan
+import '../features/auth/presentation/screens/splash_screen.dart';
+import '../features/auth/presentation/screens/login_screen.dart';
+import '../features/auth/presentation/screens/register_screen.dart';
+import '../features/shared/presentation/widgets/shared_bottom_nav.dart';
+
+import '../features/mahasiswa/presentation/screens/mahasiswa_home_screen.dart';
+import '../features/mahasiswa/presentation/screens/berkas_sidang_screen.dart';
+import '../features/mahasiswa/presentation/screens/nilai_screen.dart';
+import '../features/mahasiswa/presentation/screens/revisi_sidang_screen.dart';
+import '../features/dosen/presentation/screens/dosen_home_screen.dart';
+import '../features/dosen/presentation/screens/dosen_pembimbing_home_screen.dart';
+import '../features/dosen/presentation/screens/daftar_mahasiswa_bimbingan_screen.dart';
+import '../features/dosen/presentation/screens/formulir_revisi_screen.dart';
+import '../features/operator/presentation/screens/operator_home_screen.dart';
+import '../features/operator/presentation/screens/import_excel_screen.dart';
+import '../features/operator/presentation/screens/approval_berkas_screen.dart';
+import '../features/shared/presentation/screens/chat_admin_mahasiswa_screen.dart';
+import '../features/shared/presentation/screens/jadwal_sidang_screen.dart';
+import '../features/kaprodi/presentation/screens/kaprodi_home_screen.dart';
+import '../features/kaprodi/presentation/screens/pengaturan_prodi_screen.dart';
+import '../features/operator/presentation/screens/input_jadwal_screen.dart';
+import '../features/operator/presentation/screens/penilaian_mahasiswa_screen.dart';
+import '../features/operator/presentation/screens/sidang_berlangsung_screen.dart';
+import '../features/dosen/presentation/screens/ganti_penguji_screen.dart';
+
+/// Placeholder page
 class _PlaceholderPage extends StatelessWidget {
   final String title;
   const _PlaceholderPage({required this.title});
@@ -33,488 +37,247 @@ class _PlaceholderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(title)),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.construction_rounded, size: 64, color: Colors.grey[400]),
-            const SizedBox(height: 16),
-            Text(
-              title,
-              style: Theme.of(context).textTheme.headlineSmall,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Halaman ini sedang dalam pengembangan',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.grey[600],
-                  ),
-            ),
-          ],
-        ),
-      ),
+      body: Center(child: Text('Under Construction: $title')),
     );
   }
 }
 
-/// Konfigurasi semua rute aplikasi SidangKu menggunakan GoRouter
 class AppRouter {
   AppRouter._();
 
-  static final GlobalKey<NavigatorState> _rootNavigatorKey =
-      GlobalKey<NavigatorState>(debugLabel: 'root');
+  static final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+  
+  // Paths
+  static const String splashPath = '/';
+  static const String loginPath = '/auth/login';
+  static const String registerPath = '/auth/register';
 
-  // ── Public Routes (tidak perlu auth) ─────────────────────────────────
-  static const Set<String> _publicPaths = {'/', '/login'};
+  static const String mahasiswaHomePath = '/mahasiswa/home';
+  static const String dosenPengujiHomePath = '/dosen-penguji/home';
+  static const String dosenPembimbingHomePath = '/dosen-pembimbing/home';
+  static const String operatorHomePath = '/operator/home';
+  static const String kaprodiHomePath = '/kaprodi/home';
 
-  // ── Role-based route prefixes ────────────────────────────────────────
-  static const Map<String, String> _roleRoutePrefix = {
-    'mahasiswa': '/mahasiswa',
-    'dosen': '/dosen',
-    'operator': '/operator',
-    'kaprodi': '/kaprodi',
+  static const Map<String, String> roleHomePaths = {
+    'mahasiswa': mahasiswaHomePath,
+    'dosen_penguji': dosenPengujiHomePath,
+    'dosen_pembimbing': dosenPembimbingHomePath,
+    'operator': operatorHomePath,
+    'kaprodi': kaprodiHomePath,
   };
 
-  // ── Shared routes (accessible by all authenticated users) ─────────────
-  static const Set<String> _sharedPaths = {'/notifikasi'};
+  static Future<String?> _guardRedirect(BuildContext context, GoRouterState state) async {
+    final path = state.uri.path;
+    final isAuthRoute = path.startsWith('/auth') || path == '/';
 
-  // ── Route Names ───────────────────────────────────────────────────────
-  static const String splash = 'splash';
-  static const String login = 'login';
-
-  // Mahasiswa
-  static const String mahasiswaBeranda = 'mahasiswa-beranda';
-  static const String mahasiswaJadwal = 'mahasiswa-jadwal';
-  static const String mahasiswaDokumen = 'mahasiswa-dokumen';
-  static const String mahasiswaProfil = 'mahasiswa-profil';
-  static const String pendaftaranSidangDataDiri = 'pendaftaran-sidang-data-diri';
-  static const String pendaftaranSidangUpload = 'pendaftaran-sidang-upload';
-  static const String pendaftaranSidangKonfirmasi = 'pendaftaran-sidang-konfirmasi';
-  static const String statusBerkas = 'status-berkas';
-  static const String detailJadwalSidang = 'detail-jadwal-sidang';
-  static const String hasilSidang = 'hasil-sidang';
-  static const String notifikasi = 'notifikasi';
-
-  // Dosen
-  static const String dosenBeranda = 'dosen-beranda';
-  static const String daftarMahasiswaSaya = 'daftar-mahasiswa-saya';
-  static const String detailMahasiswaDosen = 'detail-mahasiswa-dosen';
-  static const String inputNilai = 'input-nilai';
-  static const String formulirRevisi = 'formulir-revisi';
-  static const String formulirKehadiran = 'formulir-kehadiran';
-  static const String tandaTanganDokumen = 'tanda-tangan-dokumen';
-  static const String pengajuanGantiPenguji = 'pengajuan-ganti-penguji';
-  static const String dosenJadwal = 'dosen-jadwal';
-  static const String dosenFormulir = 'dosen-formulir';
-  static const String dosenProfil = 'dosen-profil';
-
-  // Operator
-  static const String operatorDashboard = 'operator-dashboard';
-  static const String kelolaDataMahasiswa = 'kelola-data-mahasiswa';
-  static const String dataDosen = 'data-dosen';
-  static const String inputJadwalSidang = 'input-jadwal-sidang';
-  static const String importExcel = 'import-excel';
-  static const String approvalGantiPenguji = 'approval-ganti-penguji';
-  static const String dokumenRekapHonor = 'dokumen-rekap-honor';
-  static const String operatorGenerateSk = 'operator-generate-sk';
-  static const String operatorProfil = 'operator-profil';
-
-  // Kaprodi
-  static const String kaprodiDashboard = 'kaprodi-dashboard';
-  static const String approvalPenguji = 'approval-penguji';
-  static const String jadwalSidangFinal = 'jadwal-sidang-final';
-  static const String rekapNilaiSidang = 'rekap-nilai-sidang';
-  static const String rekapHonorDosen = 'rekap-honor-dosen';
-  static const String kaprodiLaporanSidang = 'kaprodi-laporan-sidang';
-  static const String kaprodiProfil = 'kaprodi-profil';
-
-  // ── Route Paths ───────────────────────────────────────────────────────
-  static const String _splashPath = '/';
-  static const String _loginPath = '/login';
-
-  // Mahasiswa paths
-  static const String _mahasiswaBerandaPath = '/mahasiswa';
-  static const String _mahasiswaJadwalPath = '/mahasiswa/jadwal';
-  static const String _mahasiswaDokumenPath = '/mahasiswa/dokumen';
-  static const String _mahasiswaProfilPath = '/mahasiswa/profil';
-  static const String _pendaftaranDataDiriPath = '/mahasiswa/pendaftaran/data-diri';
-  static const String _pendaftaranUploadPath = '/mahasiswa/pendaftaran/upload';
-  static const String _pendaftaranKonfirmasiPath = '/mahasiswa/pendaftaran/konfirmasi';
-  static const String _statusBerkasPath = '/mahasiswa/status-berkas';
-  static const String _detailJadwalPath = '/mahasiswa/jadwal/:id';
-  static const String _hasilSidangPath = '/mahasiswa/hasil-sidang';
-  static const String _notifikasiPath = '/notifikasi';
-
-  // Dosen paths
-  static const String _dosenBerandaPath = '/dosen';
-  static const String _daftarMahasiswaPath = '/dosen/mahasiswa';
-  static const String _detailMahasiswaDosenPath = '/dosen/mahasiswa/:id';
-  static const String _inputNilaiPath = '/dosen/input-nilai/:id';
-  static const String _formulirRevisiPath = '/dosen/formulir-revisi/:id';
-  static const String _formulirKehadiranPath = '/dosen/formulir-kehadiran';
-  static const String _tandaTanganPath = '/dosen/tanda-tangan';
-  static const String _pengajuanGantiPengujiPath = '/dosen/ganti-penguji';
-  static const String _dosenJadwalPath = '/dosen/jadwal';
-  static const String _dosenFormulirPath = '/dosen/formulir';
-  static const String _dosenProfilPath = '/dosen/profil';
-
-  // Operator paths
-  static const String _operatorDashboardPath = '/operator';
-  static const String _kelolaDataMahasiswaPath = '/operator/mahasiswa';
-  static const String _dataDosenPath = '/operator/dosen';
-  static const String _inputJadwalSidangPath = '/operator/jadwal';
-  static const String _importExcelPath = '/operator/import-excel';
-  static const String _approvalGantiPengujiPath = '/operator/approval-ganti-penguji';
-  static const String _dokumenRekapHonorPath = '/operator/rekap-honor';
-  static const String _operatorGenerateSkPath = '/operator/generate-sk';
-  static const String _operatorProfilPath = '/operator/profil';
-
-  // Kaprodi paths
-  static const String _kaprodiDashboardPath = '/kaprodi';
-  static const String _approvalPengujiPath = '/kaprodi/approval-penguji';
-  static const String _jadwalSidangFinalPath = '/kaprodi/jadwal-final';
-  static const String _rekapNilaiPath = '/kaprodi/rekap-nilai';
-  static const String _rekapHonorDosenPath = '/kaprodi/rekap-honor';
-  static const String _kaprodiLaporanSidangPath = '/kaprodi/laporan-sidang';
-  static const String _kaprodiProfilPath = '/kaprodi/profil';
-
-  // ── Auth & Role Guard ────────────────────────────────────────────────
-  /// Redirect logic: cek apakah user sudah login dan punya akses ke route.
-  /// - Public routes (splash, login): selalu bisa diakses.
-  /// - Protected routes: hanya bisa diakses jika sudah login.
-  /// - Role-based routes: hanya bisa diakses sesuai role user.
-  static Future<String?> _guardRedirect(
-      BuildContext context, GoRouterState state) async {
-    final currentPath = state.uri.toString();
-
-    // 1. Public routes — selalu boleh diakses
-    if (_publicPaths.contains(currentPath)) {
-      return null;
-    }
-
-    // 2. Cek apakah user sudah login via Firebase Auth
     final firebaseUser = FirebaseAuth.instance.currentUser;
+
     if (firebaseUser == null) {
-      // Belum login → redirect ke login
-      return _loginPath;
+      return isAuthRoute ? null : loginPath;
     }
 
-    // 3. Shared routes — semua user yang sudah login boleh akses
-    if (_sharedPaths.contains(currentPath)) {
+    // User is logged in
+    try {
+      final userDoc = await FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).get();
+      if (!userDoc.exists) {
+        await FirebaseAuth.instance.signOut();
+        return loginPath;
+      }
+
+      final role = userDoc.data()?['role'] as String? ?? '';
+      
+      // Convert 'dosen_penguji' to '/dosen-penguji' prefix
+      final expectedPrefix = '/${role.replaceAll('_', '-')}';
+
+      // If user is on an auth route, redirect to their home
+      if (isAuthRoute) {
+        return roleHomePaths[role] ?? loginPath;
+      }
+
+      // If user is trying to access a route for another role
+      if (!path.startsWith(expectedPrefix)) {
+        return roleHomePaths[role];
+      }
+
+      return null;
+    } catch (e) {
+      debugPrint('Router Guard Error: $e');
       return null;
     }
-
-    // 4. Role-based protection — cek role dari Firestore (cached)
-    // Ambil role dari Firestore user document
-    try {
-      final userDoc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(firebaseUser.uid)
-          .get();
-
-      if (!userDoc.exists) {
-        // User ada di Auth tapi tidak di Firestore → logout & redirect
-        await FirebaseAuth.instance.signOut();
-        return _loginPath;
-      }
-
-      final userRole = userDoc.data()?['role'] as String? ?? '';
-      final allowedPrefix = _roleRoutePrefix[userRole];
-
-      if (allowedPrefix == null) {
-        // Role tidak dikenali
-        return _loginPath;
-      }
-
-      // Cek apakah path yang dituju sesuai dengan role user
-      if (!currentPath.startsWith(allowedPrefix)) {
-        // User mencoba akses route role lain → redirect ke home role-nya
-        return allowedPrefix;
-      }
-    } catch (e) {
-      debugPrint('⚠️ [ROUTER] Error checking role: $e');
-      // Jika gagal cek role (misal offline), tetap izinkan navigasi
-      // untuk menghindari user terjebak di halaman error
-    }
-
-    // Semua pengecekan passed → izinkan navigasi
-    return null;
   }
 
-  // ── Router Configuration ─────────────────────────────────────────────
   static final GoRouter router = GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: _splashPath,
-    debugLogDiagnostics: true,
+    initialLocation: splashPath,
     redirect: _guardRedirect,
     routes: [
-      // ── Splash & Auth ───────────────────────────────────────────────
       GoRoute(
-        path: _splashPath,
-        name: splash,
+        path: splashPath,
         builder: (context, state) => const SplashScreen(),
       ),
       GoRoute(
-        path: _loginPath,
-        name: login,
+        path: loginPath,
         builder: (context, state) => const LoginScreen(),
       ),
-
-      // ── Mahasiswa Routes ────────────────────────────────────────────
       GoRoute(
-        path: _mahasiswaBerandaPath,
-        name: mahasiswaBeranda,
-        builder: (context, state) => const MahasiswaHomeScreen(),
+        path: registerPath,
+        builder: (context, state) => const RegisterScreen(),
       ),
       GoRoute(
-        path: _mahasiswaJadwalPath,
-        name: mahasiswaJadwal,
-        builder: (context, state) => const _PlaceholderPage(title: 'Jadwal Sidang'),
+        path: '/mahasiswa/revisi',
+        builder: (context, state) => const RevisiSidangScreen(),
       ),
       GoRoute(
-        path: _mahasiswaDokumenPath,
-        name: mahasiswaDokumen,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Berkas'),
+        path: '/operator/import-excel',
+        builder: (context, state) => const ImportExcelScreen(),
       ),
       GoRoute(
-        path: _mahasiswaProfilPath,
-        name: mahasiswaProfil,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Profil Mahasiswa'),
+        path: '/operator/approval-berkas',
+        builder: (context, state) => const ApprovalBerkasScreen(),
       ),
       GoRoute(
-        path: _pendaftaranDataDiriPath,
-        name: pendaftaranSidangDataDiri,
-        builder: (context, state) => const DaftarSidangScreen(),
-      ),
-      GoRoute(
-        path: _pendaftaranUploadPath,
-        name: pendaftaranSidangUpload,
-        builder: (context, state) => const DaftarSidangScreen(),
-      ),
-      GoRoute(
-        path: _pendaftaranKonfirmasiPath,
-        name: pendaftaranSidangKonfirmasi,
-        builder: (context, state) => const DaftarSidangScreen(),
-      ),
-      GoRoute(
-        path: _statusBerkasPath,
-        name: statusBerkas,
-        builder: (context, state) => const _PlaceholderPage(title: 'Status Berkas'),
-      ),
-      GoRoute(
-        path: _detailJadwalPath,
-        name: detailJadwalSidang,
-        builder: (context, state) {
-          final id = state.pathParameters['id'] ?? '';
-          return _PlaceholderPage(title: 'Detail Jadwal Sidang #$id');
-        },
-      ),
-      GoRoute(
-        path: _hasilSidangPath,
-        name: hasilSidang,
-        builder: (context, state) => const NilaiScreen(),
-      ),
-      GoRoute(
-        path: _notifikasiPath,
-        name: notifikasi,
-        builder: (context, state) => const NotifikasiScreen(),
+        path: '/chat/:name',
+        builder: (context, state) => ChatAdminMahasiswaScreen(
+          participantName: state.pathParameters['name'] ?? 'Chat',
+        ),
       ),
 
-      // ── Dosen Routes ────────────────────────────────────────────────
       GoRoute(
-        path: _dosenBerandaPath,
-        name: dosenBeranda,
-        builder: (context, state) => const DosenHomeScreen(),
+        path: '/operator/input-jadwal',
+        builder: (context, state) => const InputJadwalScreen(),
       ),
       GoRoute(
-        path: _daftarMahasiswaPath,
-        name: daftarMahasiswaSaya,
-        builder: (context, state) => const DosenMahasiswaScreen(),
+        path: '/operator/penilaian',
+        builder: (context, state) => const PenilaianMahasiswaScreen(),
       ),
       GoRoute(
-        path: _detailMahasiswaDosenPath,
-        name: detailMahasiswaDosen,
-        builder: (context, state) {
-          final id = state.pathParameters['id'] ?? '';
-          return DosenMahasiswaDetailScreen(mahasiswaId: id);
-        },
+        path: '/operator/sidang-berlangsung',
+        builder: (context, state) => const SidangBerlangsungScreen(),
       ),
       GoRoute(
-        path: _inputNilaiPath,
-        name: inputNilai,
-        builder: (context, state) {
-          final id = state.pathParameters['id'] ?? '';
-          return InputNilaiScreen(mahasiswaId: id);
-        },
-      ),
-      GoRoute(
-        path: _formulirRevisiPath,
-        name: formulirRevisi,
-        builder: (context, state) {
-          final id = state.pathParameters['id'] ?? '';
-          return FormulirRevisiScreen(mahasiswaId: id);
-        },
-      ),
-      GoRoute(
-        path: _formulirKehadiranPath,
-        name: formulirKehadiran,
-        builder: (context, state) => const FormulirAbsenScreen(),
-      ),
-      GoRoute(
-        path: _tandaTanganPath,
-        name: tandaTanganDokumen,
-        builder: (context, state) => const TTDDokumenScreen(),
-      ),
-      GoRoute(
-        path: _pengajuanGantiPengujiPath,
-        name: pengajuanGantiPenguji,
+        path: '/dosen-penguji/ganti-penguji',
         builder: (context, state) => const GantiPengujiScreen(),
       ),
       GoRoute(
-        path: _dosenJadwalPath,
-        name: dosenJadwal,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Jadwal Sidang Dosen'),
-      ),
-      GoRoute(
-        path: _dosenFormulirPath,
-        name: dosenFormulir,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Formulir & Dokumen Dosen'),
-      ),
-      GoRoute(
-        path: _dosenProfilPath,
-        name: dosenProfil,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Profil Dosen'),
+        path: '/dosen-pembimbing/ganti-penguji',
+        builder: (context, state) => const GantiPengujiScreen(),
       ),
 
-      // ── Operator Routes ─────────────────────────────────────────────
-      GoRoute(
-        path: _operatorDashboardPath,
-        name: operatorDashboard,
-        builder: (context, state) => const OperatorHomeScreen(),
-      ),
-      GoRoute(
-        path: _kelolaDataMahasiswaPath,
-        name: kelolaDataMahasiswa,
-        builder: (context, state) => const KelolaMahasiswaScreen(),
-      ),
-      GoRoute(
-        path: _dataDosenPath,
-        name: dataDosen,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Data Dosen'),
-      ),
-      GoRoute(
-        path: _inputJadwalSidangPath,
-        name: inputJadwalSidang,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Input Jadwal Sidang'),
-      ),
-      GoRoute(
-        path: _importExcelPath,
-        name: importExcel,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Import Excel'),
-      ),
-      GoRoute(
-        path: _approvalGantiPengujiPath,
-        name: approvalGantiPenguji,
-        builder: (context, state) => const ApprovalPengujiScreen(),
-      ),
-      GoRoute(
-        path: _dokumenRekapHonorPath,
-        name: dokumenRekapHonor,
-        builder: (context, state) => const DokumenHonorScreen(),
-      ),
-      GoRoute(
-        path: _operatorGenerateSkPath,
-        name: operatorGenerateSk,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Generate SK Sidang'),
-      ),
-      GoRoute(
-        path: _operatorProfilPath,
-        name: operatorProfil,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Profil Operator'),
+      // ── Mahasiswa Shell ──────────────────────────────────────────────
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return SharedBottomNav(
+            navigationShell: navigationShell,
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home_outlined), activeIcon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(icon: Icon(Icons.calendar_today_outlined), activeIcon: Icon(Icons.calendar_today), label: 'Jadwal'),
+              BottomNavigationBarItem(icon: Icon(Icons.folder_outlined), activeIcon: Icon(Icons.folder), label: 'Berkas'),
+              BottomNavigationBarItem(icon: Icon(Icons.analytics_outlined), activeIcon: Icon(Icons.analytics), label: 'Nilai'),
+              BottomNavigationBarItem(icon: Icon(Icons.person_outline), activeIcon: Icon(Icons.person), label: 'Profil'),
+            ],
+          );
+        },
+        branches: [
+          StatefulShellBranch(routes: [GoRoute(path: mahasiswaHomePath, builder: (context, state) => const MahasiswaHomeScreen())]),
+          StatefulShellBranch(routes: [GoRoute(path: '/mahasiswa/jadwal', builder: (context, state) => const JadwalSidangScreen(role: 'mahasiswa'))]),
+          StatefulShellBranch(routes: [GoRoute(path: '/mahasiswa/berkas', builder: (context, state) => const BerkasSidangScreen())]),
+          StatefulShellBranch(routes: [GoRoute(path: '/mahasiswa/nilai', builder: (context, state) => const NilaiScreen())]),
+          StatefulShellBranch(routes: [GoRoute(path: '/mahasiswa/profil', builder: (context, state) => const _PlaceholderPage(title: 'Profil'))]),
+        ],
       ),
 
-      // ── Kaprodi Routes ──────────────────────────────────────────────
-      GoRoute(
-        path: _kaprodiDashboardPath,
-        name: kaprodiDashboard,
-        builder: (context, state) => const KaprodiHomeScreen(),
+      // ── Dosen Penguji Shell ──────────────────────────────────────────────
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return SharedBottomNav(
+            navigationShell: navigationShell,
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home_outlined), activeIcon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(icon: Icon(Icons.people_outline), activeIcon: Icon(Icons.people), label: 'Mahasiswa'),
+              BottomNavigationBarItem(icon: Icon(Icons.calendar_today_outlined), activeIcon: Icon(Icons.calendar_today), label: 'Jadwal'),
+              BottomNavigationBarItem(icon: Icon(Icons.description_outlined), activeIcon: Icon(Icons.description), label: 'Formulir'),
+              BottomNavigationBarItem(icon: Icon(Icons.person_outline), activeIcon: Icon(Icons.person), label: 'Profil'),
+            ],
+          );
+        },
+        branches: [
+          StatefulShellBranch(routes: [GoRoute(path: dosenPengujiHomePath, builder: (context, state) => const DosenHomeScreen())]),
+          StatefulShellBranch(routes: [GoRoute(path: '/dosen-penguji/mahasiswa', builder: (context, state) => const _PlaceholderPage(title: 'Mahasiswa'))]),
+          StatefulShellBranch(routes: [GoRoute(path: '/dosen-penguji/jadwal', builder: (context, state) => const JadwalSidangScreen(role: 'dosen'))]),
+          StatefulShellBranch(routes: [GoRoute(path: '/dosen-penguji/formulir', builder: (context, state) => const FormulirRevisiScreen(mahasiswaId: '1'))]),
+          StatefulShellBranch(routes: [GoRoute(path: '/dosen-penguji/profil', builder: (context, state) => const _PlaceholderPage(title: 'Profil'))]),
+        ],
       ),
-      GoRoute(
-        path: _approvalPengujiPath,
-        name: approvalPenguji,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Approval Penguji'),
+
+      // ── Dosen Pembimbing Shell ──────────────────────────────────────────────
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return SharedBottomNav(
+            navigationShell: navigationShell,
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home_outlined), activeIcon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(icon: Icon(Icons.people_outline), activeIcon: Icon(Icons.people), label: 'Mahasiswa'),
+              BottomNavigationBarItem(icon: Icon(Icons.calendar_today_outlined), activeIcon: Icon(Icons.calendar_today), label: 'Jadwal'),
+              BottomNavigationBarItem(icon: Icon(Icons.description_outlined), activeIcon: Icon(Icons.description), label: 'Formulir'),
+              BottomNavigationBarItem(icon: Icon(Icons.person_outline), activeIcon: Icon(Icons.person), label: 'Profil'),
+            ],
+          );
+        },
+        branches: [
+          StatefulShellBranch(routes: [GoRoute(path: dosenPembimbingHomePath, builder: (context, state) => const DosenPembimbingHomeScreen())]),
+          StatefulShellBranch(routes: [GoRoute(path: '/dosen-pembimbing/mahasiswa', builder: (context, state) => const DaftarMahasiswaBimbinganScreen())]),
+          StatefulShellBranch(routes: [GoRoute(path: '/dosen-pembimbing/jadwal', builder: (context, state) => const JadwalSidangScreen(role: 'dosen'))]),
+          StatefulShellBranch(routes: [GoRoute(path: '/dosen-pembimbing/formulir', builder: (context, state) => const _PlaceholderPage(title: 'Formulir'))]),
+          StatefulShellBranch(routes: [GoRoute(path: '/dosen-pembimbing/profil', builder: (context, state) => const _PlaceholderPage(title: 'Profil'))]),
+        ],
       ),
-      GoRoute(
-        path: _jadwalSidangFinalPath,
-        name: jadwalSidangFinal,
-        builder: (context, state) =>
-            const KaprodiJadwalScreen(),
+
+      // ── Operator Shell ──────────────────────────────────────────────
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return SharedBottomNav(
+            navigationShell: navigationShell,
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.dashboard_outlined), activeIcon: Icon(Icons.dashboard), label: 'Dashboard'),
+              BottomNavigationBarItem(icon: Icon(Icons.calendar_today_outlined), activeIcon: Icon(Icons.calendar_today), label: 'Jadwal'),
+              BottomNavigationBarItem(icon: Icon(Icons.storage_outlined), activeIcon: Icon(Icons.storage), label: 'Data'),
+              BottomNavigationBarItem(icon: Icon(Icons.fact_check_outlined), activeIcon: Icon(Icons.fact_check), label: 'Approval'),
+              BottomNavigationBarItem(icon: Icon(Icons.folder_outlined), activeIcon: Icon(Icons.folder), label: 'Dokumen'),
+            ],
+          );
+        },
+        branches: [
+          StatefulShellBranch(routes: [GoRoute(path: operatorHomePath, builder: (context, state) => const OperatorHomeScreen())]),
+          StatefulShellBranch(routes: [GoRoute(path: '/operator/jadwal', builder: (context, state) => const JadwalSidangScreen(role: 'operator'))]),
+          StatefulShellBranch(routes: [GoRoute(path: '/operator/data', builder: (context, state) => const PenilaianMahasiswaScreen())]),
+          StatefulShellBranch(routes: [GoRoute(path: '/operator/approval', builder: (context, state) => const ApprovalBerkasScreen())]),
+          StatefulShellBranch(routes: [GoRoute(path: '/operator/dokumen', builder: (context, state) => const ImportExcelScreen())]),
+        ],
       ),
-      GoRoute(
-        path: _rekapNilaiPath,
-        name: rekapNilaiSidang,
-        builder: (context, state) =>
-            const KaprodiRekapNilaiScreen(),
+
+      // ── Kaprodi Shell ──────────────────────────────────────────────
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return SharedBottomNav(
+            navigationShell: navigationShell,
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.dashboard_outlined), activeIcon: Icon(Icons.dashboard), label: 'Dashboard'),
+              BottomNavigationBarItem(icon: Icon(Icons.calendar_today_outlined), activeIcon: Icon(Icons.calendar_today), label: 'Jadwal'),
+              BottomNavigationBarItem(icon: Icon(Icons.fact_check_outlined), activeIcon: Icon(Icons.fact_check), label: 'Approval'),
+              BottomNavigationBarItem(icon: Icon(Icons.assessment_outlined), activeIcon: Icon(Icons.assessment), label: 'Rekap'),
+              BottomNavigationBarItem(icon: Icon(Icons.person_outline), activeIcon: Icon(Icons.person), label: 'Profil'),
+            ],
+          );
+        },
+        branches: [
+          StatefulShellBranch(routes: [GoRoute(path: kaprodiHomePath, builder: (context, state) => const KaprodiHomeScreen())]),
+          StatefulShellBranch(routes: [GoRoute(path: '/kaprodi/jadwal', builder: (context, state) => const _PlaceholderPage(title: 'Jadwal'))]),
+          StatefulShellBranch(routes: [GoRoute(path: '/kaprodi/approval', builder: (context, state) => const _PlaceholderPage(title: 'Approval'))]),
+          StatefulShellBranch(routes: [GoRoute(path: '/kaprodi/rekap', builder: (context, state) => const _PlaceholderPage(title: 'Rekap'))]),
+          StatefulShellBranch(routes: [GoRoute(path: '/kaprodi/profil', builder: (context, state) => const PengaturanProdiScreen())]),
+        ],
       ),
-      GoRoute(
-        path: _rekapHonorDosenPath,
-        name: rekapHonorDosen,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Rekap Honor Dosen'),
-      ),
-      GoRoute(
-        path: _kaprodiLaporanSidangPath,
-        name: kaprodiLaporanSidang,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Laporan Sidang'),
-      ),
-      GoRoute(
-        path: _kaprodiProfilPath,
-        name: kaprodiProfil,
-        builder: (context, state) =>
-            const _PlaceholderPage(title: 'Profil Kaprodi'),
-      ),
+
     ],
-
-    // ── Error Page ──────────────────────────────────────────────────────
-    errorBuilder: (context, state) => Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.error_outline_rounded, size: 64, color: Colors.red),
-            const SizedBox(height: 16),
-            Text(
-              'Halaman tidak ditemukan',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              state.uri.toString(),
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.grey[600],
-                  ),
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () => context.go(_splashPath),
-              child: const Text('Kembali ke Beranda'),
-            ),
-          ],
-        ),
-      ),
-    ),
   );
 }

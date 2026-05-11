@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:signature/signature.dart';
 import 'package:sidangkufix/core/constants/app_colors.dart';
 import 'package:sidangkufix/core/theme/app_theme.dart';
 import 'package:sidangkufix/core/widgets/avatar_initials.dart';
@@ -51,7 +50,6 @@ class FormulirAbsenScreen extends StatefulWidget {
 
 class _FormulirAbsenScreenState extends State<FormulirAbsenScreen> {
   final _formKey = GlobalKey<FormState>();
-  late final SignatureController _signatureController;
 
   // Status kehadiran dosen sendiri
   bool _statusHadir = true;
@@ -80,11 +78,6 @@ class _FormulirAbsenScreenState extends State<FormulirAbsenScreen> {
   @override
   void initState() {
     super.initState();
-    _signatureController = SignatureController(
-      penStrokeWidth: 2.5,
-      penColor: AppColors.textPrimary,
-      exportBackgroundColor: Colors.white,
-    );
     for (final p in _sidang.peserta) {
       _keteranganPeserta[p.id] = TextEditingController();
     }
@@ -92,7 +85,6 @@ class _FormulirAbsenScreenState extends State<FormulirAbsenScreen> {
 
   @override
   void dispose() {
-    _signatureController.dispose();
     _keteranganController.dispose();
     for (final c in _keteranganPeserta.values) {
       c.dispose();
@@ -125,10 +117,6 @@ class _FormulirAbsenScreenState extends State<FormulirAbsenScreen> {
 
   Future<void> _save() async {
     if (!_formKey.currentState!.validate()) return;
-    if (_signatureController.isEmpty) {
-      _showSnack('Tambahkan tanda tangan penguji', isError: true);
-      return;
-    }
     setState(() => _isSaving = true);
     await Future.delayed(const Duration(seconds: 1));
     if (!mounted) return;
@@ -189,8 +177,6 @@ class _FormulirAbsenScreenState extends State<FormulirAbsenScreen> {
               _buildKehadiranSayaCard(),
               const SizedBox(height: 14),
               _buildDaftarPesertaCard(),
-              const SizedBox(height: 14),
-              _buildTandaTanganCard(),
               const SizedBox(height: 100),
             ],
           ),
@@ -525,102 +511,7 @@ class _FormulirAbsenScreenState extends State<FormulirAbsenScreen> {
     );
   }
 
-  // ── Tanda Tangan Card ───────────────────────────────────────────────────
 
-  Widget _buildTandaTanganCard() {
-    final isEmpty = _signatureController.isEmpty;
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.borderLight),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Tanda Tangan Penguji',
-            style: AppTheme.bodyMedium.copyWith(
-              fontWeight: FontWeight.w700,
-              color: const Color(0xFF00897B),
-              fontSize: 15,
-            ),
-          ),
-          const SizedBox(height: 12),
-
-          // Signature canvas with dashed border
-          Container(
-            height: 150,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: AppColors.scaffoldBackground,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: AppColors.border.withValues(alpha: 0.6),
-                strokeAlign: BorderSide.strokeAlignInside,
-              ),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(11),
-              child: Stack(
-                children: [
-                  Signature(
-                    controller: _signatureController,
-                    backgroundColor: Colors.transparent,
-                  ),
-                  if (isEmpty)
-                    Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.draw_outlined,
-                            size: 30,
-                            color: AppColors.textTertiary.withValues(alpha: 0.5),
-                          ),
-                          const SizedBox(height: 6),
-                          Text(
-                            'Sentuh untuk tanda tangan',
-                            style: AppTheme.caption.copyWith(
-                              color: AppColors.textTertiary
-                                  .withValues(alpha: 0.6),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-
-          // Reset button
-          Align(
-            alignment: Alignment.centerRight,
-            child: TextButton.icon(
-              onPressed: () => setState(() => _signatureController.clear()),
-              icon: Icon(Icons.history_rounded,
-                  size: 16, color: const Color(0xFF00897B)),
-              label: Text(
-                'Reset Tanda Tangan',
-                style: AppTheme.bodySmall.copyWith(
-                  color: const Color(0xFF00897B),
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
-                minimumSize: Size.zero,
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   // ── Bottom Bar ──────────────────────────────────────────────────────────
 
